@@ -26,7 +26,7 @@ class RoleSeeder extends Seeder
                 Ability::create(['name' => 'manage_programs'])->id,
             ]);
 
-        Role::query()->create(['name' => 'traineer'])->abilities()
+        Role::query()->create(['name' => 'trainer'])->abilities()
             ->sync([
                 Ability::create(['name' => 'see_program_content_details'])->id,
             ]);
