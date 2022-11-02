@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Program>
  */
-class UserFactory extends Factory
+class ProgramFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'password' => 'password',
+            'title' => fake()->sentence(),
+            'description' => fake()->text(),
+            'content' => fake()->paragraphs(asText:true),
         ];
     }
 }
