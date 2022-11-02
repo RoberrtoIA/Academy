@@ -27,4 +27,21 @@ class ProgramTest extends TestCase
             ->assertOk()
             ->assertJsonCount($count, 'data');
     }
+
+    /** @test */
+    public function it_shows_a_program()
+    {
+        $program = Program::factory()->create();
+
+        $this->sanctumActingAsDeveloper();
+
+        $this->get(route('api.v1.programs.show', ['program' => $program->id]))
+            ->assertOk()
+            ->assertJsonFragment([
+                'id' => $program->id,
+                'title' => $program->title,
+                'description' => $program->description,
+                'content' => $program->content,
+            ]);
+    }
 }
