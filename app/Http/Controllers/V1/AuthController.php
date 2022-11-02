@@ -4,8 +4,6 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginUserRequest;
-use App\Http\Resources\RoleCollection;
-use App\Http\Resources\RoleResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\UserRolesService;
@@ -23,6 +21,7 @@ class AuthController extends Controller
     {
         $attributes = $request->validated();
 
+        /** @var User */
         $user = User::where('email', $attributes['email'])->first();
 
         if (!$user || !Hash::check($attributes['password'], $user->password)) {
@@ -31,17 +30,13 @@ class AuthController extends Controller
             return response($response, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $token = $user->createToken('myapptoken', $this->userRolesService->roles($user->roles))->plainTextToken;
+        $token = $user->createToken(
+            'access_token',
+            $this->userRolesService->getFlattenAbilities($user)
+        )->plainTextToken;
 
         $user->token = $token;
 
         return response(['data' => new UserResource($user)]);
-    }
-
-    public function ability()
-    {
-        $user = auth('sanctum')->user();
-
-        return RoleResource::collection($user->roles);
     }
 }
