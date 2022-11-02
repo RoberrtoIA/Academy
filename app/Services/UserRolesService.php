@@ -2,19 +2,23 @@
 
 namespace App\Services;
 
-use App\Models\Role;
+use App\Models\User;
 
 class UserRolesService
 {
 
-    public function roles($roles): array
+    /**
+     * Get flat array of all the abilities from user roles
+     */
+    public function getFlattenAbilities(User $user): array
     {
-        $attributes = array();
+        $roles = $user->roles()->with('abilities')->get();
 
+        $abilities = collect();
         foreach ($roles as $role) {
-            $attributes[] = $role['name'];
+            $abilities = $abilities->merge($role->abilities->pluck('name'));
         }
 
-        return $attributes;
+        return $abilities->all();
     }
 }
