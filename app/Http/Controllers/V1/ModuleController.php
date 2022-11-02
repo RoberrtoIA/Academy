@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\V1;
 
-use App\Models\Program;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProgramResource;
-use App\Http\Requests\StoreProgramRequest;
-use App\Http\Requests\UpdateProgramRequest;
+use App\Http\Requests\ModuleRequest;
+use App\Http\Resources\ModuleResource;
+use App\Models\Module;
+use Illuminate\Http\Request;
 
-class ProgramController extends Controller
+class ModuleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,7 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        // return response(['data' => Program::paginate(5)], 200);
-        return ProgramResource::collection(Program::paginate(5));
+        return ModuleResource::collection(Module::all());
     }
 
     /**
@@ -27,13 +26,13 @@ class ProgramController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProgramRequest $request)
+    public function store(ModuleRequest $request)
     {
         $attributes = $request->validated();
 
-        $program = Program::create($attributes);
+        $program = Module::create($attributes);
 
-        return new ProgramResource($program);
+        return (new ModuleResource($program))->response()->setStatusCode(201);
     }
 
     /**
@@ -42,9 +41,9 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Program $program)
+    public function show(Module $module)
     {
-        return new ProgramResource($program);
+        return new ModuleResource($module);
     }
 
     /**
@@ -54,13 +53,13 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Program $program, UpdateProgramRequest $request)
+    public function update(Module $module, ModuleRequest $request)
     {
         $attributes = $request->validated();
 
-        $program->update($attributes);
+        $module->update($attributes);
 
-        return new ProgramResource($program);
+        return new ModuleResource($module);
     }
 
     /**
@@ -69,12 +68,12 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Program $program)
+    public function destroy(Module $module)
     {
-        $program->delete();
+        $module->delete();
 
         $response = [
-            'message' => 'Program Deleted'
+            'message' => 'Module Deleted'
         ];
 
         return response($response, 200);
