@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\AuthController;
+use App\Http\Controllers\V1\ModuleController;
 use App\Http\Controllers\V1\ProgramController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,18 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ->only(['index', 'show'])
             ->middleware([
                 'ability:manage_programs'
+                    . ',see_program_content_details'
+                    . ',see_program_content'
+            ]);
+
+        Route::resource('modules', ModuleController::class)
+            ->except(['index', 'show'])
+            ->middleware(['ability:manage_modules']);
+
+        Route::resource('modules', ModuleController::class)
+            ->only(['index', 'show'])
+            ->middleware([
+                'ability:manage_modules'
                     . ',see_program_content_details'
                     . ',see_program_content'
             ]);

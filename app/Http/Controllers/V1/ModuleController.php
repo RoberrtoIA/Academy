@@ -4,6 +4,8 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ModuleRequest;
+use App\Http\Requests\StoreModuleRequest;
+use App\Http\Requests\UpdateModuleRequest;
 use App\Http\Resources\ModuleResource;
 use App\Models\Module;
 use Illuminate\Http\Request;
@@ -26,7 +28,7 @@ class ModuleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ModuleRequest $request)
+    public function store(StoreModuleRequest $request)
     {
         $attributes = $request->validated();
 
@@ -53,7 +55,7 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Module $module, ModuleRequest $request)
+    public function update(Module $module, UpdateModuleRequest $request)
     {
         $attributes = $request->validated();
 
