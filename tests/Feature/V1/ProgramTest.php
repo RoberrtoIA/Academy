@@ -77,4 +77,20 @@ class ProgramTest extends TestCase
             ->assertOk()
             ->assertJsonFragment($expectation);
     }
+
+    /** @test */
+    public function it_soft_deletes_a_program()
+    {
+        $program = Program::factory()->create();
+
+        $this->sanctumActingAsDeveloper();
+
+        $this->delete(route(
+            'api.v1.programs.destroy',
+            ['program' => $program->id]
+        ))
+            ->assertOk();
+
+        $this->assertSoftDeleted('programs', $program->toArray());
+    }
 }
