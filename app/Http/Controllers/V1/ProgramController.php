@@ -4,7 +4,6 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProgramRequest;
-use App\Http\Requests\ProgramUpdateRequest;
 use App\Http\Resources\ProgramResource;
 use App\Models\Program;
 use Illuminate\Http\Request;
@@ -34,7 +33,7 @@ class ProgramController extends Controller
 
         $program = Program::create($attributes);
 
-        return new ProgramResource($program);
+        return (new ProgramResource($program))->response()->setStatusCode(201);
     }
 
     /**
