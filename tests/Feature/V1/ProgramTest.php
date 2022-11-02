@@ -93,4 +93,52 @@ class ProgramTest extends TestCase
 
         $this->assertSoftDeleted('programs', $program->toArray());
     }
+
+    /**
+     * @test
+     * @dataProvider crudAuthProvider
+     */
+    public function program_crud_has_right_authorization(
+        $rol,
+        $route,
+        $routeParams,
+        $method,
+        $data,
+        $expectedStatus
+    ) {
+        if ($routeParams['program'] ?? false) {
+            Program::factory()->create(['id' => 1]);
+        }
+
+        $this->sanctumActingAs([$rol]);
+
+        $this->$method(route("api.v1.programs.$route", $routeParams), $data)
+            ->assertStatus($expectedStatus);
+    }
+
+    protected function crudAuthProvider()
+    {
+        return [
+            'manager_index' => ['manager', 'index', [], 'get', [], 403],
+            'developer_index' => ['developer', 'index', [], 'get', [], 200],
+            'trainer_index' => ['trainer', 'index', [], 'get', [], 200],
+            'trainee_index' => ['trainee', 'index', [], 'get', [], 200],
+            'manager_show' => ['manager', 'show', ['program' => 1], 'get', [], 403],
+            'developer_show' => ['developer', 'show', ['program' => 1], 'get', [], 200],
+            'trainer_show' => ['trainer', 'show', ['program' => 1], 'get', [], 200],
+            'trainee_show' => ['trainee', 'show', ['program' => 1], 'get', [], 200],
+            'manager_store' => ['manager', 'store', [], 'post', [], 403],
+            'developer_store' => ['developer', 'store', [], 'post', [], 422],
+            'trainer_store' => ['trainer', 'store', [], 'post', [], 403],
+            'trainee_store' => ['trainee', 'store', [], 'post', [], 403],
+            'manager_update' => ['manager', 'update', ['program' => 1], 'patch', [], 403],
+            'developer_update' => ['developer', 'update', ['program' => 1], 'patch', [], 200],
+            'trainer_update' => ['trainer', 'update', ['program' => 1], 'patch', [], 403],
+            'trainee_update' => ['trainee', 'update', ['program' => 1], 'patch', [], 403],
+            'manager_destroy' => ['manager', 'destroy', ['program' => 1], 'delete', [], 403],
+            'developer_destroy' => ['developer', 'destroy', ['program' => 1], 'delete', [], 200],
+            'trainer_destroy' => ['trainer', 'destroy', ['program' => 1], 'delete', [], 403],
+            'trainee_destroy' => ['trainee', 'destroy', ['program' => 1], 'delete', [], 403],
+        ];
+    }
 }
