@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class ProgramRequest extends FormRequest
+class UpdateProgramRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class ProgramRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true;
     }
 
     /**
@@ -25,9 +24,9 @@ class ProgramRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:100',
-            'description' => 'required|max:200',
-            'content' => 'required|min:1',
+            'title' => 'filled|max:100',
+            'description' => 'filled|max:200',
+            'content' => 'filled|min:1',
         ];
     }
 }
