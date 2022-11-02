@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\V1;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ProgramRequest;
-use App\Http\Resources\ProgramResource;
 use App\Models\Program;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ProgramResource;
+use App\Http\Requests\StoreProgramRequest;
+use App\Http\Requests\UpdateProgramRequest;
 
 class ProgramController extends Controller
 {
@@ -27,13 +27,13 @@ class ProgramController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProgramRequest $request)
+    public function store(StoreProgramRequest $request)
     {
         $attributes = $request->validated();
 
         $program = Program::create($attributes);
 
-        return (new ProgramResource($program))->response()->setStatusCode(201);
+        return new ProgramResource($program);
     }
 
     /**
@@ -54,7 +54,7 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Program $program, ProgramRequest $request)
+    public function update(Program $program, UpdateProgramRequest $request)
     {
         $attributes = $request->validated();
 
