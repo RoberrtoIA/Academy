@@ -44,4 +44,20 @@ class ProgramTest extends TestCase
                 'content' => $program->content,
             ]);
     }
+
+    /** @test */
+    public function it_creates_a_new_program()
+    {
+        $data = Program::factory()->make()->toArray();
+
+        $this->sanctumActingAsDeveloper();
+
+        $this->assertDatabaseCount('programs', 0);
+
+        $this->post(route('api.v1.programs.store'), $data)
+            ->assertCreated()
+            ->assertJsonFragment($data);
+
+        $this->assertDatabaseCount('programs', 1);
+    }
 }
