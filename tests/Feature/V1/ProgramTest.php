@@ -60,4 +60,21 @@ class ProgramTest extends TestCase
 
         $this->assertDatabaseCount('programs', 1);
     }
+
+    /** @test */
+    public function it_updates_a_program()
+    {
+        $program = Program::factory()->create();
+        $data = ['title' => 'changed'];
+        $expectation = collect($program->toArray())->merge($data)->all();
+
+        $this->sanctumActingAsDeveloper();
+
+        $this->patch(route(
+            'api.v1.programs.update',
+            ['program' => $program->id]
+        ), $data)
+            ->assertOk()
+            ->assertJsonFragment($expectation);
+    }
 }
