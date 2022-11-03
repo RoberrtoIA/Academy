@@ -3,7 +3,8 @@
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\ModuleController;
 use App\Http\Controllers\V1\ProgramController;
-use App\Http\Controllers\V1\User\CreateTraineeAccount;
+use App\Http\Controllers\V1\User\CreateEmployeeAccountController;
+use App\Http\Controllers\V1\User\CreateTraineeAccountController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,9 +49,14 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
                     . ',see_module_content'
             ]);
 
-        Route::post('users/create-trainee-account', CreateTraineeAccount::class)
+        Route::post('users/create-trainee-account', CreateTraineeAccountController::class)
             ->name('users.createTraineeAccount')
             ->middleware(['ability:manage_user_accounts']);
+
+        Route::post('users/create-employee-account', CreateEmployeeAccountController::class)
+            ->name('users.createEmployeeAccount')
+            ->middleware(['ability:manage_user_accounts']);
+
     });
 });
 

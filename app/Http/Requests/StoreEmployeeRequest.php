@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class StoreTraineeRequest extends StoreUserRequest
+class StoreEmployeeRequest extends StoreUserRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,6 +21,8 @@ class StoreTraineeRequest extends StoreUserRequest
      */
     public function rules()
     {
-        return parent::baseRules();
+        return array_merge(parent::baseRules(), [
+            'roles' => 'required|array'
+        ]);
     }
 }
