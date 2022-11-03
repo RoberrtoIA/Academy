@@ -54,7 +54,8 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ->middleware(['ability:manage_user_accounts']);
 
         Route::post('users/create-employee-account', CreateEmployeeAccountController::class)
-            ->name('users.createEmployeeAccount');
+            ->name('users.createEmployeeAccount')
+            ->middleware(['ability:manage_user_accounts']);
 
     });
 });

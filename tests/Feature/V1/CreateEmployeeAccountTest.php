@@ -42,12 +42,36 @@ class CreateEmployeeAccountTest extends TestCase
         $this->assertDatabaseHas('users', $userData);
     }
 
+    /**
+     * @test
+     * @dataProvider roleAuthProvider
+     */
+    public function create_employee_account_has_right_authorization(
+        $rol,
+        $expectedStatus
+    ) {
+        $this->sanctumActingAs([$rol]);
+
+        $this->post(route('api.v1.users.createEmployeeAccount'))
+            ->assertStatus($expectedStatus);
+    }
+
     protected function employeeRoleProvider()
     {
         return [
             'manager' => ['manager'],
             'developer' => ['developer'],
             'trainer' => ['trainer'],
+        ];
+    }
+
+    protected function roleAuthProvider()
+    {
+        return [
+            'manager' => ['manager', 422],
+            'developer' => ['developer', 403],
+            'trainer' => ['trainer', 403],
+            'trainee' => ['trainee', 403],
         ];
     }
 }
