@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class UpdateProgramRequest extends FormRequest
+class UpdateProgramRequest extends StoreProgramRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +21,6 @@ class UpdateProgramRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'filled|max:100',
-            'description' => 'filled|max:200',
-            'content' => 'filled|min:1',
-        ];
+        return replaceRequiredForFillableRules(parent::baseRules());
     }
 }

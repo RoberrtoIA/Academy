@@ -14,7 +14,7 @@ class StoreModuleRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true;
     }
 
     /**
@@ -23,6 +23,11 @@ class StoreModuleRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
+    {
+        return static::baseRules();
+    }
+
+    public static function baseRules(): array
     {
         return [
             'title' => 'required|max:100',

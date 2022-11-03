@@ -23,6 +23,11 @@ class StoreProgramRequest extends FormRequest
      */
     public function rules()
     {
+        return static::baseRules();
+    }
+
+    public static function baseRules(): array
+    {
         return [
             'title' => 'required|max:100',
             'description' => 'required|max:200',
