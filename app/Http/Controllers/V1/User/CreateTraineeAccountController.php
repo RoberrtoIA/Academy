@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTraineeRequest;
 use App\Http\Resources\UserResource;
 
-class CreateTraineeAccount extends Controller
+class CreateTraineeAccountController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -21,8 +21,7 @@ class CreateTraineeAccount extends Controller
         CreateUserService $service
     ) {
         $request->merge(['roles' => ['trainee']]);
-        $trainee = $service->createUser($request);
 
-        return new UserResource($trainee->load('roles'));
+        return new UserResource($service->createUser($request)->load('roles'));
     }
 }
