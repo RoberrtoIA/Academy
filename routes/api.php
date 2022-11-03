@@ -43,8 +43,8 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ->only(['index', 'show'])
             ->middleware([
                 'ability:manage_modules'
-                    . ',see_program_content_details'
-                    . ',see_program_content'
+                    . ',see_module_content_details'
+                    . ',see_module_content'
             ]);
     });
 });
