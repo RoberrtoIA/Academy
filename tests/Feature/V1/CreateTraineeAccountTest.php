@@ -37,4 +37,28 @@ class CreateTraineeAccountTest extends TestCase
 
         $this->assertDatabaseHas('users', $data);
     }
+
+    /**
+     * @test
+     * @dataProvider endPointProvider
+     */
+    public function create_trainee_account_has_right_authorization(
+        $rol,
+        $expectedStatus
+    ) {
+        $this->sanctumActingAs([$rol]);
+
+        $this->post(route('api.v1.users.createTraineeAccount'))
+            ->assertStatus($expectedStatus);
+    }
+
+    protected function endPointProvider()
+    {
+        return [
+            'manager' => ['manager', 422],
+            'developer' => ['developer', 403],
+            'trainer' => ['trainer', 403],
+            'trainee' => ['trainee', 403],
+        ];
+    }
 }

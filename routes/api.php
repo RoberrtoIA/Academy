@@ -49,7 +49,8 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ]);
 
         Route::post('users/create-trainee-account', CreateTraineeAccount::class)
-            ->name('users.createTraineeAccount');
+            ->name('users.createTraineeAccount')
+            ->middleware(['ability:manage_user_accounts']);
     });
 });
 
