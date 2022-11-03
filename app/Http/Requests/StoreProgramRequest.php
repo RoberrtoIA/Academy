@@ -24,9 +24,9 @@ class StoreProgramRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'filled|max:100',
-            'description' => 'filled|max:200',
-            'content' => 'filled|min:1',
+            'title' => 'required|max:100',
+            'description' => 'required|max:200',
+            'content' => 'required|min:1',
         ];
     }
 }
