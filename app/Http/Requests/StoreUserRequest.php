@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
-class StoreTraineeRequest extends StoreUserRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,6 +23,15 @@ class StoreTraineeRequest extends StoreUserRequest
      */
     public function rules()
     {
-        return parent::baseRules();
+        return static::baseRules();
+    }
+
+    static public function baseRules(): array
+    {
+        return [
+            'name' => 'filled|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'filled|min:8',
+        ];
     }
 }
