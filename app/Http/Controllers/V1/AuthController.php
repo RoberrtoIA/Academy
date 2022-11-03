@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use App\Services\UserRolesService;
+use App\Services\UserRoleService;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
 
-    public function __construct(protected UserRolesService $userRolesService)
+    public function __construct(protected UserRoleService $userRoleService)
     {
     }
 
@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         $token = $user->createToken(
             'access_token',
-            $this->userRolesService->getFlattenAbilities($user)
+            $this->userRoleService->getFlattenAbilities($user)
         )->plainTextToken;
 
         $user->token = $token;

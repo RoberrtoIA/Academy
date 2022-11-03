@@ -20,7 +20,7 @@ class TestCase extends Base
     protected function sanctumActingAs(array $roles = [], User $user = null)
     {
         $user = $user ?? $this->newUser(roles: $roles);
-        $abilities = $this->app->make(\App\Services\UserRolesService::class)
+        $abilities = $this->app->make(\App\Services\UserRoleService::class)
             ->getFlattenAbilities($user);
         return Sanctum::actingAs($user, $abilities);
     }

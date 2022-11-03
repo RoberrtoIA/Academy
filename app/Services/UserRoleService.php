@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Role;
 use App\Models\User;
 
-class UserRolesService
+class UserRoleService
 {
 
     /**
@@ -20,5 +21,10 @@ class UserRolesService
         }
 
         return $abilities->all();
+    }
+
+    public function getRoleIdListFromNames(array $roleNames): array
+    {
+        return Role::query()->whereIn('name', $roleNames)->pluck('id')->all();
     }
 }
