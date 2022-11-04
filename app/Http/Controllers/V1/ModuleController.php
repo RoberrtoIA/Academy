@@ -32,9 +32,9 @@ class ModuleController extends Controller
     {
         $attributes = $request->validated();
 
-        $program = Module::create($attributes);
+        $module = Module::create($attributes);
 
-        return (new ModuleResource($program))->response()->setStatusCode(201);
+        return (new ModuleResource($module))->response()->setStatusCode(201);
     }
 
     /**
