@@ -48,7 +48,15 @@ class ModuleTest extends TestCase
     /** @test */
     public function it_creates_a_new_module()
     {
-        $data = Module::factory()->make()->toArray();
+        $data = Module::factory()->make();
+
+        $data->program;
+
+        $data = $data->toArray();
+
+        $expectation = $data;
+
+        unset($expectation['program_id']);
 
         $this->sanctumActingAsDeveloper();
 
@@ -56,7 +64,7 @@ class ModuleTest extends TestCase
 
         $this->post(route('api.v1.modules.store'), $data)
             ->assertCreated()
-            ->assertJsonFragment($data);
+            ->assertJsonFragment($expectation);
 
         $this->assertDatabaseCount('modules', 1);
     }
@@ -65,8 +73,11 @@ class ModuleTest extends TestCase
     public function it_updates_a_module()
     {
         $module = Module::factory()->create();
+        $module->program;
         $data = ['title' => 'changed'];
         $expectation = collect($module->toArray())->merge($data)->all();
+
+        unset($expectation['program_id']);
 
         $this->sanctumActingAsDeveloper();
 
