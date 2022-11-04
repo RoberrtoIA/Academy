@@ -12,7 +12,7 @@ class UpdateProgramService
 
     public function updateProgram(Program $program, array $attributes): Program
     {
-        if ($attributes['tags']) {
+        if ($attributes['tags'] ?? false) {
 
             $program->tags()->detach();
 
