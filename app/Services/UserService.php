@@ -10,22 +10,34 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UserService
 {
+
+    public function __construct(protected UserRoleService $userRoleService)
+    {
+    }
+
     public function createUser(FormRequest $request): User
     {
         $data = $request->validated();
-        $data['roles'] = $request->roles;
+        $roles = $data['roles'] ?? $request->roles;
         /** @var User */
         $user = null;
-        DB::transaction(function () use ($data, &$user) {
-            $roles = $data['roles'];
+        DB::transaction(function () use ($data, &$user, $roles) {
             /** @var User */
             $user = User::query()->create($data);
+            $this->userRoleService->syncUserRoles($user, $roles);
+        });
 
-            if ($roles) {
-                $rolesId = app()->make(\App\Services\UserRoleService::class)
-                    ->getRoleIdListFromNames($roles);
-                $user->roles()->sync($rolesId);
-            }
+        return $user;
+    }
+
+    public function updateUser(FormRequest $request, User $user): User
+    {
+        $data = $request->validated();
+        /** @var User */
+        DB::transaction(function () use ($data, $user) {
+            $roles = $data['roles'] ?? null;
+            $user->fill($data)->save();
+            $this->userRoleService->syncUserRoles($user, $roles);
         });
 
         return $user;

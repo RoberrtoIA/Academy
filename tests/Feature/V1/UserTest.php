@@ -25,7 +25,7 @@ class UserTest extends TestCase
             ->assertOk()
             ->assertJsonCount($count, 'data');
 
-        User::factory()->create();
+        $this->newUser(roles:['trainee']);
 
         $this->get(route('api.v1.users.index'))
             ->assertJsonCount(++$count, 'data');
@@ -41,6 +41,29 @@ class UserTest extends TestCase
             ->assertJsonFragment([
                 'id' => $me->id,
                 'email' => $me->email,
+            ]);
+    }
+
+    /** @test */
+    public function it_updates_an_user()
+    {
+        $user = $this->newUser(roles:['trainee']);
+        $data = [
+            'name' => 'edit user name',
+            'roles' => ['developer']
+        ];
+
+        $this->sanctumActingAsManager();
+
+        $this->patch(route('api.v1.users.update', $user->id), $data)
+            ->assertOk()
+            ->assertJsonFragment([
+                'id' => $user->id,
+                'email' => $user->email,
+                'name' => $data['name'],
+                'roles' => [
+                    ['name' => 'developer']
+                ],
             ]);
     }
 }

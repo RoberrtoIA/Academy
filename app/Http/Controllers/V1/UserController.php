@@ -4,8 +4,10 @@ namespace App\Http\Controllers\V1;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Services\UserService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -34,9 +36,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(
+        UpdateUserRequest $request,
+        User $user,
+        UserService $service
+    ) {
+        return new UserResource(
+            $service->updateUser($request, $user)->load('roles')
+        );
     }
 
     /**
