@@ -7,9 +7,21 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProgramResource;
 use App\Http\Requests\StoreProgramRequest;
 use App\Http\Requests\UpdateProgramRequest;
+use App\Http\Resources\TagResource;
+use App\Models\Tag;
+use App\Services\ProgramTagsService;
+use App\Services\UpdateProgramService;
 
 class ProgramController extends Controller
 {
+
+    public function __construct(
+        protected ProgramTagsService $programTagsService,
+        protected UpdateProgramService $updateProgramService
+        )
+    {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +30,12 @@ class ProgramController extends Controller
     public function index()
     {
         // return response(['data' => Program::paginate(5)], 200);
-        return ProgramResource::collection(Program::paginate(5));
+        return ProgramResource::collection(Program::all());
+    }
+
+    public function tag()
+    {
+        return TagResource::collection(Tag::all());
     }
 
     /**
@@ -31,9 +48,8 @@ class ProgramController extends Controller
     {
         $attributes = $request->validated();
 
-        $program = Program::create($attributes);
-
-        return new ProgramResource($program);
+        return new ProgramResource($this->programTagsService->createProgram($attributes));
+        // return $this->programTagsService->createProgram($attributes);
     }
 
     /**
@@ -60,7 +76,10 @@ class ProgramController extends Controller
 
         $program->update($attributes);
 
+        $program = $this->updateProgramService->updateProgram($program, $attributes);
+
         return new ProgramResource($program);
+        // return $this->updateProgramService->updateProgram($program, $attributes);
     }
 
     /**
