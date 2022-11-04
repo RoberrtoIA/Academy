@@ -11,5 +11,10 @@ class Module extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'content'];
+    protected $fillable = ['title', 'description', 'content', 'program_id'];
+
+    public function program()
+    {
+        return $this->belongsTo(Program::class);
+    }
 }

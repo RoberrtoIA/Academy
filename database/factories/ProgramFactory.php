@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,7 @@ class ProgramFactory extends Factory
             'title' => fake()->sentence(),
             'description' => fake()->text(),
             'content' => fake()->paragraphs(asText:true),
+            // 'tags' => Tag::factory(),
         ];
     }
 }
