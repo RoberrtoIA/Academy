@@ -23,6 +23,6 @@ class UpdateModuleRequest extends StoreModuleRequest
      */
     public function rules()
     {
-        return replaceRequiredForFillableRules(parent::baseRules());
+        return replaceRequiredByFillableRules(parent::baseRules());
     }
 }

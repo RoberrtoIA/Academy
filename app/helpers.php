@@ -1,14 +1,14 @@
 <?php
 
-if (!function_exists('replaceRequiredForFillableRules')) {
+if (!function_exists('replaceRequiredByFillableRules')) {
 
     /**
-     * Replace all `required` rule for `filled` rule in validation rules array.
+     * Replace all `required` rule by `filled` rule in validation rules array.
      *
      * @param array $rules
      * @return array
      */
-    function replaceRequiredForFillableRules(array $rules): array
+    function replaceRequiredByFillableRules(array $rules): array
     {
         return collect($rules)->map(function ($attr) {
             if (!is_array($attr)) {
