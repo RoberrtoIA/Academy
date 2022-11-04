@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUserService
+class UserService
 {
     public function createUser(FormRequest $request): User
     {
