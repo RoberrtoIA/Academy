@@ -83,4 +83,54 @@ class UserTest extends TestCase
         $this->assertSoftDeleted('users', ['id' => $user->id]);
     }
 
+    /**
+     * @test
+     * @dataProvider crudAuthProvider
+     */
+    public function user_crud_has_right_authorization(
+        $rol,
+        $route,
+        $routeParams,
+        $method,
+        $data,
+        $expectedStatus
+    ) {
+        if ($routeParams) {
+            $this->newUser(['id' => 1], ['trainee']);
+        }
+
+        if ($rol) {
+            $this->sanctumActingAs([$rol]);
+        }
+
+        $this->$method(route("api.v1.users.$route", $routeParams), $data)
+            ->assertStatus($expectedStatus);
+    }
+
+    protected function crudAuthProvider()
+    {
+        return [
+            'guest_index' => [null, 'index', [], 'get', [], 401],
+            'manager_index' => ['manager', 'index', [], 'get', [], 200],
+            'developer_index' => ['developer', 'index', [], 'get', [], 403],
+            'trainer_index' => ['trainer', 'index', [], 'get', [], 403],
+            'trainee_index' => ['trainee', 'index', [], 'get', [], 403],
+            'guest_show' => [null, 'show', ['user' => 1], 'get', [], 401],
+            'manager_show' => ['manager', 'show', ['user' => 1], 'get', [], 200],
+            'developer_show' => ['developer', 'show', ['user' => 1], 'get', [], 403],
+            'trainer_show' => ['trainer', 'show', ['user' => 1], 'get', [], 403],
+            'trainee_show' => ['trainee', 'show', ['user' => 1], 'get', [], 403],
+            'guest_update' => [null, 'update', ['user' => 1], 'patch', [], 401],
+            'manager_update' => ['manager', 'update', ['user' => 1], 'patch', [], 200],
+            'developer_update' => ['developer', 'update', ['user' => 1], 'patch', [], 403],
+            'trainer_update' => ['trainer', 'update', ['user' => 1], 'patch', [], 403],
+            'trainee_update' => ['trainee', 'update', ['user' => 1], 'patch', [], 403],
+            'guest_destroy' => [null, 'destroy', ['user' => 1], 'delete', [], 401],
+            'manager_destroy' => ['manager', 'destroy', ['user' => 1], 'delete', [], 200],
+            'developer_destroy' => ['developer', 'destroy', ['user' => 1], 'delete', [], 403],
+            'trainer_destroy' => ['trainer', 'destroy', ['user' => 1], 'delete', [], 403],
+            'trainee_destroy' => ['trainee', 'destroy', ['user' => 1], 'delete', [], 403],
+        ];
+    }
+
 }

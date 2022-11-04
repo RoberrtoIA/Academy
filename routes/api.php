@@ -27,7 +27,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
 
         Route::get('/programs/tags', [ProgramController::class, 'tag'])
-        ->middleware(['ability:manage_programs']);
+            ->middleware(['ability:manage_programs']);
 
         Route::resource('programs', ProgramController::class)
             ->except(['index', 'show'])
@@ -61,8 +61,9 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ->name('users.createEmployeeAccount')
             ->middleware(['ability:manage_user_accounts']);
 
-        Route::resource('users', UserController::class)->only(['index', 'show', 'update', 'destroy']);
+        Route::resource('users', UserController::class)
+            ->only(['index', 'show', 'update', 'destroy'])
+            ->middleware(['ability:manage_user_accounts']);
 
     });
 });
-
