@@ -47,10 +47,11 @@ class CreateEmployeeAccountTest extends TestCase
      * @dataProvider roleAuthProvider
      */
     public function create_employee_account_has_right_authorization(
-        $rol,
+        $role,
         $expectedStatus
     ) {
-        $this->sanctumActingAs([$rol]);
+        if ($role)
+        $this->sanctumActingAs([$role]);
 
         $this->post(route('api.v1.users.createEmployeeAccount'))
             ->assertStatus($expectedStatus);
@@ -68,6 +69,7 @@ class CreateEmployeeAccountTest extends TestCase
     protected function roleAuthProvider()
     {
         return [
+            'guest' => [null, 401],
             'manager' => ['manager', 422],
             'developer' => ['developer', 403],
             'trainer' => ['trainer', 403],

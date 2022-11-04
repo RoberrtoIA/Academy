@@ -19,17 +19,19 @@ class RoleSeeder extends Seeder
             ->sync([
                 Ability::create(['name' => 'manage_executions'])->id,
                 Ability::create(['name' => 'manage_user_accounts'])->id,
+                Ability::create(['name' => 'manage_programs'])->id,
             ]);
 
         Role::query()->create(['name' => 'developer'])->abilities()
             ->sync([
-                Ability::create(['name' => 'manage_programs'])->id,
                 Ability::create(['name' => 'manage_modules'])->id,
+                $see_program_content_details =
+                    Ability::create(['name' => 'see_program_content_details'])->id,
             ]);
 
         Role::query()->create(['name' => 'trainer'])->abilities()
             ->sync([
-                Ability::create(['name' => 'see_program_content_details'])->id,
+                $see_program_content_details,
                 Ability::create(['name' => 'see_module_content_details'])->id,
             ]);
 
