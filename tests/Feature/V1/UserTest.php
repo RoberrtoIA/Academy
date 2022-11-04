@@ -66,4 +66,21 @@ class UserTest extends TestCase
                 ],
             ]);
     }
+
+    /** @test */
+    public function it_soft_deletes_an_user()
+    {
+        $user = $this->newUser(roles:['trainee', 'deadUser']);
+
+        $this->sanctumActingAsManager();
+
+        $this->delete(route(
+            'api.v1.users.destroy',
+            ['user' => $user->id]
+        ))
+            ->assertOk();
+
+        $this->assertSoftDeleted('users', ['id' => $user->id]);
+    }
+
 }
