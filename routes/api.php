@@ -30,7 +30,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ->middleware(['ability:manage_programs']);
 
         Route::resource('programs', ProgramController::class)
-            ->except(['index', 'show'])
+            ->only(['store', 'update', 'destroy'])
             ->middleware(['ability:manage_programs']);
 
         Route::resource('programs', ProgramController::class)
@@ -42,7 +42,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ]);
 
         Route::resource('modules', ModuleController::class)
-            ->except(['index', 'show'])
+            ->only(['store', 'update', 'destroy'])
             ->middleware(['ability:manage_modules']);
 
         Route::resource('modules', ModuleController::class)
