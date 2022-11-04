@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title', 100);
             $table->string('description', 200);
             $table->text('content');
+            $table->foreignId('program_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
         });
