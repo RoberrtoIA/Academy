@@ -61,7 +61,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ->name('users.createEmployeeAccount')
             ->middleware(['ability:manage_user_accounts']);
 
-        Route::resource('users', UserController::class)->only(['index']);
+        Route::resource('users', UserController::class)->only(['index', 'show']);
 
     });
 });

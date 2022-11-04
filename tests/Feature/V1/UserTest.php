@@ -30,4 +30,17 @@ class UserTest extends TestCase
         $this->get(route('api.v1.users.index'))
             ->assertJsonCount(++$count, 'data');
     }
+
+    /** @test */
+    public function it_shows_an_user()
+    {
+        $me = $this->sanctumActingAsManager();
+
+        $this->get(route('api.v1.users.show', $me->id))
+            ->assertOk()
+            ->assertJsonFragment([
+                'id' => $me->id,
+                'email' => $me->email,
+            ]);
+    }
 }
