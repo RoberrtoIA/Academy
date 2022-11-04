@@ -12,4 +12,14 @@ class Program extends Model
     use SoftDeletes;
 
     protected $fillable = ['title', 'description', 'content'];
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function modules()
+    {
+        return $this->hasMany(Module::class);
+    }
 }
