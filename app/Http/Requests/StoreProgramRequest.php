@@ -32,6 +32,8 @@ class StoreProgramRequest extends FormRequest
             'title' => 'required|max:100',
             'description' => 'required|max:200',
             'content' => 'required|min:1',
+            'tags' => 'required'
         ];
     }
 }
+

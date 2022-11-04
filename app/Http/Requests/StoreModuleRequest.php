@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class StoreModuleRequest extends FormRequest
 {
@@ -33,6 +32,8 @@ class StoreModuleRequest extends FormRequest
             'title' => 'required|max:100',
             'description' => 'required|max:200',
             'content' => 'required|min:1',
+            'program_id' => 'required|numeric',
         ];
     }
 }
+
