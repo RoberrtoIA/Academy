@@ -25,13 +25,17 @@ class RoleSeeder extends Seeder
         Role::query()->create(['name' => 'developer'])->abilities()
             ->sync([
                 Ability::create(['name' => 'manage_modules'])->id,
+                Ability::create(['name' => 'manage_topics'])->id,
                 $see_program_content_details =
                     Ability::create(['name' => 'see_program_content_details'])->id,
+                $see_topic_content_details =
+                    Ability::create(['name' => 'see_topic_content_details'])->id
             ]);
 
         Role::query()->create(['name' => 'trainer'])->abilities()
             ->sync([
                 $see_program_content_details,
+                $see_topic_content_details,
                 Ability::create(['name' => 'see_module_content_details'])->id,
             ]);
 
@@ -39,6 +43,7 @@ class RoleSeeder extends Seeder
             ->sync([
                 Ability::create(['name' => 'see_program_content'])->id,
                 Ability::create(['name' => 'see_module_content'])->id,
+                Ability::create(['name' => 'see_topic_content'])->id,
             ]);
     }
 }

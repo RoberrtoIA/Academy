@@ -17,4 +17,9 @@ class Module extends Model
     {
         return $this->belongsTo(Program::class);
     }
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
 }
