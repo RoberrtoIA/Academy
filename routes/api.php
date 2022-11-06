@@ -3,6 +3,7 @@
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\ModuleController;
 use App\Http\Controllers\V1\ProgramController;
+use App\Http\Controllers\V1\TopicController;
 use App\Http\Controllers\V1\User\CreateEmployeeAccountController;
 use App\Http\Controllers\V1\User\CreateTraineeAccountController;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
 
         Route::get('/programs/tags', [ProgramController::class, 'tag'])
-        ->middleware(['ability:manage_programs']);
+            ->middleware(['ability:manage_programs']);
 
         Route::resource('programs', ProgramController::class)
             ->except(['index', 'show'])
@@ -52,6 +53,18 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
                     . ',see_module_content'
             ]);
 
+        Route::resource('topics', TopicController::class)
+            ->except(['index', 'show'])
+            ->middleware(['ability:manage_topics']);
+
+        Route::resource('topics', TopicController::class)
+            ->only(['index', 'show'])
+            ->middleware([
+                'ability:manage_topics'
+                    . ',see_topic_content_details'
+                    . ',see_topic_content'
+            ]);
+
         Route::post('users/create-trainee-account', CreateTraineeAccountController::class)
             ->name('users.createTraineeAccount')
             ->middleware(['ability:manage_user_accounts']);
@@ -59,7 +72,5 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
         Route::post('users/create-employee-account', CreateEmployeeAccountController::class)
             ->name('users.createEmployeeAccount')
             ->middleware(['ability:manage_user_accounts']);
-
     });
 });
-
