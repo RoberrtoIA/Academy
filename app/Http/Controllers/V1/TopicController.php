@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreModuleRequest;
-use App\Http\Requests\UpdateModuleRequest;
-use App\Http\Resources\ModuleResource;
-use App\Models\Module;
+use App\Http\Requests\StoreTopicRequest;
+use App\Http\Requests\UpdateTopicRequest;
+use App\Http\Resources\TopicResource;
+use App\Models\Topic;
+use Illuminate\Http\Request;
 
-class ModuleController extends Controller
+class TopicController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,7 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        return ModuleResource::collection(Module::all());
+        return TopicResource::collection(Topic::all());
     }
 
     /**
@@ -26,13 +27,13 @@ class ModuleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreModuleRequest $request)
+    public function store(StoreTopicRequest $request)
     {
         $attributes = $request->validated();
 
-        $module = Module::create($attributes);
+        $topic = Topic::create($attributes);
 
-        return (new ModuleResource($module))->response()->setStatusCode(201);
+        return (new TopicResource($topic->load('module')))->response()->setStatusCode(201);
     }
 
     /**
@@ -41,9 +42,9 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Module $module)
+    public function show(Topic $topic)
     {
-        return new ModuleResource($module);
+        return new TopicResource($topic->load('module'));
     }
 
     /**
@@ -53,13 +54,13 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Module $module, UpdateModuleRequest $request)
+    public function update(Topic $topic, UpdateTopicRequest $request)
     {
         $attributes = $request->validated();
 
-        $module->update($attributes);
+        $topic->update($attributes);
 
-        return new ModuleResource($module);
+        return new TopicResource($topic->load('module'));
     }
 
     /**
@@ -68,12 +69,12 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Module $module)
+    public function destroy(Topic $topic)
     {
-        $module->delete();
+        $topic->delete();
 
         $response = [
-            'message' => 'Module Deleted'
+            'message' => 'Topic Deleted'
         ];
 
         return response($response, 200);
