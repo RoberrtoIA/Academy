@@ -30,32 +30,14 @@ class TopicTest extends TestCase
     /** @test */
     public function it_shows_a_topic()
     {
-        $topic = Topic::factory()->create()->load('module');
+        $topic = Topic::factory()->create()->load(['module', 'questions'])->makeHidden('module_id');
 
         $this->sanctumActingAsDeveloper();
 
         $this->get(route('api.v1.topics.show', ['topic' => $topic->id]))
             ->assertOk()
             ->assertJsonFragment([
-                'data' => [
-                    'id' => $topic->id,
-                    'title' => $topic->title,
-                    'description' => $topic->description,
-                    'content' => $topic->content,
-                    'created_at' => $topic->created_at,
-                    'updated_at' => $topic->updated_at,
-                    'module' => [
-                        'id' => $topic->module->id,
-                        'title' => $topic->module->title,
-                        'description' => $topic->module->description,
-                        'content' => $topic->module->content,
-                        'created_at' => $topic->module->created_at,
-                        'updated_at' => $topic->module->updated_at,
-                        'deleted_at' => $topic->module->deleted_at,
-                        'program_id' => $topic->module->program_id
-                    ],
-                    'questions' => $topic->questions->toArray()
-                ]
+                'data' => $topic->toArray()
             ]);
     }
 

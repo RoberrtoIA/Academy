@@ -31,20 +31,14 @@ class ModuleTest extends TestCase
     /** @test */
     public function it_shows_a_module()
     {
-        $module = Module::factory()->create()->load(['topics', 'program']);
+        $module = Module::factory()->create()->load(['topics', 'program'])->makeHidden('program_id');
 
         $this->sanctumActingAsDeveloper();
 
         $this->get(route('api.v1.modules.show', ['module' => $module->id]))
             ->assertOk()
             ->assertJsonFragment([
-                'id' => $module->id,
-                'title' => $module->title,
-                'description' => $module->description,
-                'content' => $module->content,
-                'homework_content' => $module->homework_content,
-                'topics' => $module->topics->toArray(),
-                'program' => $module->program->toArray(),
+                'data' => $module->toArray()
             ]);
     }
 

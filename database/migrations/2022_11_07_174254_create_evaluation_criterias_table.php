@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('topics', function (Blueprint $table) {
+        Schema::create('evaluation_criterias', function (Blueprint $table) {
             $table->id();
-            $table->integer('index')->unique();
-            $table->string('title', 100);
-            $table->string('description', 200);
-            $table->text('content');
+            $table->string('objetive');
+            $table->string('grade_definitions');
             $table->foreignId('module_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('topics');
+        Schema::dropIfExists('evaluation_criterias');
     }
 };

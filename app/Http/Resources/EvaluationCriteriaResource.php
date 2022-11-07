@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TopicResource extends JsonResource
+class EvaluationCriteriaResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,18 +14,14 @@ class TopicResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'index' => $this->index,
-            'title' => $this->title,
-            'description' => $this->description,
-            'content' => $this->content,
+            'objetive' => $this->objetive,
+            'grade_definitions' => $this->grade_definitions,
             'created_at' => $this->whenNotNull($this->created_at ?? null),
             'updated_at' => $this->whenNotNull($this->updated_at ?? null),
             'deleted_at' => $this->whenNotNull($this->deleted_at ?? null),
             'module' => $this->whenLoaded('module'),
-            'questions' => $this->whenLoaded('questions'),
         ];
     }
 }

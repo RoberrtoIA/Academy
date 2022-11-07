@@ -42,12 +42,7 @@ class ProgramTest extends TestCase
         $this->get(route('api.v1.programs.show', ['program' => $program->id]))
             ->assertOk()
             ->assertJsonFragment([
-                'id' => $program->id,
-                'title' => $program->title,
-                'description' => $program->description,
-                'content' => $program->content,
-                'tags' => $program->tags->toArray(),
-                'modules' => $program->modules->toArray(),
+                'data' => $program->toArray()
             ]);
     }
 

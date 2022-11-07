@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTopicRequest extends FormRequest
+class StoreEvaluationCriteriaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,10 +30,8 @@ class StoreTopicRequest extends FormRequest
     public function baseRules(): array
     {
         return [
-            'index' => 'required|integer|unique:topics,index',
-            'title' => 'required|max:100',
-            'description' => 'required|max:200',
-            'content' => 'required|min:1',
+            'objetive' => 'required|string',
+            'grade_definitions' => 'required|string',
             'module_id' => 'required|numeric|exists:modules,id',
         ];
     }

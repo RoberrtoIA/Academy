@@ -17,7 +17,11 @@ class TopicFactory extends Factory
      */
     public function definition()
     {
+        $index = range(1,200);
+        shuffle($index);
+
         return [
+            'index' => array_shift($index),
             'title' => fake()->sentence(),
             'description' => fake()->text(),
             'content' => fake()->paragraphs(asText:true),

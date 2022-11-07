@@ -7,7 +7,6 @@ use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
 use App\Http\Resources\TopicResource;
 use App\Models\Topic;
-use Illuminate\Http\Request;
 
 class TopicController extends Controller
 {
