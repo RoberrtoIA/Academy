@@ -70,7 +70,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ->only(['index', 'show']);
 
         Route::resource('executions', ExecutionController::class)
-            ->only(['store', 'update']);
+            ->only(['store', 'update', 'destroy']);
 
     });
 });

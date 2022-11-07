@@ -80,11 +80,29 @@ class ExecutionTest extends TestCase
 
         $this->assertDatabaseMissing('executions', $data);
 
-        $this->patch(route('api.v1.executions.update',
-        ['execution' => $execution->id]), $data)
+        $this->patch(route(
+            'api.v1.executions.update',
+            ['execution' => $execution->id]
+        ), $data)
             ->assertOk()
             ->assertJsonFragment($data);
 
         $this->assertDatabaseHas('executions', $data);
+    }
+
+    /** @test */
+    public function it_soft_deletes_an_execution()
+    {
+        $execution = Execution::factory()->create();
+
+        $this->sanctumActingAsManager();
+
+        $this->delete(route(
+            'api.v1.executions.destroy',
+            ['execution' => $execution->id]
+        ))
+            ->assertOk();
+
+        $this->assertSoftDeleted('executions', ['id' => $execution->id]);
     }
 }

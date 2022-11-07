@@ -72,6 +72,8 @@ class ExecutionController extends Controller
      */
     public function destroy(Execution $execution)
     {
-        //
+        $execution->delete();
+
+        return response(['message' => 'Execution was deleted.']);
     }
 }
