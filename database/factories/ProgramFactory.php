@@ -22,8 +22,6 @@ class ProgramFactory extends Factory
             'title' => fake()->sentence(),
             'description' => fake()->text(),
             'content' => fake()->paragraphs(asText:true),
-            // 'tags' => Tag::factory(),
-            // 'modules' => Module::factory()
         ];
     }
 }
