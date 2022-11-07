@@ -9,6 +9,13 @@ class ExecutionTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed();
+    }
+
+
     /** @test */
     public function it_can_list_executions()
     {
@@ -20,5 +27,20 @@ class ExecutionTest extends TestCase
         $this->get(route('api.v1.executions.index'))
             ->assertOk()
             ->assertJsonCount($count, 'data');
+    }
+
+    /** @test */
+    public function it_shows_an_execution()
+    {
+        $execution = Execution::factory()->create();
+
+        $this->sanctumActingAsManager();
+
+        $this->get(route(
+            'api.v1.executions.show',
+            ['execution' => $execution->id]
+        ))
+            ->assertOk()
+            ->assertJsonFragment(['id' => $execution->id]);
     }
 }

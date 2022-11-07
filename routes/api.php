@@ -67,7 +67,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ->middleware(['ability:manage_user_accounts']);
 
         Route::resource('executions', ExecutionController::class)
-            ->only(['index']);
+            ->only(['index', 'show']);
 
     });
 });

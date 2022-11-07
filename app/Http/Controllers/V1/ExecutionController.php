@@ -40,7 +40,7 @@ class ExecutionController extends Controller
      */
     public function show(Execution $execution)
     {
-        //
+        return new ExecutionResource($execution->load('program.modules.topics'));
     }
 
     /**
