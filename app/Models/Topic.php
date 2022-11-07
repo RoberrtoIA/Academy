@@ -11,7 +11,7 @@ class Topic extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'content', 'module_id'];
+    protected $fillable = ['index', 'title', 'description', 'content', 'module_id'];
 
     public function module()
     {
