@@ -32,7 +32,7 @@ class ModuleController extends Controller
 
         $module = Module::create($attributes);
 
-        return (new ModuleResource($module))->response()->setStatusCode(201);
+        return (new ModuleResource($module->load('program')))->response()->setStatusCode(201);
     }
 
     /**
@@ -43,7 +43,7 @@ class ModuleController extends Controller
      */
     public function show(Module $module)
     {
-        return new ModuleResource($module);
+        return new ModuleResource($module->load(['topics', 'homeworks', 'program']));
     }
 
     /**
@@ -59,7 +59,7 @@ class ModuleController extends Controller
 
         $module->update($attributes);
 
-        return new ModuleResource($module);
+        return new ModuleResource($module->load('program'));
     }
 
     /**

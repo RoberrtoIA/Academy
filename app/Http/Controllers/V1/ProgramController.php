@@ -60,7 +60,7 @@ class ProgramController extends Controller
      */
     public function show(Program $program)
     {
-        return new ProgramResource($program);
+        return new ProgramResource($program->load(['tags', 'modules']));
     }
 
     /**
@@ -74,11 +74,11 @@ class ProgramController extends Controller
     {
         $attributes = $request->validated();
 
-        $program->update($attributes);
+        // $program->update($attributes);
 
         $program = $this->updateProgramService->updateProgram($program, $attributes);
 
-        return new ProgramResource($program);
+        return new ProgramResource($program->load('tags'));
         // return $this->updateProgramService->updateProgram($program, $attributes);
     }
 
