@@ -19,6 +19,7 @@ class QuestionFactory extends Factory
     {
         return [
             'question' => fake()->text($maxNbChars = 50) . '?',
+            'grade_definitions' => fake()->randomLetter(),
             'topic_id' => Topic::factory(),
         ];
     }
