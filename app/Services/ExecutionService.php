@@ -15,4 +15,14 @@ class ExecutionService
 
         return Execution::create($data);
     }
+
+    public function updateExecution(
+        FormRequest $request,
+        Execution $execution
+    ): Execution {
+        $data = $request->validated();
+        $execution->update($data);
+
+        return $execution;
+    }
 }
