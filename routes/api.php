@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\AuthController;
+use App\Http\Controllers\V1\ExecutionController;
 use App\Http\Controllers\V1\ModuleController;
 use App\Http\Controllers\V1\ProgramController;
 use App\Http\Controllers\V1\User\CreateEmployeeAccountController;
@@ -64,6 +65,9 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
         Route::resource('users', UserController::class)
             ->only(['index', 'show', 'update', 'destroy'])
             ->middleware(['ability:manage_user_accounts']);
+
+        Route::resource('executions', ExecutionController::class)
+            ->only(['index']);
 
     });
 });
