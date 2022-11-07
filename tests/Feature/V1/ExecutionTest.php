@@ -111,7 +111,7 @@ class ExecutionTest extends TestCase
      * @dataProvider crudAuthProvider
      */
     public function execution_crud_has_right_authorization(
-        $rol,
+        $role,
         $route,
         $routeParams,
         $method,
@@ -122,8 +122,8 @@ class ExecutionTest extends TestCase
             Execution::factory()->create(['id' => 1]);
         }
 
-        if ($rol) {
-            $this->sanctumActingAs([$rol]);
+        if ($role) {
+            $this->sanctumActingAs([$role]);
         }
 
         $this->$method(route("api.v1.executions.$route", $routeParams), $data)

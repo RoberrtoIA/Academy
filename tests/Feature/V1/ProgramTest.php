@@ -102,7 +102,7 @@ class ProgramTest extends TestCase
      * @dataProvider crudAuthProvider
      */
     public function program_crud_has_right_authorization(
-        $rol,
+        $role,
         $route,
         $routeParams,
         $method,
@@ -113,8 +113,8 @@ class ProgramTest extends TestCase
             Program::factory()->create(['id' => 1]);
         }
 
-        if ($rol) {
-            $this->sanctumActingAs([$rol]);
+        if ($role) {
+            $this->sanctumActingAs([$role]);
         }
 
         $this->$method(route("api.v1.programs.$route", $routeParams), $data)
