@@ -88,7 +88,7 @@ class UserTest extends TestCase
      * @dataProvider crudAuthProvider
      */
     public function user_crud_has_right_authorization(
-        $rol,
+        $role,
         $route,
         $routeParams,
         $method,
@@ -99,8 +99,8 @@ class UserTest extends TestCase
             $this->newUser(['id' => 1], ['trainee']);
         }
 
-        if ($rol) {
-            $this->sanctumActingAs([$rol]);
+        if ($role) {
+            $this->sanctumActingAs([$role]);
         }
 
         $this->$method(route("api.v1.users.$route", $routeParams), $data)
