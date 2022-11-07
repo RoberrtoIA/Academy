@@ -31,7 +31,7 @@ class ModuleTest extends TestCase
     /** @test */
     public function it_shows_a_module()
     {
-        $module = Module::factory()->create();
+        $module = Module::factory()->create()->load(['topics', 'homeworks', 'program']);
 
         $this->sanctumActingAsDeveloper();
 
@@ -42,6 +42,9 @@ class ModuleTest extends TestCase
                 'title' => $module->title,
                 'description' => $module->description,
                 'content' => $module->content,
+                'topics' => $module->topics->toArray(),
+                'homeworks' => $module->homeworks->toArray(),
+                'program' => $module->program->toArray(),
             ]);
     }
 
