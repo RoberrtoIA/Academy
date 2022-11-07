@@ -19,8 +19,11 @@ class ProgramResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'content' => $this->content,
-            'modules' => ModuleResource::collection($this->modules),
-            'tags' => TagResource::collection($this->tags),
+            'modules' => $this->whenLoaded('modules'),
+            'tags' => $this->whenLoaded('tags'),
+            'created_at' => $this->whenNotNull($this->created_at ?? null),
+            'updated_at' => $this->whenNotNull($this->updated_at ?? null),
+            'deleted_at' => $this->whenNotNull($this->deleted_at ?? null),
         ];
     }
 }

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreModuleRequest;
-use App\Http\Requests\UpdateModuleRequest;
-use App\Http\Resources\ModuleResource;
-use App\Models\Module;
+use App\Http\Requests\StoreQuestionRequest;
+use App\Http\Requests\UpdateQuestionRequest;
+use App\Http\Resources\QuestionResource;
+use App\Models\Question;
 
-class ModuleController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        return ModuleResource::collection(Module::all());
+        return QuestionResource::collection(Question::all());
     }
 
     /**
@@ -26,13 +26,13 @@ class ModuleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreModuleRequest $request)
+    public function store(StoreQuestionRequest $request)
     {
         $attributes = $request->validated();
 
-        $module = Module::create($attributes);
+        $question = Question::create($attributes);
 
-        return (new ModuleResource($module->load('program')))->response()->setStatusCode(201);
+        return (new QuestionResource($question->load('topic')))->response()->setStatusCode(201);
     }
 
     /**
@@ -41,9 +41,9 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Module $module)
+    public function show(Question $question)
     {
-        return new ModuleResource($module->load(['topics', 'program']));
+        return new QuestionResource($question->load('topic'));
     }
 
     /**
@@ -53,13 +53,13 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Module $module, UpdateModuleRequest $request)
+    public function update(Question $question, UpdateQuestionRequest $request)
     {
         $attributes = $request->validated();
 
-        $module->update($attributes);
+        $question->update($attributes);
 
-        return new ModuleResource($module->load('program'));
+        return new QuestionResource($question->load('topic'));
     }
 
     /**
@@ -68,12 +68,12 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Module $module)
+    public function destroy(Question $question)
     {
-        $module->delete();
+        $question->delete();
 
         $response = [
-            'message' => 'Module Deleted'
+            'message' => 'Question Deleted'
         ];
 
         return response($response, 200);

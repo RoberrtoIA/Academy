@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\V1;
 
+use App\Models\Module;
 use App\Models\Program;
 use App\Models\Tag;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -34,9 +35,7 @@ class ProgramTest extends TestCase
     /** @test */
     public function it_shows_a_program()
     {
-        $program = Program::factory()->create();
-
-        $program->tags()->attach(Tag::factory()->create());
+        $program = Program::factory()->create()->load(['tags', 'modules']);
 
         $this->sanctumActingAsManager();
 
@@ -47,9 +46,8 @@ class ProgramTest extends TestCase
                 'title' => $program->title,
                 'description' => $program->description,
                 'content' => $program->content,
-                'tags' => [
-                    ['name' => $program->tags->take(1)->first()->name]
-                ],
+                'tags' => $program->tags->toArray(),
+                'modules' => $program->modules->toArray(),
             ]);
     }
 
@@ -71,35 +69,21 @@ class ProgramTest extends TestCase
         $this->assertDatabaseCount('programs', 1);
     }
 
-    /**
-     * @test
-     * @dataProvider programUpdateProvider
-     */
-    public function it_updates_a_program($original, $edited)
+    /** @test */
+    public function it_updates_a_program()
     {
         $program = Program::factory()->create();
-
-        $program->tags()->attach(Tag::factory(['name' => $original])->create());
-
-        $expectation = $program->toArray();
-        $expectation['tags'] = $edited;
+        $data = ['title' => 'Title changed'];
+        $expectation = collect($program->toArray())->merge($data)->all();
 
         $this->sanctumActingAsManager();
 
         $this->patch(route(
             'api.v1.programs.update',
             ['program' => $program->id]
-        ), $expectation)
+        ), $data)
             ->assertOk()
-            ->assertJsonFragment([
-                'id' => $expectation['id'],
-                'title' => $expectation['title'],
-                'description' => $expectation['description'],
-                'content' => $expectation['content'],
-                'tags' => [
-                    ['name' => $edited]
-                ],
-            ]);
+            ->assertJsonFragment($expectation);
     }
 
     /** @test */
@@ -170,16 +154,6 @@ class ProgramTest extends TestCase
             'developer_destroy' => ['developer', 'destroy', ['program' => 1], 'delete', [], 403],
             'trainer_destroy' => ['trainer', 'destroy', ['program' => 1], 'delete', [], 403],
             'trainee_destroy' => ['trainee', 'destroy', ['program' => 1], 'delete', [], 403],
-        ];
-    }
-
-    protected function programUpdateProvider()
-    {
-        return [
-            ['Lorem', 'Merol'],
-            ['Ipsum', 'Muspi'],
-            ['Chad', 'Veni'],
-            ['Marc,Loma', 'Non']
         ];
     }
 }

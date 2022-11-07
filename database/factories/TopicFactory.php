@@ -3,13 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\Module;
-use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Program>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Topic>
  */
-class ProgramFactory extends Factory
+class TopicFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -22,6 +21,7 @@ class ProgramFactory extends Factory
             'title' => fake()->sentence(),
             'description' => fake()->text(),
             'content' => fake()->paragraphs(asText:true),
+            'module_id' => Module::factory(),
         ];
     }
 }

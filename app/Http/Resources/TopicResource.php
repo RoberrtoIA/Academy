@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ModuleResource extends JsonResource
+class TopicResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,17 +14,17 @@ class ModuleResource extends JsonResource
      */
     public function toArray($request)
     {
+        // return parent::toArray($request);
         return [
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
             'content' => $this->content,
-            'homework_content' => $this->homework_content,
-            'program' => $this->whenLoaded('program'),
-            'topics' => $this->whenLoaded('topics'),
             'created_at' => $this->whenNotNull($this->created_at ?? null),
             'updated_at' => $this->whenNotNull($this->updated_at ?? null),
             'deleted_at' => $this->whenNotNull($this->deleted_at ?? null),
+            'module' => $this->whenLoaded('module'),
+            'questions' => $this->whenLoaded('questions'),
         ];
     }
 }

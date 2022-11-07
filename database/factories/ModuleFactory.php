@@ -21,6 +21,7 @@ class ModuleFactory extends Factory
             'title' => fake()->sentence(),
             'description' => fake()->text(),
             'content' => fake()->paragraphs(asText:true),
+            'homework_content' => fake()->url(),
             'program_id' => Program::factory(),
             // 'program_id' => Program::factory()->create()->id,
         ];

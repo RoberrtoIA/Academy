@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreModuleRequest extends FormRequest
+class StoreTopicRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,20 +21,19 @@ class StoreModuleRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
+
     public function rules()
     {
         return static::baseRules();
     }
 
-    public static function baseRules(): array
+    public function baseRules(): array
     {
         return [
             'title' => 'required|max:100',
             'description' => 'required|max:200',
             'content' => 'required|min:1',
-            'homework_content' => 'required|string|max:200',
-            'program_id' => 'required|numeric',
+            'module_id' => 'required|numeric|exists:modules,id',
         ];
     }
 }
-

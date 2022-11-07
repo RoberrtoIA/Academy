@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class UpdateModuleRequest extends StoreModuleRequest
+class UpdateTopicRequest extends StoreTopicRequest
 {
     /**
      * Determine if the user is authorized to make this request.

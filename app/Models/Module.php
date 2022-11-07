@@ -11,10 +11,15 @@ class Module extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'content', 'program_id'];
+    protected $fillable = ['title', 'description', 'content', 'homework_content', 'program_id'];
 
     public function program()
     {
         return $this->belongsTo(Program::class);
+    }
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
     }
 }

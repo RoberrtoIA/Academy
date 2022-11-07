@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
-class UpdateModuleRequest extends StoreModuleRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreQuestionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,8 +21,17 @@ class UpdateModuleRequest extends StoreModuleRequest
      *
      * @return array<string, mixed>
      */
+
     public function rules()
     {
-        return replaceRequiredByFillableRules(parent::baseRules());
+        return static::baseRules();
+    }
+
+    public function baseRules(): array
+    {
+        return [
+            'question' => 'required|max:200',
+            'topic_id' => 'required|numeric|exists:topics,id',
+        ];
     }
 }
