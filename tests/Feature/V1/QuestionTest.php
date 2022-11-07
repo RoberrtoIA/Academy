@@ -31,29 +31,14 @@ class QuestionTest extends TestCase
     /** @test */
     public function it_shows_a_question()
     {
-        $question = Question::factory()->create()->load('topic');
+        $question = Question::factory()->create()->load('topic')->makeHidden('topic_id');
 
         $this->sanctumActingAsDeveloper();
 
         $this->get(route('api.v1.questions.show', ['question' => $question->id]))
             ->assertOk()
             ->assertJsonFragment([
-                'data' => [
-                    'id' => $question->id,
-                    'question' => $question->question,
-                    'created_at' => $question->created_at,
-                    'updated_at' => $question->updated_at,
-                    'topic' => [
-                        'id' => $question->topic->id,
-                        'title' => $question->topic->title,
-                        'description' => $question->topic->description,
-                        'content' => $question->topic->content,
-                        'created_at' => $question->topic->created_at,
-                        'updated_at' => $question->topic->updated_at,
-                        'deleted_at' => $question->topic->deleted_at,
-                        'module_id' => $question->topic->module_id
-                    ]
-                ]
+                'data' => $question->toArray()
             ]);
     }
 
