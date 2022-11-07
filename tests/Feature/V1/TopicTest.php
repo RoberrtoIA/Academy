@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\V1;
 
-use App\Models\Program;
 use App\Models\Topic;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -35,7 +34,7 @@ class TopicTest extends TestCase
 
         $this->sanctumActingAsDeveloper();
 
-        $this->get(route('api.v1.topics.show', ['topic' => $topic['id']]))
+        $this->get(route('api.v1.topics.show', ['topic' => $topic->id]))
             ->assertOk()
             ->assertJsonFragment([
                 'data' => [
