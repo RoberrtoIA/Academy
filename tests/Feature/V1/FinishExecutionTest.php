@@ -15,6 +15,7 @@ class FinishExecutionTest extends TestCase
     {
         parent::setUp();
         $this->seed();
+        Event::fake();
     }
 
 
@@ -42,7 +43,6 @@ class FinishExecutionTest extends TestCase
     /** @test */
     public function it_dispatches_execution_finished_event()
     {
-        Event::fake();
         $execution = Execution::factory()->create();
 
         $this->sanctumActingAsManager();
@@ -54,5 +54,32 @@ class FinishExecutionTest extends TestCase
             ->assertOk();
 
         Event::assertDispatched(ExecutionFinished::class);
+    }
+
+    /**
+     * @test
+     * @dataProvider authProvider
+     */
+    public function only_manager_can_finishes_an_execution($role, $expectation)
+    {
+        Execution::factory()->create(['id' => 1]);
+
+        if ($role) {
+            $this->sanctumActingAs([$role]);
+        }
+
+        $this->get(route('api.v1.executions.finish', ['execution' => 1]))
+            ->assertStatus($expectation);
+    }
+
+    protected function authProvider()
+    {
+        return [
+            'guest' => [null, 401],
+            'manager' => ['manager', 200],
+            'developer' => ['developer', 403],
+            'trainer' => ['trainer', 403],
+            'trainee' => ['trainee', 403],
+        ];
     }
 }
