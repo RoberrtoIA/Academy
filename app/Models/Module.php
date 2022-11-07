@@ -11,7 +11,7 @@ class Module extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'content', 'program_id'];
+    protected $fillable = ['title', 'description', 'content', 'homework_content', 'program_id'];
 
     public function program()
     {
@@ -21,10 +21,5 @@ class Module extends Model
     public function topics()
     {
         return $this->hasMany(Topic::class);
-    }
-
-    public function homeworks()
-    {
-        return $this->hasMany(Homework::class);
     }
 }

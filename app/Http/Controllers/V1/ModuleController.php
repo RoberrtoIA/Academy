@@ -43,7 +43,7 @@ class ModuleController extends Controller
      */
     public function show(Module $module)
     {
-        return new ModuleResource($module->load(['topics', 'homeworks', 'program']));
+        return new ModuleResource($module->load(['topics', 'program']));
     }
 
     /**

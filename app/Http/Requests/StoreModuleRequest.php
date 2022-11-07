@@ -32,6 +32,7 @@ class StoreModuleRequest extends FormRequest
             'title' => 'required|max:100',
             'description' => 'required|max:200',
             'content' => 'required|min:1',
+            'homework_content' => 'required|string|max:200',
             'program_id' => 'required|numeric',
         ];
     }

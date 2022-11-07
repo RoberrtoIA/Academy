@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Auth;
-
 class UpdateModuleRequest extends StoreModuleRequest
 {
     /**
