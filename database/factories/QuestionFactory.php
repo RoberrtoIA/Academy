@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Module;
+use App\Models\Topic;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Homework>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Question>
  */
-class HomeworkFactory extends Factory
+class QuestionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,8 @@ class HomeworkFactory extends Factory
     public function definition()
     {
         return [
-            'doc' => fake()->url(),
-            'module_id' => Module::factory(),
+            'question' => fake()->text($maxNbChars = 50) . '?',
+            'topic_id' => Topic::factory(),
         ];
     }
 }
