@@ -30,6 +30,7 @@ class StoreTopicRequest extends FormRequest
     public function baseRules(): array
     {
         return [
+            'index' => 'required|integer|unique:topics,index',
             'title' => 'required|max:100',
             'description' => 'required|max:200',
             'content' => 'required|min:1',
