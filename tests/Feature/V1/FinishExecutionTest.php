@@ -3,6 +3,8 @@
 namespace Tests\Feature\V1;
 
 use App\Models\Execution;
+use App\Events\ExecutionFinished;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class FinishExecutionTest extends TestCase
@@ -35,5 +37,22 @@ class FinishExecutionTest extends TestCase
         $data = $response->json('data');
 
         $this->assertNotNull($data['finished'] ?? null);
+    }
+
+    /** @test */
+    public function it_dispatches_execution_finished_event()
+    {
+        Event::fake();
+        $execution = Execution::factory()->create();
+
+        $this->sanctumActingAsManager();
+
+        $this->get(route(
+            'api.v1.executions.finish',
+            ['execution' => $execution->id]
+        ))
+            ->assertOk();
+
+        Event::assertDispatched(ExecutionFinished::class);
     }
 }
