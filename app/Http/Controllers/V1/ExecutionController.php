@@ -6,6 +6,8 @@ use App\Models\Execution;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ExecutionResource;
+use App\Http\Requests\StoreExecutionRequest;
+use App\Services\ExecutionService;
 
 class ExecutionController extends Controller
 {
@@ -27,9 +29,11 @@ class ExecutionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(
+        StoreExecutionRequest $request,
+        ExecutionService $service
+    ) {
+        return new ExecutionResource($service->createExecution($request));
     }
 
     /**

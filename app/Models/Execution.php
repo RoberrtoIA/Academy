@@ -11,6 +11,8 @@ class Execution extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = ['program_id', 'start_date', 'end_date'];
+
     public function program()
     {
         return $this->belongsTo(Program::class);

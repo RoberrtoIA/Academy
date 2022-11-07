@@ -25,8 +25,8 @@ class ExecutionFactory extends Factory
             ->addDays(fake()->numberBetween(80, 90));
         return [
             'program_id' => Program::factory(),
-            'start_date' => $start_date,
-            'end_date' => $end_date,
+            'start_date' => $start_date->format('Y-m-d'),
+            'end_date' => $end_date->format('Y-m-d'),
             'created_at' => $timestamp = fake()->dateTimeThisMonth(),
             'updated_at' => $timestamp,
         ];

@@ -43,4 +43,22 @@ class ExecutionTest extends TestCase
             ->assertOk()
             ->assertJsonFragment(['id' => $execution->id]);
     }
+
+    /** @test */
+    public function it_creates_a_new_execution()
+    {
+        $data = collect(Execution::factory()->make()->toArray())
+            ->only(['program_id', 'start_date', 'end_date'])
+            ->all();
+
+        $this->sanctumActingAsManager();
+
+        $this->assertDatabaseMissing('executions', $data);
+
+        $this->post(route('api.v1.executions.store'), $data)
+            ->assertCreated()
+            ->assertJsonFragment($data);
+
+        $this->assertDatabaseHas('executions', $data);
+    }
 }
