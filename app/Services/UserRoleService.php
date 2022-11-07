@@ -27,4 +27,14 @@ class UserRoleService
     {
         return Role::query()->whereIn('name', $roleNames)->pluck('id')->all();
     }
+
+    public function syncUserRoles(User $user, ?array $roleNames): static
+    {
+        if ($roleNames) {
+            $rolesId = $this->getRoleIdListFromNames($roleNames);
+            $user->roles()->sync($rolesId);
+        }
+
+        return $this;
+    }
 }

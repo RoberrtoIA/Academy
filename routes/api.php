@@ -8,6 +8,7 @@ use App\Http\Controllers\V1\QuestionController;
 use App\Http\Controllers\V1\TopicController;
 use App\Http\Controllers\V1\User\CreateEmployeeAccountController;
 use App\Http\Controllers\V1\User\CreateTraineeAccountController;
+use App\Http\Controllers\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +33,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ->middleware(['ability:manage_programs']);
 
         Route::resource('programs', ProgramController::class)
-            ->except(['index', 'show'])
+            ->only(['store', 'update', 'destroy'])
             ->middleware(['ability:manage_programs']);
 
         Route::resource('programs', ProgramController::class)
@@ -44,7 +45,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ]);
 
         Route::resource('modules', ModuleController::class)
-            ->except(['index', 'show'])
+            ->only(['store', 'update', 'destroy'])
             ->middleware(['ability:manage_modules']);
 
         Route::resource('modules', ModuleController::class)
@@ -98,5 +99,11 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
         Route::post('users/create-employee-account', CreateEmployeeAccountController::class)
             ->name('users.createEmployeeAccount')
             ->middleware(['ability:manage_user_accounts']);
+
+
+        Route::resource('users', UserController::class)
+            ->only(['index', 'show', 'update', 'destroy'])
+            ->middleware(['ability:manage_user_accounts']);
+
     });
 });
