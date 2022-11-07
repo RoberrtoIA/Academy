@@ -11,7 +11,7 @@ class Question extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['question', 'topic_id'];
+    protected $fillable = ['question', 'grade_definitions', 'topic_id'];
 
     public function topic()
     {

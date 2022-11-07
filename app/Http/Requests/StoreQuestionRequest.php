@@ -31,6 +31,7 @@ class StoreQuestionRequest extends FormRequest
     {
         return [
             'question' => 'required|max:200',
+            'grade_definitions' => 'required|string',
             'topic_id' => 'required|numeric|exists:topics,id',
         ];
     }
