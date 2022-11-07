@@ -74,7 +74,7 @@ class HomeworkController extends Controller
         $homework->delete();
 
         $response = [
-            'message' => 'Topic Deleted'
+            'message' => 'Homework Deleted'
         ];
 
         return response($response, 200);

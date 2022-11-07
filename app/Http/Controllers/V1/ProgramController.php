@@ -48,7 +48,7 @@ class ProgramController extends Controller
     {
         $attributes = $request->validated();
 
-        return new ProgramResource($this->programTagsService->createProgram($attributes));
+        return new ProgramResource($this->programTagsService->createProgram($attributes)->load('tags'));
         // return $this->programTagsService->createProgram($attributes);
     }
 

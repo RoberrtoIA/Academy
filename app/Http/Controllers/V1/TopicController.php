@@ -33,7 +33,7 @@ class TopicController extends Controller
 
         $topic = Topic::create($attributes);
 
-        return (new TopicResource($topic->load('module')))->response()->setStatusCode(201);
+        return (new TopicResource($topic->load(['module', 'questions'])))->response()->setStatusCode(201);
     }
 
     /**
@@ -44,7 +44,7 @@ class TopicController extends Controller
      */
     public function show(Topic $topic)
     {
-        return new TopicResource($topic->load('module'));
+        return new TopicResource($topic->load(['module', 'questions']));
     }
 
     /**
@@ -60,7 +60,7 @@ class TopicController extends Controller
 
         $topic->update($attributes);
 
-        return new TopicResource($topic->load('module'));
+        return new TopicResource($topic->load(['module', 'questions']));
     }
 
     /**
