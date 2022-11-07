@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\AuthController;
+use App\Http\Controllers\V1\EvaluationCriteriaController;
 use App\Http\Controllers\V1\HomeworkController;
 use App\Http\Controllers\V1\ModuleController;
 use App\Http\Controllers\V1\ProgramController;
@@ -68,28 +69,28 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
                     . ',see_topic_content'
             ]);
 
-        Route::resource('homeworks', HomeworkController::class)
+        Route::resource('questions', QuestionController::class)
             ->except(['index', 'show'])
-            ->middleware(['ability:manage_homeworks_questions']);
+            ->middleware(['ability:manage_questions']);
 
-        Route::resource('homeworks', HomeworkController::class)
+        Route::resource('questions', QuestionController::class)
             ->only(['index', 'show'])
             ->middleware([
-                'ability:manage_homeworks_questions'
-                    . ',see_homework_question_content_details'
-                    . ',see_homework_question_content'
+                'ability:manage_questions'
+                    . ',see_question_content_details'
+                    . ',see_question_content'
             ]);
 
-        Route::resource('questions', QuestionController::class)
+        Route::resource('evaluations', EvaluationCriteriaController::class)
             ->except(['index', 'show'])
-            ->middleware(['ability:manage_homeworks_questions']);
+            ->middleware(['ability:manage_evaluation_criterias']);
 
-        Route::resource('questions', QuestionController::class)
+        Route::resource('evaluations', EvaluationCriteriaController::class)
             ->only(['index', 'show'])
             ->middleware([
-                'ability:manage_homeworks_questions'
-                    . ',see_homework_question_content_details'
-                    . ',see_homework_question_content'
+                'ability:manage_evaluation_criterias'
+                    . ',see_evaluation_criteria_content_details'
+                    . ',see_evaluation_criteria_content'
             ]);
 
         Route::post('users/create-trainee-account', CreateTraineeAccountController::class)
