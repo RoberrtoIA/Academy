@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreTopicRequest;
-use App\Http\Requests\UpdateTopicRequest;
-use App\Http\Resources\TopicResource;
-use App\Models\Topic;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreQuestionRequest;
+use App\Http\Requests\UpdateQuestionRequest;
+use App\Http\Resources\QuestionResource;
+use App\Models\Question;
 
-class TopicController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +17,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-        return TopicResource::collection(Topic::all());
+        return QuestionResource::collection(Question::all());
     }
 
     /**
@@ -27,13 +26,13 @@ class TopicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTopicRequest $request)
+    public function store(StoreQuestionRequest $request)
     {
         $attributes = $request->validated();
 
-        $topic = Topic::create($attributes);
+        $question = Question::create($attributes);
 
-        return (new TopicResource($topic->load(['module', 'questions'])))->response()->setStatusCode(201);
+        return (new QuestionResource($question->load('topic')))->response()->setStatusCode(201);
     }
 
     /**
@@ -42,9 +41,9 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Topic $topic)
+    public function show(Question $question)
     {
-        return new TopicResource($topic->load(['module', 'questions']));
+        return new QuestionResource($question->load('topic'));
     }
 
     /**
@@ -54,13 +53,13 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Topic $topic, UpdateTopicRequest $request)
+    public function update(Question $question, UpdateQuestionRequest $request)
     {
         $attributes = $request->validated();
 
-        $topic->update($attributes);
+        $question->update($attributes);
 
-        return new TopicResource($topic->load(['module', 'questions']));
+        return new QuestionResource($question->load('topic'));
     }
 
     /**
@@ -69,12 +68,12 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Topic $topic)
+    public function destroy(Question $question)
     {
-        $topic->delete();
+        $question->delete();
 
         $response = [
-            'message' => 'Topic Deleted'
+            'message' => 'Question Deleted'
         ];
 
         return response($response, 200);

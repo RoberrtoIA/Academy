@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('homeworks', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->string('doc', 200);
-            $table->foreignId('module_id')->constrained();
+            $table->string('question');
+            $table->foreignId('topic_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('homeworks');
+        Schema::dropIfExists('questions');
     }
 };

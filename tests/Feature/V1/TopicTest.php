@@ -53,7 +53,8 @@ class TopicTest extends TestCase
                         'updated_at' => $topic->module->updated_at,
                         'deleted_at' => $topic->module->deleted_at,
                         'program_id' => $topic->module->program_id
-                    ]
+                    ],
+                    'questions' => $topic->questions->toArray()
                 ]
             ]);
     }
