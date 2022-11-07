@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\AuthController;
+use App\Http\Controllers\V1\HomeworkController;
 use App\Http\Controllers\V1\ModuleController;
 use App\Http\Controllers\V1\ProgramController;
 use App\Http\Controllers\V1\TopicController;
@@ -63,6 +64,18 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
                 'ability:manage_topics'
                     . ',see_topic_content_details'
                     . ',see_topic_content'
+            ]);
+
+        Route::resource('homeworks', HomeworkController::class)
+            ->except(['index', 'show'])
+            ->middleware(['ability:manage_homeworks_questions']);
+
+        Route::resource('homeworks', HomeworkController::class)
+            ->only(['index', 'show'])
+            ->middleware([
+                'ability:manage_homeworks_questions'
+                    . ',see_homework_question_content_details'
+                    . ',see_homework_question_content'
             ]);
 
         Route::post('users/create-trainee-account', CreateTraineeAccountController::class)

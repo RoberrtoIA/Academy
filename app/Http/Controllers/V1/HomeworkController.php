@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreModuleRequest;
-use App\Http\Requests\UpdateModuleRequest;
-use App\Http\Resources\ModuleResource;
-use App\Models\Module;
+use App\Http\Requests\StoreHomeworkRequest;
+use App\Http\Requests\UpdateHomeworkRequest;
+use App\Http\Resources\HomeworkResource;
+use App\Models\Homework;
+use Illuminate\Http\Request;
 
-class ModuleController extends Controller
+class HomeworkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,7 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        return ModuleResource::collection(Module::all());
+        return HomeworkResource::collection(Homework::all());
     }
 
     /**
@@ -26,13 +27,13 @@ class ModuleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreModuleRequest $request)
+    public function store(StoreHomeworkRequest $request)
     {
         $attributes = $request->validated();
 
-        $module = Module::create($attributes);
+        $homework = Homework::create($attributes);
 
-        return (new ModuleResource($module->load('program')))->response()->setStatusCode(201);
+        return (new HomeworkResource($homework->load('module')))->response()->setStatusCode(201);
     }
 
     /**
@@ -41,9 +42,9 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Module $module)
+    public function show(Homework $homework)
     {
-        return new ModuleResource($module->load(['topics', 'homeworks', 'program']));
+        return new HomeworkResource($homework->load('module'));
     }
 
     /**
@@ -53,13 +54,13 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Module $module, UpdateModuleRequest $request)
+    public function update(Homework $homework, UpdateHomeworkRequest $request)
     {
         $attributes = $request->validated();
 
-        $module->update($attributes);
+        $homework->update($attributes);
 
-        return new ModuleResource($module->load('program'));
+        return new HomeworkResource($homework->load('module'));
     }
 
     /**
@@ -68,12 +69,12 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Module $module)
+    public function destroy(Homework $homework)
     {
-        $module->delete();
+        $homework->delete();
 
         $response = [
-            'message' => 'Module Deleted'
+            'message' => 'Topic Deleted'
         ];
 
         return response($response, 200);

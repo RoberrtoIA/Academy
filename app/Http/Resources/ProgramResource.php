@@ -19,8 +19,24 @@ class ProgramResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'content' => $this->content,
-            'modules' => ModuleResource::collection($this->modules),
-            'tags' => TagResource::collection($this->tags),
+            // 'modules' => ModuleResource::collection($this->modules),
+            // 'tags' => TagResource::collection($this->tags),
+            'tags' => $this->loadedTags(),
+            'modules' => $this->loadedModules(),
         ];
+    }
+
+    public function loadedTags()
+    {
+        if ($this->whenLoaded('tags')) {
+            return TagResource::collection($this->tags);
+        }
+    }
+
+    public function loadedModules()
+    {
+        if ($this->whenLoaded('modules')) {
+            return ModuleResource::collection($this->modules);
+        }
     }
 }
