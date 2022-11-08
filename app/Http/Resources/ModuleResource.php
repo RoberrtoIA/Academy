@@ -17,6 +17,7 @@ class ModuleResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'program_id' => $this->program_id,
             'title' => $this->title,
             'description' => $this->description,
             'content' => $this->content,

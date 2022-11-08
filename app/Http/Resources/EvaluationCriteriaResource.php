@@ -16,6 +16,7 @@ class EvaluationCriteriaResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'module_id' => $this->module_id,
             'objetive' => $this->objetive,
             'grade_definitions' => $this->grade_definitions,
             'created_at' => $this->whenNotNull($this->created_at ?? null),

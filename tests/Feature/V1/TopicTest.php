@@ -18,7 +18,7 @@ class TopicTest extends TestCase
     /** @test */
     public function it_can_list_topics()
     {
-        $topics = Topic::factory(3)->create()->makeHidden('module_id')->toArray();
+        $topics = Topic::factory(3)->create()->toArray();
 
         $this->sanctumActingAsDeveloper();
 
@@ -30,7 +30,8 @@ class TopicTest extends TestCase
     /** @test */
     public function it_shows_a_topic()
     {
-        $topic = Topic::factory()->create()->load(['module', 'questions'])->makeHidden('module_id');
+        $topic = Topic::factory()->create()->load(['module', 'questions']);
+        $topic->module->makeHidden('deleted_at');
 
         $this->sanctumActingAsDeveloper();
 

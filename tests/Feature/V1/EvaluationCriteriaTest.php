@@ -18,7 +18,8 @@ class EvaluationCriteriaTest extends TestCase
     /** @test */
     public function it_can_list_evaluation_criterias()
     {
-        $evaluation_criterias = EvaluationCriteria::factory(3)->create()->makeHidden('module_id')->toArray();
+        $evaluation_criterias = EvaluationCriteria::factory(3)->create()
+            ->toArray();
 
         $this->sanctumActingAsDeveloper();
 
@@ -30,7 +31,8 @@ class EvaluationCriteriaTest extends TestCase
     /** @test */
     public function it_shows_a_evaluation_criteria()
     {
-        $evaluation = EvaluationCriteria::factory()->create()->load('module')->makeHidden('module_id');
+        $evaluation = EvaluationCriteria::factory()->create()->load('module');
+        $evaluation->module->makeHidden('deleted_at');
 
         $this->sanctumActingAsDeveloper();
 

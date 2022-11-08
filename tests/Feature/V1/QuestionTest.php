@@ -31,7 +31,8 @@ class QuestionTest extends TestCase
     /** @test */
     public function it_shows_a_question()
     {
-        $question = Question::factory()->create()->load('topic')->makeHidden('topic_id');
+        $question = Question::factory()->create()->load('topic');
+        $question->topic->makeHidden('deleted_at');
 
         $this->sanctumActingAsDeveloper();
 
