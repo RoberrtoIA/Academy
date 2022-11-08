@@ -28,6 +28,7 @@ class RoleSeeder extends Seeder
                 Ability::create(['name' => 'manage_topics'])->id,
                 Ability::create(['name' => 'manage_questions'])->id,
                 Ability::create(['name' => 'manage_evaluation_criterias'])->id,
+                Ability::create(['name' => 'manage_gradings'])->id,
                 $see_program_content_details =
                     Ability::create(['name' => 'see_program_content_details'])->id,
                 $see_topic_content_details =
@@ -36,6 +37,8 @@ class RoleSeeder extends Seeder
                     Ability::create(['name' => 'see_question_content_details'])->id,
                 $see_evaluation_criteria_content_details =
                     Ability::create(['name' => 'see_evaluation_criteria_content_details'])->id,
+                $see_grading_content_details =
+                    Ability::create(['name' => 'see_grading_content_details'])->id,
             ]);
 
         Role::query()->create(['name' => 'trainer'])->abilities()
@@ -44,6 +47,7 @@ class RoleSeeder extends Seeder
                 $see_topic_content_details,
                 $see_question_content_details,
                 $see_evaluation_criteria_content_details,
+                $see_grading_content_details,
                 Ability::create(['name' => 'see_module_content_details'])->id,
             ]);
 
@@ -54,6 +58,7 @@ class RoleSeeder extends Seeder
                 Ability::create(['name' => 'see_topic_content'])->id,
                 Ability::create(['name' => 'see_question_content'])->id,
                 Ability::create(['name' => 'see_evaluation_criteria_content'])->id,
+                Ability::create(['name' => 'see_grading_content'])->id,
             ]);
     }
 }

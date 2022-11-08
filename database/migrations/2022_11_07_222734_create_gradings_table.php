@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('topics', function (Blueprint $table) {
+        Schema::create('gradings', function (Blueprint $table) {
             $table->id();
-            $table->integer('index');
-            $table->string('title', 100);
-            $table->string('description', 200);
-            $table->text('content');
-            $table->foreignId('module_id')->constrained();
+            $table->integer('gradable_id');
+            $table->string('gradable_type');
+            $table->string('comments');
+            $table->string('grade');
+            $table->json('snapshot')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('topics');
+        Schema::dropIfExists('gradings');
     }
 };
