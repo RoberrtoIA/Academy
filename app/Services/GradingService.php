@@ -5,9 +5,8 @@ namespace App\Services;
 use App\Factories\GradingResourceFactory;
 use App\Models\Grading;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class GradingSnapshotService
+class GradingService
 {
     public function __construct(protected GradingResourceFactory $resourceFactory)
     {

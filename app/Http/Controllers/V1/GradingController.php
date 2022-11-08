@@ -5,17 +5,15 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpsertGradingRequest;
 use App\Http\Resources\GradingResource;
-use App\Models\EvaluationCriteria;
 use App\Models\Grading;
-use App\Models\Question;
-use App\Services\GradingSnapshotService;
-use Illuminate\Http\Request;
+use App\Services\GradingService;
 
 class GradingController extends Controller
 {
-    public function __construct(protected GradingSnapshotService $gradingSnapshotService)
+    public function __construct(protected GradingService $gradingService)
     {
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +40,7 @@ class GradingController extends Controller
         );
 
         if (!$grading->snapshot) {
-            $this->gradingSnapshotService
+            $this->gradingService
                 ->takeSnapshot(
                     $grading,
                     $request->input('gradable_type')::find($request->input('gradable_id')),
