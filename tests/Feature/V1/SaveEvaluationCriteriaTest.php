@@ -17,7 +17,7 @@ class SaveEvaluationCriteriaTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_a_new_grading()
+    public function it_creates_a_new_evaluation_criteria_grading()
     {
         $data = Grading::factory()->for(
             EvaluationCriteria::factory(),
