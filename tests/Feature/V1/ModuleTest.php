@@ -31,14 +31,15 @@ class ModuleTest extends TestCase
     /** @test */
     public function it_shows_a_module()
     {
-        $module = Module::factory()->create()->load(['topics', 'program'])->makeHidden('program_id');
+        $module = Module::factory()->create();
 
         $this->sanctumActingAsDeveloper();
 
         $this->get(route('api.v1.modules.show', ['module' => $module->id]))
             ->assertOk()
             ->assertJsonFragment([
-                'data' => $module->toArray()
+                'id' => $module->id,
+                'created_at' => $module->created_at
             ]);
     }
 
@@ -47,13 +48,11 @@ class ModuleTest extends TestCase
     {
         $data = Module::factory()->make();
 
-        $data->program;
+        $data->program->makeHidden('deleted_at');
 
         $data = $data->toArray();
 
         $expectation = $data;
-
-        unset($expectation['program_id']);
 
         $this->sanctumActingAsDeveloper();
 
@@ -70,7 +69,7 @@ class ModuleTest extends TestCase
     public function it_updates_a_module()
     {
         $module = Module::factory()->create();
-        $module->program;
+        $module->program->makeHidden('deleted_at');
         $data = ['title' => 'changed'];
         $expectation = collect($module->toArray())->merge($data)->all();
 
