@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('program_id')->constrained();
             $table->date('start_date');
             $table->date('end_date');
+            $table->json('program_execution_content')->nullable();
             $table->timestamp('finished')->nullable();
             $table->timestamps();
             $table->softDeletes();

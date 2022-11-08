@@ -21,7 +21,7 @@ class EvaluationCriteriaResource extends JsonResource
             'created_at' => $this->whenNotNull($this->created_at ?? null),
             'updated_at' => $this->whenNotNull($this->updated_at ?? null),
             'deleted_at' => $this->whenNotNull($this->deleted_at ?? null),
-            'module' => $this->whenLoaded('module'),
+            'module' => new ModuleResource($this->whenLoaded('module')),
         ];
     }
 }

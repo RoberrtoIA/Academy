@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Events\ExecutionFinished;
+use App\Http\Resources\ProgramResource;
 use App\Models\Execution;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
@@ -35,6 +36,16 @@ class ExecutionService
 
         ExecutionFinished::dispatch($execution);
 
+        return $execution;
+    }
+
+    public function takeProgramSnapshot(Execution $execution): Execution
+    {
+        $execution->program_execution_content = (new ProgramResource(
+            $execution->program()->with('modules.topics')->first()
+        ))
+            ->resolve();
+        $execution->save();
         return $execution;
     }
 }
