@@ -2,14 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\AuthController;
+use App\Http\Controllers\V1\EvaluationCriteriaController;
+use App\Http\Controllers\V1\ExecutionController;
+use App\Http\Controllers\V1\GradingController;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\TopicController;
 use App\Http\Controllers\V1\ModuleController;
 use App\Http\Controllers\V1\ProgramController;
 use App\Http\Controllers\V1\QuestionController;
-use App\Http\Controllers\V1\ExecutionController;
 use App\Http\Controllers\V1\FinishExecutionController;
-use App\Http\Controllers\V1\EvaluationCriteriaController;
 use App\Http\Controllers\V1\User\CreateTraineeAccountController;
 use App\Http\Controllers\V1\User\CreateEmployeeAccountController;
 
@@ -92,6 +93,21 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
                 'ability:manage_evaluation_criterias'
                     . ',see_evaluation_criteria_content_details'
                     . ',see_evaluation_criteria_content'
+            ]);
+
+        Route::put('gradings', [GradingController::class, 'upsert'])
+            ->middleware(['ability:manage_gradings'])->name('gradings.upsert');
+
+        Route::resource('gradings', GradingController::class)
+            ->only(['destroy'])
+            ->middleware(['ability:manage_gradings']);
+
+        Route::resource('gradings', GradingController::class)
+            ->only(['index', 'show'])
+            ->middleware([
+                'ability:manage_gradings'
+                    . ',see_grading_content_details'
+                    . ',see_grading_content'
             ]);
 
         Route::post('users/create-trainee-account', CreateTraineeAccountController::class)
