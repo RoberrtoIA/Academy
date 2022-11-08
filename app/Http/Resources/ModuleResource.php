@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\ProgramResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ModuleResource extends JsonResource
@@ -20,8 +21,8 @@ class ModuleResource extends JsonResource
             'description' => $this->description,
             'content' => $this->content,
             'homework_content' => $this->homework_content,
-            'program' => $this->whenLoaded('program'),
-            'topics' => $this->whenLoaded('topics'),
+            'program' => new ProgramResource($this->whenLoaded('program')),
+            'topics' => TopicResource::collection($this->whenLoaded('topics')),
             'created_at' => $this->whenNotNull($this->created_at ?? null),
             'updated_at' => $this->whenNotNull($this->updated_at ?? null),
             'deleted_at' => $this->whenNotNull($this->deleted_at ?? null),

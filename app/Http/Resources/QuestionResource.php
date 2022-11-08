@@ -20,7 +20,7 @@ class QuestionResource extends JsonResource
             'created_at' => $this->whenNotNull($this->created_at ?? null),
             'updated_at' => $this->whenNotNull($this->updated_at ?? null),
             'deleted_at' => $this->whenNotNull($this->deleted_at ?? null),
-            'topic' => $this->whenLoaded('topic'),
+            'topic' => new TopicResource($this->whenLoaded('topic')),
         ];
     }
 }

@@ -24,8 +24,8 @@ class TopicResource extends JsonResource
             'created_at' => $this->whenNotNull($this->created_at ?? null),
             'updated_at' => $this->whenNotNull($this->updated_at ?? null),
             'deleted_at' => $this->whenNotNull($this->deleted_at ?? null),
-            'module' => $this->whenLoaded('module'),
-            'questions' => $this->whenLoaded('questions'),
+            'module' => new ModuleResource($this->whenLoaded('module')),
+            'questions' => QuestionResource::collection($this->whenLoaded('questions')),
         ];
     }
 }
