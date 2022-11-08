@@ -23,7 +23,14 @@ class GradingFactory extends Factory
     public function definition()
     {
 
+        $gradableClass = collect([
+            Question::class,
+            EvaluationCriteria::class
+        ])->random();
+
         return [
+            'gradable_id' => $gradableClass::factory(),
+            'gradable_type' => $gradableClass,
             'comments' => fake()->text($maxNbChars = 20),
             'grade' => fake()->sentence(),
         ];
