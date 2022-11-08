@@ -48,6 +48,7 @@ class RoleSeeder extends Seeder
                 $see_question_content_details,
                 $see_evaluation_criteria_content_details,
                 $see_grading_content_details,
+                Ability::create(['name' => 'take_quiz'])->id,
                 Ability::create(['name' => 'see_module_content_details'])->id,
             ]);
 

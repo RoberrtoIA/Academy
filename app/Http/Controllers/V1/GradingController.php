@@ -3,16 +3,11 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpsertGradingRequest;
 use App\Http\Resources\GradingResource;
 use App\Models\Grading;
-use App\Services\GradingService;
 
 class GradingController extends Controller
 {
-    public function __construct(protected GradingService $gradingService)
-    {
-    }
 
     /**
      * Display a listing of the resource.
@@ -22,33 +17,6 @@ class GradingController extends Controller
     public function index()
     {
         return GradingResource::collection(Grading::all());
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function upsert(UpsertGradingRequest $request)
-    {
-        $attributes = $request->validated();
-
-        $grading = Grading::updateOrCreate(
-            ['gradable_id' => $attributes['gradable_id'], 'gradable_type' => $attributes['gradable_type']],
-            ['comments' => $attributes['comments'], 'grade' => $attributes['grade']]
-        );
-
-        if (!$grading->snapshot) {
-            $this->gradingService
-                ->takeSnapshot(
-                    $grading,
-                    $request->input('gradable_type')::find($request->input('gradable_id')),
-                    $request->input('gradable_type')
-                );
-        }
-
-        return new GradingResource($grading->load('gradable'));
     }
 
     /**
