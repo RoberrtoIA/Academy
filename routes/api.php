@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SaveQuestionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\EvaluationCriteriaController;
@@ -97,7 +98,10 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ]);
 
         Route::put('save-evaluation-criteria', SaveEvaluationCriteriaController::class)
-            ->middleware(['ability:take_quiz'])->name('save-evaluation-criteria');
+            ->middleware(['ability:take_homework'])->name('save-evaluation-criteria');
+
+        Route::put('save-question', SaveQuestionController::class)
+            ->middleware(['ability:take_quiz'])->name('save-question');
 
         Route::resource('gradings', GradingController::class)
             ->only(['destroy'])

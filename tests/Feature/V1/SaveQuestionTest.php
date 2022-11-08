@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\V1;
 
-use App\Models\EvaluationCriteria;
 use App\Models\Grading;
+use App\Models\Question;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class SaveEvaluationCriteriaTest extends TestCase
+class SaveQuestionTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -17,10 +17,10 @@ class SaveEvaluationCriteriaTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_a_new_evaluation_criteria_grading()
+    public function it_creates_a_new_question_grading()
     {
         $data = Grading::factory()->for(
-            EvaluationCriteria::factory(),
+            Question::factory(),
             'gradable'
         )->make()->toArray();
 
@@ -28,7 +28,7 @@ class SaveEvaluationCriteriaTest extends TestCase
 
         $this->assertDatabaseCount('gradings', 0);
 
-        $this->put(route('api.v1.save-evaluation-criteria'), $data)
+        $this->put(route('api.v1.save-question'), $data)
             ->assertCreated();
 
         $this->assertDatabaseCount('gradings', 1);

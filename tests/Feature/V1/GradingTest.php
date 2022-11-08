@@ -18,7 +18,8 @@ class GradingTest extends TestCase
     }
 
     /** @test */
-    public function it_can_have_questions() {
+    public function it_can_have_questions()
+    {
         $question = Question::factory()->create();
 
         $grading = Grading::factory([
@@ -29,7 +30,8 @@ class GradingTest extends TestCase
     }
 
     /** @test */
-    public function it_can_have_evaluation_criterias() {
+    public function it_can_have_evaluation_criterias()
+    {
         $evaluation = EvaluationCriteria::factory()->create();
 
         $grading = Grading::factory([
@@ -43,7 +45,7 @@ class GradingTest extends TestCase
     public function it_can_list_gradings()
     {
         $count = 5;
-        Grading::factory()->count($count)->create();
+        Grading::factory($count)->create()->toArray();
 
         $this->sanctumActingAsDeveloper();
 
@@ -55,52 +57,16 @@ class GradingTest extends TestCase
     /** @test */
     public function it_shows_a_grading()
     {
-        $grading = Grading::factory()->create()->load('gradable')->makeHidden(['gradable_id', 'gradable_type']);
+        $grading =  Grading::factory()->create()->load('gradable');
 
         $this->sanctumActingAsDeveloper();
 
         $this->get(route('api.v1.gradings.show', ['grading' => $grading->id]))
             ->assertOk()
             ->assertJsonFragment([
-                'data' => $grading->toArray()
+                'id' => $grading->id,
+                'created_at' => $grading->created_at
             ]);
-    }
-
-    /** @test */
-    public function it_creates_a_new_grading()
-    {
-        $data = Grading::factory()->make()->toArray();
-
-        $this->sanctumActingAsDeveloper();
-
-        $this->assertDatabaseCount('gradings', 0);
-
-        $this->put(route('api.v1.gradings.upsert'), $data)
-            ->assertCreated();
-
-        $this->assertDatabaseCount('gradings', 1);
-    }
-
-    /** @test */
-    public function it_updates_a_grading()
-    {
-        $grading = Grading::factory()->create();
-        $data = [
-            'comments' => 'comments changed',
-            'grade' => 'grade chandes',
-            'gradable_id' => $grading->gradable->getKey(),
-            'gradable_type' => $grading->gradable->getMorphClass()
-        ];
-
-        $expectation = collect($grading->toArray())->merge($data)->all();
-        unset($expectation["gradable_id"]);
-        unset($expectation["gradable_type"]);
-
-        $this->sanctumActingAsDeveloper();
-
-        $this->put(route('api.v1.gradings.upsert'), $data)
-            ->assertOk()
-            ->assertJsonFragment($expectation);
     }
 
     /** @test */
@@ -118,5 +84,4 @@ class GradingTest extends TestCase
 
         $this->assertSoftDeleted('gradings', $grading->toArray());
     }
-
 }
