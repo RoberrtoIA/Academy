@@ -97,7 +97,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ]);
 
         Route::put('save-evaluation-criteria', SaveEvaluationCriteriaController::class)
-            ->middleware(['ability:take_quiz'])->name('save-evaluation-criteria');
+            ->middleware(['ability:take_homework'])->name('save-evaluation-criteria');
 
         Route::resource('gradings', GradingController::class)
             ->only(['destroy'])
