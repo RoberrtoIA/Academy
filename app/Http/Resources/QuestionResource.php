@@ -16,6 +16,7 @@ class QuestionResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'topic_id' => $this->topic_id,
             'question' => $this->question,
             'created_at' => $this->whenNotNull($this->created_at ?? null),
             'updated_at' => $this->whenNotNull($this->updated_at ?? null),
