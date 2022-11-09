@@ -7,7 +7,6 @@ use App\Http\Resources\ExecutionResource;
 use App\Models\Execution;
 use App\Models\User;
 use App\Services\ExecutionService;
-use Illuminate\Http\Request;
 
 class ExecutionAssignTrainerController extends Controller
 {
