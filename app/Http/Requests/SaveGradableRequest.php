@@ -24,9 +24,11 @@ class SaveGradableRequest extends FormRequest
     public function rules()
     {
         return [
-            'gradable.*.comments' => 'required|string',
-            'gradable.*.grade' => 'required|string',
-            'gradable.*.gradable_id' => 'required|integer',
+            'assignment_id' => 'required|numeric|exists:assignments,id',
+            'gradables' => 'required|array',
+            'gradables.*.comments' => 'required|string',
+            'gradables.*.grade' => 'required|numeric',
+            'gradables.*.gradable_id' => 'required|integer',
         ];
     }
 }

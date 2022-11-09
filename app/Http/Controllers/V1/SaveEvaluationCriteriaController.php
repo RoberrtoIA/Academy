@@ -12,8 +12,9 @@ class SaveEvaluationCriteriaController extends Controller
 {
     public function __invoke(SaveGradableRequest $request, GradingService $service)
     {
-        return new GradingResource(
-            $service->upsert($request, EvaluationCriteria::class)->load('gradable')
+
+        return GradingResource::collection(
+            $service->upsert($request, EvaluationCriteria::class)
         );
     }
 }

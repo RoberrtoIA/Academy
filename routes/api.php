@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\SaveQuestionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\EvaluationCriteriaController;
@@ -13,6 +12,7 @@ use App\Http\Controllers\V1\ProgramController;
 use App\Http\Controllers\V1\QuestionController;
 use App\Http\Controllers\V1\FinishExecutionController;
 use App\Http\Controllers\V1\SaveEvaluationCriteriaController;
+use App\Http\Controllers\V1\SaveQuestionController;
 use App\Http\Controllers\V1\User\CreateTraineeAccountController;
 use App\Http\Controllers\V1\User\CreateEmployeeAccountController;
 
@@ -97,11 +97,11 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
                     . ',see_evaluation_criteria_content'
             ]);
 
-        Route::put('save-evaluation-criteria', SaveEvaluationCriteriaController::class)
-            ->middleware(['ability:take_homework'])->name('save-evaluation-criteria');
+        Route::put('assignments/save-evaluation-criteria', SaveEvaluationCriteriaController::class)
+            ->middleware(['ability:take_homework'])->name('assignments.save-evaluation-criteria');
 
-        Route::put('save-question', SaveQuestionController::class)
-            ->middleware(['ability:take_quiz'])->name('save-question');
+        Route::put('assignments/save-question', SaveQuestionController::class)
+            ->middleware(['ability:take_quiz'])->name('assignments.save-question');
 
         Route::resource('gradings', GradingController::class)
             ->only(['destroy'])

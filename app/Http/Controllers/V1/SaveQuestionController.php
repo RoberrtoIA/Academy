@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\V1;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveGradableRequest;
 use App\Http\Resources\GradingResource;
 use App\Models\Question;
@@ -11,8 +12,8 @@ class SaveQuestionController extends Controller
 {
     public function __invoke(SaveGradableRequest $request, GradingService $service)
     {
-        return new GradingResource(
-            $service->upsert($request, Question::class)->load('gradable')
+        return GradingResource::collection(
+            $service->upsert($request, Question::class)
         );
     }
 }
