@@ -44,4 +44,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
+    public function myExecutionsAsTrainer()
+    {
+        return $this->belongsToMany(Execution::class)
+            ->as('trainer')
+            ->with('active', 'created_at')
+            ->using(Trainer::class);
+    }
 }
