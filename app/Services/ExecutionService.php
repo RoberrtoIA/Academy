@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Execution;
 use App\Events\ExecutionFinished;
 use App\Http\Resources\ProgramResource;
-use App\Models\Execution;
-use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class ExecutionService
 {
@@ -47,5 +49,28 @@ class ExecutionService
             ->resolve();
         $execution->save();
         return $execution;
+    }
+
+    public function assignTrainer(Execution $execution, User $user)
+    {
+        $this->validateTrainerRole($user);
+
+        $execution->trainers()->attach($user);
+
+        return $execution;
+    }
+
+    /**
+     * @throws Illuminate\Validation\ValidationException
+     */
+    protected function validateTrainerRole(User $user): void
+    {
+        Validator::make([],[])->after( function ($validator) use ($user) {
+            if (!$user->roles()->pluck('name')->contains('trainer')) {
+                $validator->errors()
+                    ->add('trainer', 'The user is not a trainer.');
+            }
+        })
+            ->validate();
     }
 }

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\V1;
+namespace App\Http\Controllers\V1\Execution;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ExecutionResource;
 use App\Models\Execution;
 use App\Services\ExecutionService;
-use Illuminate\Http\Request;
 
 class FinishExecutionController extends Controller
 {

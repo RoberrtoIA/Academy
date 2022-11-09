@@ -20,6 +20,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
             'token' => $this->whenNotNull($this->token ?? null),
+            'trainer' => $this->whenNotNull($this->trainer),
         ];
     }
 }

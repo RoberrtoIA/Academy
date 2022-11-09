@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\SaveQuestionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\AuthController;
-use App\Http\Controllers\V1\EvaluationCriteriaController;
-use App\Http\Controllers\V1\ExecutionController;
-use App\Http\Controllers\V1\GradingController;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\TopicController;
 use App\Http\Controllers\V1\ModuleController;
+use App\Http\Controllers\V1\GradingController;
 use App\Http\Controllers\V1\ProgramController;
 use App\Http\Controllers\V1\QuestionController;
-use App\Http\Controllers\V1\FinishExecutionController;
+use App\Http\Controllers\SaveQuestionController;
+use App\Http\Controllers\V1\ExecutionController;
+use App\Http\Controllers\V1\EvaluationCriteriaController;
+use App\Http\Controllers\V1\Execution\ExecutionAssignTrainerController;
 use App\Http\Controllers\V1\SaveEvaluationCriteriaController;
+use App\Http\Controllers\V1\Execution\FinishExecutionController;
 use App\Http\Controllers\V1\User\CreateTraineeAccountController;
 use App\Http\Controllers\V1\User\CreateEmployeeAccountController;
 
@@ -143,5 +144,12 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
         Route::get('executions/finish/{execution}', FinishExecutionController::class)
             ->name('executions.finish')
             ->middleware(['ability:manage_executions']);
+
+        Route::get(
+            'executions/{execution}/assign-trainer/{trainer}',
+            ExecutionAssignTrainerController::class
+        )
+            ->name('executions.assign-trainer')
+            ->middleware(['ability:manage_user_accounts']);
     });
 });

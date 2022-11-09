@@ -21,4 +21,12 @@ class Execution extends Model
     {
         return $this->belongsTo(Program::class);
     }
+
+    public function trainers()
+    {
+        return $this->belongsToMany(User::class, 'trainers')
+            ->as('trainer')
+            ->withPivot('active', 'created_at')
+            ->using(Trainer::class);
+    }
 }
