@@ -28,20 +28,22 @@ class GradingService
         $attributes = $request->validated();
 
         Validator::make($attributes, [
-            'gradable_id' => '|exists:' . $gradableType . ',id'
+            'gradables.*.gradable_id' => '|exists:' . $gradableType . ',id'
         ])->validate();
 
-        $grading = Grading::updateOrCreate(
-            ['gradable_id' => $attributes['gradable_id'], 'gradable_type' => $gradableType],
-            ['comments' => $attributes['comments'], 'grade' => $attributes['grade']]
-        );
-
-        if (!$grading->snapshot) {
-            $this->takeSnapshot(
-                $grading,
-                $gradableType::find($request->input('gradable_id')),
-                $gradableType
+        foreach ($attributes['gradables'] as $gradable) {
+            $grading = Grading::updateOrCreate(
+                ['gradable_id' => $gradable['gradable_id'], 'gradable_type' => $gradableType],
+                ['comments' => $gradable['comments'], 'grade' => $gradable['grade']]
             );
+
+            if (!$grading->snapshot) {
+                $this->takeSnapshot(
+                    $grading,
+                    $gradableType::find($request->input('gradable_id')),
+                    $gradableType
+                );
+            }
         }
 
         return $grading;

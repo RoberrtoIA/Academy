@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpsertGradingRequest extends FormRequest
+class SaveGradableRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class UpsertGradingRequest extends FormRequest
     public function rules()
     {
         return [
-            'comments' => 'required|string',
-            'grade' => 'required|string',
-            'gradable_id' => 'required|integer',
+            'gradable.*.comments' => 'required|string',
+            'gradable.*.grade' => 'required|string',
+            'gradable.*.gradable_id' => 'required|integer',
         ];
     }
 }
