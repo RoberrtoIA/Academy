@@ -60,15 +60,40 @@ class ExecutionService
         return $execution;
     }
 
+    public function enrollTrainee(Execution $execution, User $user)
+    {
+        $this->validateTraineeRole($user);
+
+        $execution->enrollments()->attach($user);
+
+        return $execution;
+    }
+
     /**
      * @throws Illuminate\Validation\ValidationException
      */
     protected function validateTrainerRole(User $user): void
     {
-        Validator::make([],[])->after( function ($validator) use ($user) {
-            if (!$user->roles()->pluck('name')->contains('trainer')) {
+        $this->validateRole($user, 'trainer');
+    }
+
+    /**
+     * @throws Illuminate\Validation\ValidationException
+     */
+    protected function validateTraineeRole(User $user): void
+    {
+        $this->validateRole($user, 'trainee');
+    }
+
+    /**
+     * @throws Illuminate\Validation\ValidationException
+     */
+    protected function validateRole(User $user, string $role): void
+    {
+        Validator::make([],[])->after( function ($validator) use ($user, $role) {
+            if (!$user->roles()->pluck('name')->contains($role)) {
                 $validator->errors()
-                    ->add('trainer', 'The user is not a trainer.');
+                    ->add($role, "The user is not a $role.");
             }
         })
             ->validate();

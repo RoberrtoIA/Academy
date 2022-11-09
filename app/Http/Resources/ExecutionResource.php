@@ -18,9 +18,12 @@ class ExecutionResource extends JsonResource
             ->merge([
                 'program' => new ProgramResource($this->whenLoaded('program')),
                 'trainers' => UserResource::collection($this->whenLoaded('trainers')),
+                'enrollments' => UserResource::collection($this->whenLoaded('enrollments')),
                 'program_execution_content' => $this->whenNotNull($this->program_execution_content),
                 'finished' => $this->whenNotNull($this->finished),
                 'deleted_at' => $this->whenNotNull($this->deleted_at),
+                'trainer' => $this->whenNotNull($this->trainer),
+                'enrollment' => $this->whenNotNull($this->enrollment),
             ])->toArray();
     }
 }

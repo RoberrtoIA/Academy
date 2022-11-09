@@ -47,9 +47,17 @@ class User extends Authenticatable
 
     public function myExecutionsAsTrainer()
     {
-        return $this->belongsToMany(Execution::class)
+        return $this->belongsToMany(Execution::class, 'trainers')
             ->as('trainer')
-            ->with('active', 'created_at')
+            ->withPivot('active', 'created_at')
             ->using(Trainer::class);
+    }
+
+    public function myExecutionsAsTrainee()
+    {
+        return $this->belongsToMany(Execution::class, 'enrollments')
+            ->as('enrollment')
+            ->withPivot('score', 'active', 'created_at')
+            ->using(Enrollment::class);
     }
 }
