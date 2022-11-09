@@ -29,4 +29,12 @@ class Execution extends Model
             ->withPivot('active', 'created_at')
             ->using(Trainer::class);
     }
+
+    public function enrollments()
+    {
+        return $this->belongsToMany(User::class, 'enrollments')
+            ->as('enrollment')
+            ->withPivot('score', 'active', 'created_at')
+            ->using(Enrollment::class);
+    }
 }

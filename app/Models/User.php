@@ -52,4 +52,12 @@ class User extends Authenticatable
             ->withPivot('active', 'created_at')
             ->using(Trainer::class);
     }
+
+    public function myExecutionsAsTrainee()
+    {
+        return $this->belongsToMany(Execution::class, 'enrollments')
+            ->as('enrollment')
+            ->withPivot('score', 'active', 'created_at')
+            ->using(Enrollment::class);
+    }
 }
