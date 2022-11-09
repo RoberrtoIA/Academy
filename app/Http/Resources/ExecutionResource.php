@@ -24,6 +24,7 @@ class ExecutionResource extends JsonResource
                 'deleted_at' => $this->whenNotNull($this->deleted_at),
                 'trainer' => $this->whenNotNull($this->trainer),
                 'enrollment' => $this->whenNotNull($this->enrollment),
+                'assignments' => AssignmentResource::collection($this->whenNotNull($this->assignments)),
             ])->toArray();
     }
 }

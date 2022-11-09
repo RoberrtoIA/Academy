@@ -10,6 +10,7 @@ use App\Http\Controllers\V1\ProgramController;
 use App\Http\Controllers\V1\QuestionController;
 use App\Http\Controllers\V1\ExecutionController;
 use App\Http\Controllers\V1\EvaluationCriteriaController;
+use App\Http\Controllers\V1\Execution\AssignUserModuleController;
 use App\Http\Controllers\V1\Execution\ExecutionAssignTrainerController;
 use App\Http\Controllers\V1\Execution\ExecutionEnrollTraineeController;
 use App\Http\Controllers\V1\SaveEvaluationCriteriaController;
@@ -159,5 +160,12 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
         )
             ->name('executions.enroll-trainee')
             ->middleware(['ability:manage_user_accounts']);
+
+        Route::post(
+            'executions/assign-trainee-module',
+            AssignUserModuleController::class
+        )
+            ->name('executions.assign-trainee-module')
+            ->middleware(['ability:manage_executions']);
     });
 });

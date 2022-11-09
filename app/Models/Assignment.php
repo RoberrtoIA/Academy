@@ -11,6 +11,10 @@ class Assignment extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'execution_id', 'module_id', 'user_id',
+    ];
+
     public function gradings() {
         return $this->hasMany(Grading::class);
     }
