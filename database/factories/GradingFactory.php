@@ -32,7 +32,7 @@ class GradingFactory extends Factory
             'gradable_id' => $gradableClass::factory(),
             'gradable_type' => $gradableClass,
             'comments' => fake()->text($maxNbChars = 20),
-            'grade' => fake()->sentence(),
+            'grade' => fake()->randomFloat(1, 1, 3),
         ];
     }
 

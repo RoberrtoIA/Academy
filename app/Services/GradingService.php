@@ -3,10 +3,10 @@
 namespace App\Services;
 
 use App\Factories\GradingResourceFactory;
-use App\Http\Resources\GradingResource;
 use App\Models\Grading;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 
 class GradingService
@@ -28,22 +28,40 @@ class GradingService
         $attributes = $request->validated();
 
         Validator::make($attributes, [
-            'gradable_id' => '|exists:' . $gradableType . ',id'
+            'gradables.*.gradable_id' => '|exists:' . $gradableType . ',id',
         ])->validate();
 
-        $grading = Grading::updateOrCreate(
-            ['gradable_id' => $attributes['gradable_id'], 'gradable_type' => $gradableType],
-            ['comments' => $attributes['comments'], 'grade' => $attributes['grade']]
+        $assignmentId = $attributes['assignment_id'];
+
+        $gradables = collect($attributes['gradables'])->map(function ($item)
+        use ($gradableType, $assignmentId) {
+            return array_merge($item, [
+                'assignment_id' => $assignmentId,
+                'gradable_type' => $gradableType,
+            ]);
+        });
+
+        Grading::query()->upsert(
+            $gradables->all(),
+            ['assignment_id', 'gradable_id', 'gradable_type'],
+            ['comments', 'grade']
         );
 
-        if (!$grading->snapshot) {
-            $this->takeSnapshot(
-                $grading,
-                $gradableType::find($request->input('gradable_id')),
-                $gradableType
-            );
-        }
+        return $this->getUpdatedGradings($gradables, $assignmentId, $gradableType);
+    }
 
-        return $grading;
+    protected function getUpdatedGradings(Collection $gradables, $assignmentId, string $gradableType)
+    {
+        $identifiers = $gradables->map(function ($item) {
+            return $item['gradable_id'];
+        })->all();
+
+        return Grading::query()
+            ->where('assignment_id', $assignmentId)
+            ->whereHasMorph('gradable', $gradableType, function ($query) use ($identifiers) {
+                $query->whereIn('id', $identifiers);
+            })
+            ->with('gradable')
+            ->get();
     }
 }

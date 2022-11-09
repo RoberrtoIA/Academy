@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('gradings', function (Blueprint $table) {
             $table->id();
-            $table->integer('gradable_id');
+            $table->foreignId('assignment_id')->constrained();
+            $table->foreignId('gradable_id');
             $table->string('gradable_type');
             $table->string('comments');
-            $table->string('grade');
-            $table->json('snapshot')->nullable();
+            $table->float('grade', 3, 1, true)->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

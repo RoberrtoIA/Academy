@@ -19,4 +19,9 @@ class Grading extends Model
     {
         return $this->morphTo();
     }
+
+    public function assignment()
+    {
+        return $this->belongsTo(Assignment::class);
+    }
 }
