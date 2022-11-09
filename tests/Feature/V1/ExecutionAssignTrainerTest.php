@@ -17,7 +17,7 @@ class ExecutionAssignTrainerTest extends TestCase
 
 
     /** @test */
-    public function it_assign_a_trainer_to_execution()
+    public function it_assigns_a_trainer_to_execution()
     {
         $execution = Execution::factory()->create();
         $trainer = $this->newUser(roles: ['trainer']);
