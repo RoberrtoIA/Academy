@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Tag;
 
-class CreateTagService
+class TagService
 {
     public function createTag($tag_name): Tag
     {
