@@ -23,6 +23,7 @@ class GradingResource extends JsonResource
             'updated_at' => $this->whenNotNull($this->updated_at ?? null),
             'deleted_at' => $this->whenNotNull($this->deleted_at ?? null),
             'gradable' => $this->whenLoaded('gradable'),
+            'assignment' => new AssignmentResource($this->whenNotNull($this->assignment)),
         ];
     }
 }
