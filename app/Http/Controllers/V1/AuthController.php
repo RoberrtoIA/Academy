@@ -40,11 +40,11 @@ class AuthController extends Controller
     {
         $this->validateSocialDriver($driver);
 
-        $googleToken = $request->bearerToken();
+        $socialToken = $request->bearerToken();
         /** @var mixed */
         $socialite = Socialite::driver($driver);
         $email = $socialite
-            ->userFromToken($googleToken)
+            ->userFromToken($socialToken)
             ?->email;
 
         $user = $this->findUserByEmail($email);
