@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
             'token' => $this->whenNotNull($this->token ?? null),
             'trainer' => $this->whenNotNull($this->trainer),
+            'developer' => $this->whenNotNull($this->developer),
             'enrollment' => $this->whenNotNull($this->enrollment),
         ];
     }

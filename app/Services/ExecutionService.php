@@ -10,10 +10,12 @@ use App\Models\Execution;
 use App\Events\ExecutionFinished;
 use App\Http\Resources\ProgramResource;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Validator;
 
 class ExecutionService
 {
+    public function __construct(protected UserRoleService $roleService) {
+    }
+
     public function createExecution(FormRequest $request): Execution
     {
         $data = $request->validated();
@@ -53,7 +55,7 @@ class ExecutionService
 
     public function assignTrainer(Execution $execution, User $user)
     {
-        $this->validateTrainerRole($user);
+        $this->roleService->validateTrainerRole($user);
 
         $execution->trainers()->attach($user);
 
@@ -62,40 +64,10 @@ class ExecutionService
 
     public function enrollTrainee(Execution $execution, User $user)
     {
-        $this->validateTraineeRole($user);
+        $this->roleService->validateTraineeRole($user);
 
         $execution->enrollments()->attach($user);
 
         return $execution;
-    }
-
-    /**
-     * @throws Illuminate\Validation\ValidationException
-     */
-    protected function validateTrainerRole(User $user): void
-    {
-        $this->validateRole($user, 'trainer');
-    }
-
-    /**
-     * @throws Illuminate\Validation\ValidationException
-     */
-    protected function validateTraineeRole(User $user): void
-    {
-        $this->validateRole($user, 'trainee');
-    }
-
-    /**
-     * @throws Illuminate\Validation\ValidationException
-     */
-    protected function validateRole(User $user, string $role): void
-    {
-        Validator::make([],[])->after( function ($validator) use ($user, $role) {
-            if (!$user->roles()->pluck('name')->contains($role)) {
-                $validator->errors()
-                    ->add($role, "The user is not a $role.");
-            }
-        })
-            ->validate();
     }
 }

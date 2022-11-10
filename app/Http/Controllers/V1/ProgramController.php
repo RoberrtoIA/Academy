@@ -9,16 +9,12 @@ use App\Http\Requests\StoreProgramRequest;
 use App\Http\Requests\UpdateProgramRequest;
 use App\Http\Resources\TagResource;
 use App\Models\Tag;
-use App\Services\ProgramTagsService;
-use App\Services\UpdateProgramService;
+use App\Services\ProgramService;
 
 class ProgramController extends Controller
 {
 
-    public function __construct(
-        protected ProgramTagsService $programTagsService,
-        protected UpdateProgramService $updateProgramService
-        )
+    public function __construct(protected ProgramService $programService,)
     {
     }
 
@@ -48,8 +44,7 @@ class ProgramController extends Controller
     {
         $attributes = $request->validated();
 
-        return new ProgramResource($this->programTagsService->createProgram($attributes)->load('tags'));
-        // return $this->programTagsService->createProgram($attributes);
+        return new ProgramResource($this->programService->createProgram($attributes)->load('tags'));
     }
 
     /**
@@ -74,12 +69,9 @@ class ProgramController extends Controller
     {
         $attributes = $request->validated();
 
-        // $program->update($attributes);
-
-        $program = $this->updateProgramService->updateProgram($program, $attributes);
+        $program = $this->programService->updateProgram($program, $attributes);
 
         return new ProgramResource($program->load('tags'));
-        // return $this->updateProgramService->updateProgram($program, $attributes);
     }
 
     /**
