@@ -2,12 +2,15 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Models\Program;
 
 class ProgramService
 {
-    public function __construct(protected TagService $tagService)
-    {
+    public function __construct(
+        protected TagService $tagService,
+        protected UserRoleService $roleService,
+    ) {
     }
 
     public function createProgram($attributes)
@@ -75,6 +78,15 @@ class ProgramService
 
             $program->save();
         }
+
+        return $program;
+    }
+
+    public function assignDeveloper(Program $program, User $user)
+    {
+        $this->roleService->validateDeveloperRole($user);
+
+        $program->developers()->attach($user);
 
         return $program;
     }

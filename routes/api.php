@@ -16,6 +16,7 @@ use App\Http\Controllers\V1\Execution\ExecutionEnrollTraineeController;
 use App\Http\Controllers\V1\SaveEvaluationCriteriaController;
 use App\Http\Controllers\V1\SaveQuestionController;
 use App\Http\Controllers\V1\Execution\FinishExecutionController;
+use App\Http\Controllers\V1\Program\ProgramAssignDeveloperController;
 use App\Http\Controllers\V1\User\CreateTraineeAccountController;
 use App\Http\Controllers\V1\User\CreateEmployeeAccountController;
 
@@ -155,14 +156,14 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ExecutionAssignTrainerController::class
         )
             ->name('executions.assign-trainer')
-            ->middleware(['ability:manage_user_accounts']);
+            ->middleware(['ability:manage_executions']);
 
         Route::get(
             'executions/{execution}/enroll-trainee/{trainee}',
             ExecutionEnrollTraineeController::class
         )
             ->name('executions.enroll-trainee')
-            ->middleware(['ability:manage_user_accounts']);
+            ->middleware(['ability:manage_executions']);
 
         Route::post(
             'executions/assign-trainee-module',
@@ -170,5 +171,12 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
         )
             ->name('executions.assign-trainee-module')
             ->middleware(['ability:manage_executions']);
+
+        Route::get(
+            'programs/{program}/assign-developer/{developer}',
+            ProgramAssignDeveloperController::class
+        )
+            ->name('programs.assign-developer')
+            ->middleware(['ability:manage_programs']);
     });
 });

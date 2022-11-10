@@ -60,4 +60,12 @@ class User extends Authenticatable
             ->withPivot('score', 'active', 'created_at')
             ->using(Enrollment::class);
     }
+
+    public function myProgramsAsDeveloper()
+    {
+        return $this->belongsToMany(Execution::class, 'developers')
+            ->as('trainer')
+            ->withPivot('active', 'created_at')
+            ->using(Developer::class);
+    }
 }

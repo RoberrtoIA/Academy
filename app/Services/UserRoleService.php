@@ -58,6 +58,14 @@ class UserRoleService
     /**
      * @throws Illuminate\Validation\ValidationException
      */
+    public function validateDeveloperRole(User $user): void
+    {
+        $this->validateRole($user, 'developer');
+    }
+
+    /**
+     * @throws Illuminate\Validation\ValidationException
+     */
     protected function validateRole(User $user, string $role): void
     {
         Validator::make([],[])->after( function ($validator) use ($user, $role) {
