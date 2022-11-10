@@ -9,12 +9,6 @@ use App\Services\InterviewService;
 
 class InterviewStartController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function __invoke(Assignment $assignment, InterviewService $service)
     {
         return new AssignmentResource($service->startEvaluation($assignment));

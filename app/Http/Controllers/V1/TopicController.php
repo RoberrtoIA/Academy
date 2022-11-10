@@ -10,22 +10,11 @@ use App\Models\Topic;
 
 class TopicController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return TopicResource::collection(Topic::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreTopicRequest $request)
     {
         $attributes = $request->validated();
@@ -35,24 +24,11 @@ class TopicController extends Controller
         return (new TopicResource($topic->load(['module', 'questions'])))->response()->setStatusCode(201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Topic $topic)
     {
         return new TopicResource($topic->load(['module', 'questions']));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Topic $topic, UpdateTopicRequest $request)
     {
         $attributes = $request->validated();
@@ -62,12 +38,6 @@ class TopicController extends Controller
         return new TopicResource($topic->load(['module', 'questions']));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Topic $topic)
     {
         $topic->delete();

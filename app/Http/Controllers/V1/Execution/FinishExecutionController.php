@@ -9,12 +9,6 @@ use App\Services\ExecutionService;
 
 class FinishExecutionController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function __invoke(Execution $execution, ExecutionService $service)
     {
         return new ExecutionResource($service->finishExecution($execution));

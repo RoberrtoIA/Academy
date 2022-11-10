@@ -46,9 +46,6 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
 
-        Route::get('/programs/tags', [ProgramController::class, 'tag'])
-            ->middleware(['ability:manage_programs']);
-
         Route::resource('programs', ProgramController::class)
             ->only(['store', 'update', 'destroy'])
             ->middleware(['ability:manage_programs']);

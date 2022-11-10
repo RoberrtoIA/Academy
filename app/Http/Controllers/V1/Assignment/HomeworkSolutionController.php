@@ -10,12 +10,6 @@ use App\Services\HomeworkService;
 
 class HomeworkSolutionController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function __invoke(Assignment $assignment, HomeworkService $service, HomeworkSolutionRequest $request)
     {
         return new AssignmentResource($service->uploadHomeworkSolution($assignment, $request));

@@ -9,12 +9,6 @@ use App\Services\HomeworkService;
 
 class HomeworkFinishController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function __invoke(Assignment $assignment, HomeworkService $service)
     {
         return new AssignmentResource($service->finishHomework($assignment));
