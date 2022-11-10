@@ -21,7 +21,7 @@ class UpdateExecutionRequest extends StoreExecutionRequest
      */
     public function rules()
     {
-        return replaceRequiredByFillableRules(
+        return replaceRequiredByFilledRules(
             collect(parent::baseRules())->only(['start_date', 'end_date'])->all()
         );
     }

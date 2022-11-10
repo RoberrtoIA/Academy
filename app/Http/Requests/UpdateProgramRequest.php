@@ -21,6 +21,6 @@ class UpdateProgramRequest extends StoreProgramRequest
      */
     public function rules()
     {
-        return replaceRequiredByFillableRules(parent::baseRules());
+        return replaceRequiredByFilledRules(parent::baseRules());
     }
 }

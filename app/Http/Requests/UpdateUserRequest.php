@@ -23,7 +23,7 @@ class UpdateUserRequest extends StoreUserRequest
      */
     public function rules()
     {
-        return replaceRequiredByFillableRules(array_merge(
+        return replaceRequiredByFilledRules(array_merge(
             parent::baseRules(),
             [
                 'email' => [

@@ -21,6 +21,6 @@ class UpdateEvaluationCriteriaRequest extends StoreEvaluationCriteriaRequest
      */
     public function rules()
     {
-        return replaceRequiredByFillableRules(parent::baseRules());
+        return replaceRequiredByFilledRules(parent::baseRules());
     }
 }

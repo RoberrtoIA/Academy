@@ -8,7 +8,7 @@ if (!function_exists('replaceRequiredByFillableRules')) {
      * @param array $rules
      * @return array
      */
-    function replaceRequiredByFillableRules(array $rules): array
+    function replaceRequiredByFilledRules(array $rules): array
     {
         return collect($rules)->map(function ($attr) {
             if (!is_array($attr)) {

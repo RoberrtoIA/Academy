@@ -21,6 +21,6 @@ class UpdateModuleRequest extends StoreModuleRequest
      */
     public function rules()
     {
-        return replaceRequiredByFillableRules(parent::baseRules());
+        return replaceRequiredByFilledRules(parent::baseRules());
     }
 }
