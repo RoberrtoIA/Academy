@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\V1;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginUserRequest;
-use App\Http\Resources\UserResource;
 use App\Models\User;
-use App\Services\UserRoleService;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Services\UserRoleService;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\LoginUserRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -21,22 +25,65 @@ class AuthController extends Controller
     {
         $attributes = $request->validated();
 
-        /** @var User */
-        $user = User::where('email', $attributes['email'])->first();
+        $user = $this->findUserByEmail($attributes['email']);
 
         if (!$user || !Hash::check($attributes['password'], $user->password)) {
-            $response = ['message' => 'Invalid Credentials'];
-
-            return response($response, Response::HTTP_UNPROCESSABLE_ENTITY);
+            return $this->invalidCredentialsResponse();
         }
 
+        $this->setUserToken($user);
+
+        return new UserResource($user);
+    }
+
+    public function socialLogin(Request $request, string $driver)
+    {
+        $this->validateSocialDriver($driver);
+
+        $googleToken = $request->bearerToken();
+        /** @var mixed */
+        $socialite = Socialite::driver($driver);
+        $email = $socialite
+            ->userFromToken($googleToken)
+            ?->email;
+
+        $user = $this->findUserByEmail($email);
+
+        if (!$user) {
+            return $this->invalidCredentialsResponse();
+        }
+
+        $this->setUserToken($user);
+
+        return new UserResource($user);
+    }
+
+    protected function invalidCredentialsResponse()
+    {
+        $response = ['message' => 'Invalid Credentials'];
+
+        return response($response, Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    protected function setUserToken(User $user)
+    {
         $token = $user->createToken(
             'access_token',
             $this->userRoleService->getFlattenAbilities($user)
         )->plainTextToken;
 
         $user->token = $token;
+    }
 
-        return response(['data' => new UserResource($user)]);
+    protected function findUserByEmail(string $email): User|null
+    {
+        return User::where('email', $email)->with('roles')->first();
+    }
+
+    protected function validateSocialDriver(string $driver)
+    {
+        Validator::make(compact('driver'), [
+            'driver' => Rule::in(config('app.login.drivers')),
+        ])->validate();
     }
 }
