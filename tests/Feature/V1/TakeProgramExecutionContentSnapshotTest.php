@@ -11,6 +11,7 @@ use App\Models\Module;
 use App\Models\Program;
 use App\Models\Topic;
 use App\Services\ExecutionService;
+use App\Services\UserRoleService;
 
 class TakeProgramExecutionContentSnapshotTest extends TestCase
 {
@@ -38,7 +39,7 @@ class TakeProgramExecutionContentSnapshotTest extends TestCase
         Topic::factory()->for($module)->create();
         $execution = Execution::factory()->for($program)->create();
         $event = new ExecutionFinished($execution);
-        $service = new ExecutionService;
+        $service = new ExecutionService(new UserRoleService);
         $listener = new TakeProgramExecutionContentSnapshot;
 
         $this->assertNull($execution->program_execution_content);
