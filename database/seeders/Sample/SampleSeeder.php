@@ -10,7 +10,6 @@ use App\Models\Role;
 use App\Models\Topic;
 use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
-use Database\Seeders\RoleSeeder;
 use Illuminate\Database\Seeder;
 
 class SampleSeeder extends Seeder
