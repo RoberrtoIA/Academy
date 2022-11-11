@@ -35,7 +35,7 @@ class TakeHomeworkSnapshotTest extends TestCase
         $count = 4;
         $module = Module::factory()->create();
         $assignment = Assignment::factory()->for($module)->create();
-        $evaluationCriteria = EvaluationCriteria::factory($count)
+        EvaluationCriteria::factory($count)
             ->for($module)
             ->create();
         $event = new HomeworkStarted($assignment);
