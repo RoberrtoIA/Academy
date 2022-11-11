@@ -31,6 +31,22 @@ class ProgramTest extends TestCase
     }
 
     /** @test */
+    public function developer_can_see_only_their_own_programs()
+    {
+        $program = Program::factory()->create();
+
+        $developer = $this->sanctumActingAsDeveloper();
+        $program->developers()->attach($developer);
+
+        Program::factory()->count(2)->create();
+
+        $this->get(route('api.v1.programs.index'))
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJsonFragment(['id' => $program->id]);
+    }
+
+    /** @test */
     public function it_shows_a_program()
     {
         $program = Program::factory()->create()->load(['tags', 'modules']);
@@ -129,7 +145,7 @@ class ProgramTest extends TestCase
             'trainee_index' => ['trainee', 'index', [], 'get', [], 200],
             'guest_show' => [null, 'show', ['program' => 1], 'get', [], 401],
             'manager_show' => ['manager', 'show', ['program' => 1], 'get', [], 200],
-            'developer_show' => ['developer', 'show', ['program' => 1], 'get', [], 200],
+            'developer_show' => ['developer', 'show', ['program' => 1], 'get', [], 404],
             'trainer_show' => ['trainer', 'show', ['program' => 1], 'get', [], 200],
             'trainee_show' => ['trainee', 'show', ['program' => 1], 'get', [], 200],
             'guest_store' => [null, 'store', [], 'post', [], 401],
