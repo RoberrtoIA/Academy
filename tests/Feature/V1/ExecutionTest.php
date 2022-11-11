@@ -2,7 +2,9 @@
 
 namespace Tests\Feature\V1;
 
+use App\Models\Assignment;
 use App\Models\Execution;
+use App\Models\Grading;
 use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -70,6 +72,30 @@ class ExecutionTest extends TestCase
 
         $this->get(route('api.v1.executions.show', ['execution' => $execution->id]))
             ->assertNotFound();
+    }
+
+    /** @test */
+    public function trainer_can_see_execution_trainees_and_grades()
+    {
+        $execution = Execution::factory()->create();
+
+        $trainer = $this->sanctumActingAsTrainer();
+        $execution->trainers()->attach($trainer);
+        $trainee = $this->newUser(roles: ['trainee']);
+        $execution->enrollments()->attach($trainee);
+        $execution->enrollments()->attach($this->newUser(roles: ['trainee']));
+        $assignment = Assignment::factory()
+            ->for($execution)
+            ->for($trainee)
+            ->create();
+        Grading::factory()->count(3)
+            ->for($assignment)
+            ->create();
+
+        $this->get(route('api.v1.executions.show', ['execution' => $execution->id]))
+            ->assertOk()
+            ->assertJsonCount(3, 'data.assignments.0.gradings')
+            ->assertJsonCount(2, 'data.enrollments');
     }
 
     /** @test */

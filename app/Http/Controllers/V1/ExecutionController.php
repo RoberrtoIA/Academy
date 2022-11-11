@@ -47,8 +47,10 @@ class ExecutionController extends Controller
         ) {
             $execution->load([
                 'trainers',
+                'enrollments',
                 'program.modules.evaluation_criteria',
                 'program.modules.topics.questions',
+                'assignments.gradings'
             ]);
         }
 
