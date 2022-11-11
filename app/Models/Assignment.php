@@ -15,6 +15,11 @@ class Assignment extends Model
         'execution_id', 'module_id', 'user_id',
     ];
 
+    protected $casts = [
+        'homework_snapshot' => 'array',
+        'interview_snapshot' => 'array',
+    ];
+
     public function gradings() {
         return $this->hasMany(Grading::class);
     }

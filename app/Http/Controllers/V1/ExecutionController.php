@@ -14,12 +14,17 @@ class ExecutionController extends Controller
 
     public function index()
     {
+        /** @var \App\Models\User */
         $user = request()->user();
 
         $executions = Execution::query();
 
         if ($user->tokenCan('see_program_content_details')) {
             $executions = $user->myExecutionsAsTrainer();
+        }
+
+        if ($user->tokenCan('see_program_content')) {
+            $executions = $user->myExecutionsAsTrainee()->whereNull('finished');
         }
 
         return ExecutionResource::collection(
@@ -34,17 +39,26 @@ class ExecutionController extends Controller
         return new ExecutionResource($service->createExecution($request));
     }
 
-    public function show(Execution $execution)
+    public function show($execution)
     {
+        $id = $execution;
+        /** @var \App\Models\User */
         $user = request()->user();
 
         if ($user->tokenCan('see_program_content_details')) {
-            $execution->trainers()->findOrFail($user->id);
+            $execution = $user->myExecutionsAsTrainer()->findOrFail($id);
         }
 
-        if (
-            $user->tokenCan('see_program_content_details')
-        ) {
+        if ($user->tokenCan('see_program_content')) {
+            $execution = $user->myExecutionsAsTrainee()->whereNull('finished')
+                ->findOrFail($id);
+        }
+
+        if ($execution === $id) {
+            $execution = Execution::query()->findOrFail($id);
+        }
+
+        if ($user->tokenCan('see_program_content_details')) {
             $execution->load([
                 'trainers',
                 'enrollments',
