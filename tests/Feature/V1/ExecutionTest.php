@@ -116,6 +116,20 @@ class ExecutionTest extends TestCase
     }
 
     /** @test */
+    public function it_shows_trainee_score_for_execution()
+    {
+        $execution = Execution::factory()->create();
+
+        $trainee = $this->sanctumActingAsTrainee();
+        $execution->enrollments()->attach($trainee);
+
+        $this->get(route('api.v1.executions.show', ['execution' => $execution->id]))
+            ->assertOk()
+            // score default value
+            ->assertJsonFragment(['score' => 0]);
+    }
+
+    /** @test */
     public function trainer_can_see_execution_trainees_and_grades()
     {
         $execution = Execution::factory()->create();
