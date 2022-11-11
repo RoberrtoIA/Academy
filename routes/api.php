@@ -1,29 +1,29 @@
 <?php
 
-use App\Http\Controllers\V1\Assignment\HomeworkFinishController;
-use App\Http\Controllers\V1\Assignment\HomeworkSolutionController;
-use App\Http\Controllers\V1\Assignment\HomeworkStartController;
-use App\Http\Controllers\V1\Assignment\InterviewFinishController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\TopicController;
 use App\Http\Controllers\V1\ModuleController;
 use App\Http\Controllers\V1\GradingController;
 use App\Http\Controllers\V1\ProgramController;
 use App\Http\Controllers\V1\QuestionController;
+use App\Http\Controllers\V1\Auth\AuthController;
 use App\Http\Controllers\V1\ExecutionController;
 use App\Http\Controllers\V1\EvaluationCriteriaController;
+use App\Http\Controllers\V1\Assignment\SaveQuestionController;
+use App\Http\Controllers\V1\Assignment\HomeworkStartController;
+use App\Http\Controllers\V1\Assignment\HomeworkFinishController;
+use App\Http\Controllers\V1\Assignment\InterviewStartController;
+use App\Http\Controllers\V1\Execution\FinishExecutionController;
+use App\Http\Controllers\V1\User\CreateTraineeAccountController;
+use App\Http\Controllers\V1\Assignment\InterviewFinishController;
 use App\Http\Controllers\V1\Execution\AssignUserModuleController;
+use App\Http\Controllers\V1\User\CreateEmployeeAccountController;
+use App\Http\Controllers\V1\Assignment\HomeworkSolutionController;
+use App\Http\Controllers\V1\Program\ProgramAssignDeveloperController;
 use App\Http\Controllers\V1\Execution\ExecutionAssignTrainerController;
 use App\Http\Controllers\V1\Execution\ExecutionEnrollTraineeController;
-use App\Http\Controllers\V1\SaveEvaluationCriteriaController;
-use App\Http\Controllers\V1\SaveQuestionController;
-use App\Http\Controllers\V1\Execution\FinishExecutionController;
-use App\Http\Controllers\V1\Program\ProgramAssignDeveloperController;
-use App\Http\Controllers\V1\User\CreateTraineeAccountController;
-use App\Http\Controllers\V1\User\CreateEmployeeAccountController;
-use App\Http\Controllers\V1\Assignment\InterviewStartController;
+use App\Http\Controllers\V1\Assignment\SaveEvaluationCriteriaController;
 
 /*
 |--------------------------------------------------------------------------
