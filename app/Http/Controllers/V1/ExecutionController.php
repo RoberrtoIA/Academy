@@ -40,7 +40,31 @@ class ExecutionController extends Controller
 
     public function show(Execution $execution)
     {
-        return new ExecutionResource($execution->load('program.modules.topics'));
+        if ($this->user->tokenCan('see_program_content_details')) {
+            $execution->trainers()->findOrFail($this->user->id);
+        }
+
+        if (
+            $this->user->tokenCan('see_program_content_details')
+        ) {
+            $execution->load([
+                'trainers',
+                'program.modules.evaluation_criteria',
+                'program.modules.topics.questions',
+            ]);
+        }
+
+        if ($this->user->tokenCan('see_program_content')) {
+            $execution->load([
+                'program.modules.topics',
+                'assignments' => function ($query) {
+                    $query->where('user_id', $this->user->id)
+                        ->with('gradings');
+                }
+            ]);
+        }
+
+        return new ExecutionResource($execution);
     }
 
     public function update(

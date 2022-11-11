@@ -62,6 +62,17 @@ class ExecutionTest extends TestCase
     }
 
     /** @test */
+    public function it_not_shows_a_trainer_not_owned_execution()
+    {
+        $execution = Execution::factory()->create();
+
+        $this->sanctumActingAsTrainer();
+
+        $this->get(route('api.v1.executions.show', ['execution' => $execution->id]))
+            ->assertNotFound();
+    }
+
+    /** @test */
     public function it_creates_a_new_execution()
     {
         $data = collect(Execution::factory()->make()->toArray())
@@ -157,7 +168,7 @@ class ExecutionTest extends TestCase
             'guest_show' => [null, 'show', ['execution' => 1], 'get', [], 401],
             'manager_show' => ['manager', 'show', ['execution' => 1], 'get', [], 200],
             'developer_show' => ['developer', 'show', ['execution' => 1], 'get', [], 403],
-            'trainer_show' => ['trainer', 'show', ['execution' => 1], 'get', [], 200],
+            'trainer_show' => ['trainer', 'show', ['execution' => 1], 'get', [], 404],
             'trainee_show' => ['trainee', 'show', ['execution' => 1], 'get', [], 200],
             'guest_store' => [null, 'store', [], 'post', [], 401],
             'manager_store' => ['manager', 'store', [], 'post', [], 422],
