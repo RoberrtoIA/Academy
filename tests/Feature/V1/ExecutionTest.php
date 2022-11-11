@@ -91,6 +91,17 @@ class ExecutionTest extends TestCase
     }
 
     /** @test */
+    public function it_not_shows_a_trainee_not_owned_execution()
+    {
+        $execution = Execution::factory()->create();
+
+        $this->sanctumActingAsTrainer();
+
+        $this->get(route('api.v1.executions.show', ['execution' => $execution->id]))
+            ->assertNotFound();
+    }
+
+    /** @test */
     public function trainer_can_see_execution_trainees_and_grades()
     {
         $execution = Execution::factory()->create();
