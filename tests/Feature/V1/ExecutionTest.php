@@ -49,6 +49,22 @@ class ExecutionTest extends TestCase
     }
 
     /** @test */
+    public function trainee_can_see_only_their_own_executions()
+    {
+        $execution = Execution::factory()->create();
+
+        $trainee = $this->sanctumActingAsTrainee();
+        $execution->enrollments()->attach($trainee);
+
+        Execution::factory()->count(2)->create();
+
+        $this->get(route('api.v1.executions.index'))
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJsonFragment(['id' => $execution->id]);
+    }
+
+    /** @test */
     public function it_shows_an_execution()
     {
         $execution = Execution::factory()->create();

@@ -14,12 +14,17 @@ class ExecutionController extends Controller
 
     public function index()
     {
+        /** @var \App\Models\User */
         $user = request()->user();
 
         $executions = Execution::query();
 
         if ($user->tokenCan('see_program_content_details')) {
             $executions = $user->myExecutionsAsTrainer();
+        }
+
+        if ($user->tokenCan('see_program_content')) {
+            $executions = $user->myExecutionsAsTrainee()->whereNull('finished');
         }
 
         return ExecutionResource::collection(
