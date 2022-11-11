@@ -2,24 +2,34 @@
 
 namespace App\Http\Controllers\V1;
 
+use App\Models\User;
 use App\Models\Program;
+use App\Services\ProgramService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProgramResource;
 use App\Http\Requests\StoreProgramRequest;
 use App\Http\Requests\UpdateProgramRequest;
-use App\Services\ProgramService;
 
 class ProgramController extends Controller
 {
+    protected ?User $user;
 
-    public function __construct(protected ProgramService $programService,)
+    public function __construct(protected ProgramService $programService)
     {
+        $this->user = request()->user();
     }
 
     public function index()
     {
-        // TODO  developer must see only its programs
-        return ProgramResource::collection(Program::all());
+        $programs = Program::query();
+
+        if ($this->user->tokenCan('add_program_content')) {
+            $programs = $this->user->myProgramsAsDeveloper()
+                ->with('modules.evaluation_criteria')
+                ->with('modules.topics.questions');
+        }
+
+        return ProgramResource::collection($programs->get());
     }
 
     public function store(StoreProgramRequest $request)
@@ -31,6 +41,9 @@ class ProgramController extends Controller
 
     public function show(Program $program)
     {
+        if ($this->user->tokenCan('add_program_content')) {
+            $program->developers()->findOrFail($this->user->id);
+        }
         // TODO developer can see all developers
         return new ProgramResource($program->load(['tags', 'modules']));
     }

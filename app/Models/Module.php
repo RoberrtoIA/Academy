@@ -22,4 +22,9 @@ class Module extends Model
     {
         return $this->hasMany(Topic::class);
     }
+
+    public function evaluation_criteria()
+    {
+        return $this->hasMany(EvaluationCriteria::class);
+    }
 }

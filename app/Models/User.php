@@ -63,8 +63,8 @@ class User extends Authenticatable
 
     public function myProgramsAsDeveloper()
     {
-        return $this->belongsToMany(Execution::class, 'developers')
-            ->as('trainer')
+        return $this->belongsToMany(Program::class, 'developers')
+            ->as('developer')
             ->withPivot('active', 'created_at')
             ->using(Developer::class);
     }
