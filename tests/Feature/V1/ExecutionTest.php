@@ -31,6 +31,22 @@ class ExecutionTest extends TestCase
     }
 
     /** @test */
+    public function trainer_can_see_only_their_own_executions()
+    {
+        $execution = Execution::factory()->create();
+
+        $trainer = $this->sanctumActingAsTrainer();
+        $execution->trainers()->attach($trainer);
+
+        Execution::factory()->count(2)->create();
+
+        $this->get(route('api.v1.executions.index'))
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJsonFragment(['id' => $execution->id]);
+    }
+
+    /** @test */
     public function it_shows_an_execution()
     {
         $execution = Execution::factory()->create();
@@ -43,6 +59,17 @@ class ExecutionTest extends TestCase
         ))
             ->assertOk()
             ->assertJsonFragment(['id' => $execution->id]);
+    }
+
+    /** @test */
+    public function it_not_shows_a_trainer_not_owned_execution()
+    {
+        $execution = Execution::factory()->create();
+
+        $this->sanctumActingAsTrainer();
+
+        $this->get(route('api.v1.executions.show', ['execution' => $execution->id]))
+            ->assertNotFound();
     }
 
     /** @test */
@@ -141,7 +168,7 @@ class ExecutionTest extends TestCase
             'guest_show' => [null, 'show', ['execution' => 1], 'get', [], 401],
             'manager_show' => ['manager', 'show', ['execution' => 1], 'get', [], 200],
             'developer_show' => ['developer', 'show', ['execution' => 1], 'get', [], 403],
-            'trainer_show' => ['trainer', 'show', ['execution' => 1], 'get', [], 200],
+            'trainer_show' => ['trainer', 'show', ['execution' => 1], 'get', [], 404],
             'trainee_show' => ['trainee', 'show', ['execution' => 1], 'get', [], 200],
             'guest_store' => [null, 'store', [], 'post', [], 401],
             'manager_store' => ['manager', 'store', [], 'post', [], 422],
