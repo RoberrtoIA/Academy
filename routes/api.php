@@ -55,8 +55,6 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ->middleware([
                 'ability:manage_programs'
                     . ',add_program_content'
-                    . ',see_program_content_details'
-                    . ',see_program_content'
             ]);
 
         Route::resource('modules', ModuleController::class)
@@ -65,11 +63,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
 
         Route::resource('modules', ModuleController::class)
             ->only(['index', 'show'])
-            ->middleware([
-                'ability:add_program_content'
-                    . ',see_program_content_details'
-                    . ',see_program_content'
-            ]);
+            ->middleware(['ability:add_program_content']);
 
         Route::resource('topics', TopicController::class)
             ->only(['store', 'update', 'destroy'])
@@ -77,11 +71,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
 
         Route::resource('topics', TopicController::class)
             ->only(['index', 'show'])
-            ->middleware([
-                'ability:add_program_content'
-                . ',see_program_content_details'
-                . ',see_program_content'
-            ]);
+            ->middleware(['ability:add_program_content']);
 
         Route::resource('questions', QuestionController::class)
             ->only(['store', 'update', 'destroy'])
@@ -89,10 +79,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
 
         Route::resource('questions', QuestionController::class)
             ->only(['index', 'show'])
-            ->middleware([
-                'ability:add_program_content'
-                    . ',see_program_content_details'
-            ]);
+            ->middleware(['ability:add_program_content']);
 
         Route::resource('evaluations', EvaluationCriteriaController::class)
             ->only(['store', 'update', 'destroy'])
@@ -100,10 +87,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
 
         Route::resource('evaluations', EvaluationCriteriaController::class)
             ->only(['index', 'show'])
-            ->middleware([
-                'ability:add_program_content'
-                    . ',see_program_content_details'
-            ]);
+            ->middleware(['ability:add_program_content']);
 
         Route::put('assignments/save-evaluation-criteria', SaveEvaluationCriteriaController::class)
             ->name('assignments.save-evaluation-criteria')
