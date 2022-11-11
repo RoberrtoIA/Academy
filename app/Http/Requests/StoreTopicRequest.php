@@ -34,7 +34,7 @@ class StoreTopicRequest extends FormRequest
             'title' => 'required|max:100',
             'description' => 'required|max:200',
             'content' => 'required|min:1',
-            'module_id' => 'required|numeric|exists:modules,id',
+            'module_id' => 'required|numeric|exists:modules,id,deleted_at,NULL',
         ];
     }
 }

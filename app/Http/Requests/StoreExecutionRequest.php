@@ -29,7 +29,7 @@ class StoreExecutionRequest extends FormRequest
     static public function baseRules()
     {
         return [
-            'program_id' => 'required|exists:programs,id',
+            'program_id' => 'required|exists:programs,id,deleted_at,NULL',
             'start_date' => 'required|date_format:Y-m-d',
             'end_date' => 'required|date_format:Y-m-d',
         ];

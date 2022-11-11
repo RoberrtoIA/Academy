@@ -33,7 +33,7 @@ class StoreModuleRequest extends FormRequest
             'description' => 'required|max:200',
             'content' => 'required|min:1',
             'homework_content' => 'required|string|max:200',
-            'program_id' => 'required|numeric',
+            'program_id' => 'required|numeric|exists:programs,id,deleted_at,NULL',
         ];
     }
 }

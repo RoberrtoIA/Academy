@@ -32,7 +32,7 @@ class StoreEvaluationCriteriaRequest extends FormRequest
         return [
             'objetive' => 'required|string',
             'grade_definitions' => 'required|string',
-            'module_id' => 'required|numeric|exists:modules,id',
+            'module_id' => 'required|numeric|exists:modules,id,deleted_at,NULL',
         ];
     }
 }

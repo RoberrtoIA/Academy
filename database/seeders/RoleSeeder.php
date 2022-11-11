@@ -39,6 +39,10 @@ class RoleSeeder extends Seeder
                     Ability::create(['name' => 'see_evaluation_criteria_content_details'])->id,
                 $see_grading_content_details =
                     Ability::create(['name' => 'see_grading_content_details'])->id,
+                $take_homework =
+                    Ability::create(['name' => 'take_homework'])->id,
+                $take_quiz =
+                    Ability::create(['name' => 'take_quiz'])->id,
             ]);
 
         Role::query()->create(['name' => 'trainer'])->abilities()
@@ -48,8 +52,10 @@ class RoleSeeder extends Seeder
                 $see_question_content_details,
                 $see_evaluation_criteria_content_details,
                 $see_grading_content_details,
-                Ability::create(['name' => 'take_homework'])->id,
-                Ability::create(['name' => 'take_quiz'])->id,
+                // Ability::create(['name' => 'take_homework'])->id,
+                $take_homework,
+                // Ability::create(['name' => 'take_quiz'])->id,
+                $take_quiz,
                 Ability::create(['name' => 'see_module_content_details'])->id,
             ]);
 
@@ -58,7 +64,7 @@ class RoleSeeder extends Seeder
                 Ability::create(['name' => 'see_program_content'])->id,
                 Ability::create(['name' => 'see_module_content'])->id,
                 Ability::create(['name' => 'see_topic_content'])->id,
-                Ability::create(['name' => 'see_question_content'])->id,
+                // Ability::create(['name' => 'see_question_content'])->id,
                 Ability::create(['name' => 'see_evaluation_criteria_content'])->id,
                 Ability::create(['name' => 'see_grading_content'])->id,
             ]);

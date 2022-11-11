@@ -112,17 +112,17 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
         Route::put('assignments/save-question', SaveQuestionController::class)
             ->middleware(['ability:take_quiz'])->name('assignments.save-question');
 
-        Route::resource('gradings', GradingController::class)
-            ->only(['destroy'])
-            ->middleware(['ability:manage_gradings']);
+        // Route::resource('gradings', GradingController::class)
+        //     ->only(['destroy'])
+        //     ->middleware(['ability:manage_gradings']);
 
-        Route::resource('gradings', GradingController::class)
-            ->only(['index', 'show'])
-            ->middleware([
-                'ability:manage_gradings'
-                    . ',see_grading_content_details'
-                    . ',see_grading_content'
-            ]);
+        // Route::resource('gradings', GradingController::class)
+        //     ->only(['index', 'show'])
+        //     ->middleware([
+        //         'ability:manage_gradings'
+        //             . ',see_grading_content_details'
+        //             . ',see_grading_content'
+        //     ]);
 
         Route::post('users/create-trainee-account', CreateTraineeAccountController::class)
             ->name('users.createTraineeAccount')

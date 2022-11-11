@@ -24,9 +24,9 @@ class AssignUserModuleRequest extends FormRequest
     public function rules()
     {
         return [
-            'execution_id' => 'required|exists:executions,id',
-            'user_id' => 'required|exists:users,id',
-            'module_id' => 'required|exists:modules,id',
+            'execution_id' => 'required|exists:executions,id,deleted_at,NULL',
+            'user_id' => 'required|exists:users,id,deleted_at,NULL',
+            'module_id' => 'required|exists:modules,id,deleted_at,NULL',
         ];
     }
 }
