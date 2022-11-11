@@ -28,7 +28,7 @@ class GradingService
         $attributes = $request->validated();
 
         Validator::make($attributes, [
-            'gradables.*.gradable_id' => '|exists:' . $gradableType . ',id',
+            'gradables.*.gradable_id' => '|exists:' . $gradableType . ',id,deleted_at,NULL',
         ])->validate();
 
         $assignmentId = $attributes['assignment_id'];
