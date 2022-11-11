@@ -18,6 +18,7 @@ class QuestionResource extends JsonResource
             'id' => $this->id,
             'topic_id' => $this->topic_id,
             'question' => $this->question,
+            'grades' => GradingResource::collection($this->whenLoaded('grades')),
             'grade_definitions' => $this->grade_definitions,
             'created_at' => $this->whenNotNull($this->created_at ?? null),
             'updated_at' => $this->whenNotNull($this->updated_at ?? null),

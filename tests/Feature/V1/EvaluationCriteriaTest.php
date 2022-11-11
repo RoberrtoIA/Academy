@@ -39,7 +39,9 @@ class EvaluationCriteriaTest extends TestCase
         $this->get(route('api.v1.evaluations.show', ['evaluation' => $evaluation->id]))
             ->assertOk()
             ->assertJsonFragment([
-                'data' => $evaluation->toArray()
+                'id' => $evaluation->id,
+                'created_at' => $evaluation->created_at,
+                'objetive' => $evaluation->objetive
             ]);
     }
 

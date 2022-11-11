@@ -27,6 +27,7 @@ class ModuleResource extends JsonResource
             'evaluation_criteria' => EvaluationCriteriaResource::collection(
                 $this->whenLoaded('evaluation_criteria')
             ),
+            'assignments' => AssignmentResource::collection($this->whenLoaded('assignments')),
             'created_at' => $this->whenNotNull($this->created_at ?? null),
             'updated_at' => $this->whenNotNull($this->updated_at ?? null),
             'deleted_at' => $this->whenNotNull($this->deleted_at ?? null),

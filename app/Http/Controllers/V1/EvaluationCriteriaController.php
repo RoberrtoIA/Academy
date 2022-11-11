@@ -26,7 +26,7 @@ class EvaluationCriteriaController extends Controller
 
     public function show(EvaluationCriteria $evaluation)
     {
-        return new EvaluationCriteriaResource($evaluation->load('module'));
+        return new EvaluationCriteriaResource($evaluation->load(['module', 'grades']));
     }
 
     public function update(EvaluationCriteria $evaluation, UpdateEvaluationCriteriaRequest $request)
