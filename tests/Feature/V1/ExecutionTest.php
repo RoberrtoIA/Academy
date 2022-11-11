@@ -49,6 +49,22 @@ class ExecutionTest extends TestCase
     }
 
     /** @test */
+    public function trainee_can_see_only_their_own_executions()
+    {
+        $execution = Execution::factory()->create();
+
+        $trainee = $this->sanctumActingAsTrainee();
+        $execution->enrollments()->attach($trainee);
+
+        Execution::factory()->count(2)->create();
+
+        $this->get(route('api.v1.executions.index'))
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJsonFragment(['id' => $execution->id]);
+    }
+
+    /** @test */
     public function it_shows_an_execution()
     {
         $execution = Execution::factory()->create();
@@ -72,6 +88,45 @@ class ExecutionTest extends TestCase
 
         $this->get(route('api.v1.executions.show', ['execution' => $execution->id]))
             ->assertNotFound();
+    }
+
+    /** @test */
+    public function it_not_shows_a_trainee_not_owned_execution()
+    {
+        $execution = Execution::factory()->create();
+
+        $this->sanctumActingAsTrainee();
+
+        $this->get(route('api.v1.executions.show', ['execution' => $execution->id]))
+            ->assertNotFound();
+    }
+
+    /** @test */
+    public function it_not_shows_a_trainee_finished_execution()
+    {
+        $execution = Execution::factory()->create([
+            'finished' => now(),
+        ]);
+
+        $trainee = $this->sanctumActingAsTrainee();
+        $execution->enrollments()->attach($trainee);
+
+        $this->get(route('api.v1.executions.show', ['execution' => $execution->id]))
+            ->assertNotFound();
+    }
+
+    /** @test */
+    public function it_shows_trainee_score_for_execution()
+    {
+        $execution = Execution::factory()->create();
+
+        $trainee = $this->sanctumActingAsTrainee();
+        $execution->enrollments()->attach($trainee);
+
+        $this->get(route('api.v1.executions.show', ['execution' => $execution->id]))
+            ->assertOk()
+            // score default value
+            ->assertJsonFragment(['score' => 0]);
     }
 
     /** @test */
@@ -195,7 +250,7 @@ class ExecutionTest extends TestCase
             'manager_show' => ['manager', 'show', ['execution' => 1], 'get', [], 200],
             'developer_show' => ['developer', 'show', ['execution' => 1], 'get', [], 403],
             'trainer_show' => ['trainer', 'show', ['execution' => 1], 'get', [], 404],
-            'trainee_show' => ['trainee', 'show', ['execution' => 1], 'get', [], 200],
+            'trainee_show' => ['trainee', 'show', ['execution' => 1], 'get', [], 404],
             'guest_store' => [null, 'store', [], 'post', [], 401],
             'manager_store' => ['manager', 'store', [], 'post', [], 422],
             'developer_store' => ['developer', 'store', [], 'post', [], 403],
