@@ -3,11 +3,10 @@
 namespace App\Events;
 
 use App\Models\Assignment;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-
-class HomeworkStarted
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+class InterviewFinished
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
