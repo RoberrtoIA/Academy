@@ -8,22 +8,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ExecutionResource;
 use App\Http\Requests\StoreExecutionRequest;
 use App\Http\Requests\UpdateExecutionRequest;
-use App\Models\User;
 
 class ExecutionController extends Controller
 {
-    protected ?User $user;
-
-    public function __construct() {
-        $this->user = request()->user();
-    }
 
     public function index()
     {
+        $user = request()->user();
+
         $executions = Execution::query();
 
-        if ($this->user->tokenCan('see_program_content_details')) {
-            $executions = $this->user->myExecutionsAsTrainer();
+        if ($user->tokenCan('see_program_content_details')) {
+            $executions = $user->myExecutionsAsTrainer();
         }
 
         return ExecutionResource::collection(
@@ -40,12 +36,14 @@ class ExecutionController extends Controller
 
     public function show(Execution $execution)
     {
-        if ($this->user->tokenCan('see_program_content_details')) {
-            $execution->trainers()->findOrFail($this->user->id);
+        $user = request()->user();
+
+        if ($user->tokenCan('see_program_content_details')) {
+            $execution->trainers()->findOrFail($user->id);
         }
 
         if (
-            $this->user->tokenCan('see_program_content_details')
+            $user->tokenCan('see_program_content_details')
         ) {
             $execution->load([
                 'trainers',
@@ -54,11 +52,11 @@ class ExecutionController extends Controller
             ]);
         }
 
-        if ($this->user->tokenCan('see_program_content')) {
+        if ($user->tokenCan('see_program_content')) {
             $execution->load([
                 'program.modules.topics',
-                'assignments' => function ($query) {
-                    $query->where('user_id', $this->user->id)
+                'assignments' => function ($query) use ($user) {
+                    $query->where('user_id', $user->id)
                         ->with('gradings');
                 }
             ]);

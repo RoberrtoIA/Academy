@@ -12,19 +12,18 @@ use App\Http\Requests\UpdateProgramRequest;
 
 class ProgramController extends Controller
 {
-    protected ?User $user;
-
     public function __construct(protected ProgramService $programService)
     {
-        $this->user = request()->user();
     }
 
     public function index()
     {
+        $user = request()->user();
+
         $programs = Program::query();
 
-        if ($this->user->tokenCan('add_program_content')) {
-            $programs = $this->user->myProgramsAsDeveloper()
+        if ($user->tokenCan('add_program_content')) {
+            $programs = $user->myProgramsAsDeveloper()
                 ->with('modules.evaluation_criteria')
                 ->with('modules.topics.questions');
         }
@@ -41,13 +40,15 @@ class ProgramController extends Controller
 
     public function show(Program $program)
     {
-        if ($this->user->tokenCan('add_program_content')) {
-            $program->developers()->findOrFail($this->user->id);
+        $user = request()->user();
+
+        if ($user->tokenCan('add_program_content')) {
+            $program->developers()->findOrFail($user->id);
         }
 
         if (
-            $this->user->tokenCan('add_program_content')
-            or $this->user->tokenCan('add_program_content')
+            $user->tokenCan('add_program_content')
+            or $user->tokenCan('add_program_content')
         ) {
             $program->load('developers');
         }
