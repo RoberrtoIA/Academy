@@ -3,29 +3,14 @@
 namespace App\Listeners;
 
 use App\Events\HomeworkFinished;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Services\HomeworkService;
+// use Illuminate\Contracts\Queue\ShouldQueue;
+// use Illuminate\Queue\InteractsWithQueue;
 
 class UpdateHomeworkGrade
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function handle(HomeworkFinished $event, HomeworkService $service)
     {
-        //
-    }
-
-    /**
-     * Handle the event.
-     *
-     * @param  \App\Events\HomeworkFinished  $event
-     * @return void
-     */
-    public function handle(HomeworkFinished $event)
-    {
-        //
+        $service->updateGrade($event->assignment);
     }
 }

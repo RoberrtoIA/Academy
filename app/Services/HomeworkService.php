@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
-use App\Events\HomeworkStarted;
-use App\Http\Requests\HomeworkSolutionRequest;
-use App\Http\Resources\ModuleResource;
-use App\Models\Assignment;
+use App\Events\GradeUpdated;
 use Carbon\Carbon;
+use App\Models\Assignment;
+use App\Events\HomeworkStarted;
+use App\Events\HomeworkFinished;
+use App\Http\Resources\ModuleResource;
+use App\Http\Requests\HomeworkSolutionRequest;
 
 class HomeworkService
 {
@@ -48,6 +50,21 @@ class HomeworkService
         ))
             ->resolve();
         $assignment->save();
+        return $assignment;
+    }
+
+    public function updateGrade(Assignment $assignment)
+    {
+        $gradings = $assignment->homeworkGradings;
+        $assignment->homework_grade = count($gradings)
+            ? $gradings->reduce(function ($carry, $item) {
+                return $carry + $item->grade;
+            }, 0) / count($gradings)
+            : 0;
+        $assignment->save();
+
+        GradeUpdated::dispatch($assignment);
+
         return $assignment;
     }
 }
