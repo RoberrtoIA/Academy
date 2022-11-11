@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Events\HomeworkStarted;
 use App\Http\Requests\HomeworkSolutionRequest;
+use App\Http\Resources\ModuleResource;
 use App\Models\Assignment;
 use Carbon\Carbon;
 
@@ -35,6 +36,16 @@ class HomeworkService
 
         $assignment->save();
 
+        return $assignment;
+    }
+
+    public function takeSnapshot(Assignment $assignment)
+    {
+        $assignment->homework_snapshot = (new ModuleResource(
+            $assignment->module()->with('evaluation_criteria')->first()
+        ))
+            ->resolve();
+        $assignment->save();
         return $assignment;
     }
 }
