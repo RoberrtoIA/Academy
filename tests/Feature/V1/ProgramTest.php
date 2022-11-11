@@ -61,6 +61,17 @@ class ProgramTest extends TestCase
     }
 
     /** @test */
+    public function it_not_shows_a_developer_not_owned_program()
+    {
+        $program = Program::factory()->create();
+
+        $this->sanctumActingAsDeveloper();
+
+        $this->get(route('api.v1.programs.show', ['program' => $program->id]))
+            ->assertNotFound();
+    }
+
+    /** @test */
     public function it_creates_a_new_program()
     {
         $data = Program::factory()->make()->toArray();
