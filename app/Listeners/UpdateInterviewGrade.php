@@ -3,29 +3,14 @@
 namespace App\Listeners;
 
 use App\Events\InterviewFinished;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Services\InterviewService;
+// use Illuminate\Contracts\Queue\ShouldQueue;
+// use Illuminate\Queue\InteractsWithQueue;
 
 class UpdateInterviewGrade
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function handle(InterviewFinished $event, InterviewService $service)
     {
-        //
-    }
-
-    /**
-     * Handle the event.
-     *
-     * @param  \App\Events\InterviewFinished  $event
-     * @return void
-     */
-    public function handle(InterviewFinished $event)
-    {
-        //
+        $service->updateGrade($event->assignment);
     }
 }

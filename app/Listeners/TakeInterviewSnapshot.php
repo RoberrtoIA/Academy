@@ -4,8 +4,8 @@ namespace App\Listeners;
 
 use App\Events\InterviewStarted;
 use App\Services\InterviewService;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+// use Illuminate\Contracts\Queue\ShouldQueue;
+// use Illuminate\Queue\InteractsWithQueue;
 
 class TakeInterviewSnapshot
 {
