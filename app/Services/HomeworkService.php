@@ -25,6 +25,8 @@ class HomeworkService
         $assignment->homework_finish_at = Carbon::now()->toDateTimeString();;
         $assignment->save();
 
+        HomeworkFinished::dispatch($assignment);
+
         return $assignment;
     }
 
