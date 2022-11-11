@@ -72,6 +72,19 @@ class ProgramTest extends TestCase
     }
 
     /** @test */
+    public function developer_can_see_all_program_developers()
+    {
+        $program = Program::factory()->create();
+        $developer = $this->sanctumActingAsDeveloper();
+        $anotherDev = $this->newUser(roles: ['developer']);
+        $program->developers()->sync([$developer->id, $anotherDev->id]);
+
+        $this->get(route('api.v1.programs.show', ['program' => $program->id]))
+            ->assertOk()
+            ->assertJsonCount(2, 'data.developers');
+    }
+
+    /** @test */
     public function it_creates_a_new_program()
     {
         $data = Program::factory()->make()->toArray();

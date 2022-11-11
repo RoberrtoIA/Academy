@@ -44,8 +44,15 @@ class ProgramController extends Controller
         if ($this->user->tokenCan('add_program_content')) {
             $program->developers()->findOrFail($this->user->id);
         }
-        // TODO developer can see all developers
-        return new ProgramResource($program->load(['tags', 'modules']));
+
+        if (
+            $this->user->tokenCan('add_program_content')
+            or $this->user->tokenCan('add_program_content')
+        ) {
+            $program->load('developers');
+        }
+
+        return new ProgramResource($program->load(['tags', 'modules.topics']));
     }
 
     public function update(Program $program, UpdateProgramRequest $request)
