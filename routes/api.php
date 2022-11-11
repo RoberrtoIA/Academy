@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExportTraineeProgressController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\TopicController;
@@ -45,6 +46,10 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
         ->name('social.login');
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
+
+        Route::get('report/{id}', ExportTraineeProgressController::class)
+        ->middleware(['ability:see_program_content_details'])
+        ->name('report');
 
         Route::resource('programs', ProgramController::class)
             ->only(['store', 'update', 'destroy'])

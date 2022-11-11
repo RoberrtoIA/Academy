@@ -1,8 +1,4 @@
-Developer:
 
-See all programs I have access to see
-Save Question ?? Puede tanto el como el trainer
-Save Evaluation ?? Puede tanto el como el trainer
 
 Trainer:
 I want to see the executions I am part of
@@ -23,3 +19,18 @@ See my grades for each module and a total average
 See details on how my grade has been computed
 See details on what the trainer had to say for each question
 Have access to add a retrospective for my week's performance
+
+{url()}}
+
+program, assignment.modules, user.execution.enrollments
+
+Execution::findOrfail($id)->with(['assignments.user.myExecutionsAsTrainee' => function ($query) use ($execution) {
+            $query->where('id', $execution->id);
+        }])
+    }
+ReportTraineesProgressService
+
+
+trainee id 5, 6, 7
+
+execution id 1
