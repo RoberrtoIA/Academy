@@ -8,13 +8,26 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ExecutionResource;
 use App\Http\Requests\StoreExecutionRequest;
 use App\Http\Requests\UpdateExecutionRequest;
+use App\Models\User;
 
 class ExecutionController extends Controller
 {
+    protected ?User $user;
+
+    public function __construct() {
+        $this->user = request()->user();
+    }
+
     public function index()
     {
+        $executions = Execution::query();
+
+        if ($this->user->tokenCan('see_program_content_details')) {
+            $executions = $this->user->myExecutionsAsTrainer();
+        }
+
         return ExecutionResource::collection(
-            Execution::with('program')->paginate(100)
+            $executions->with('program')->paginate(100)
         );
     }
 
