@@ -95,7 +95,21 @@ class ExecutionTest extends TestCase
     {
         $execution = Execution::factory()->create();
 
-        $this->sanctumActingAsTrainer();
+        $this->sanctumActingAsTrainee();
+
+        $this->get(route('api.v1.executions.show', ['execution' => $execution->id]))
+            ->assertNotFound();
+    }
+
+    /** @test */
+    public function it_not_shows_a_trainee_finished_execution()
+    {
+        $execution = Execution::factory()->create([
+            'finished' => now(),
+        ]);
+
+        $trainee = $this->sanctumActingAsTrainee();
+        $execution->enrollments()->attach($trainee);
 
         $this->get(route('api.v1.executions.show', ['execution' => $execution->id]))
             ->assertNotFound();
@@ -222,7 +236,7 @@ class ExecutionTest extends TestCase
             'manager_show' => ['manager', 'show', ['execution' => 1], 'get', [], 200],
             'developer_show' => ['developer', 'show', ['execution' => 1], 'get', [], 403],
             'trainer_show' => ['trainer', 'show', ['execution' => 1], 'get', [], 404],
-            'trainee_show' => ['trainee', 'show', ['execution' => 1], 'get', [], 200],
+            'trainee_show' => ['trainee', 'show', ['execution' => 1], 'get', [], 404],
             'guest_store' => [null, 'store', [], 'post', [], 401],
             'manager_store' => ['manager', 'store', [], 'post', [], 422],
             'developer_store' => ['developer', 'store', [], 'post', [], 403],

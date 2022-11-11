@@ -50,7 +50,12 @@ class ExecutionController extends Controller
         }
 
         if ($user->tokenCan('see_program_content')) {
-            $execution = $user->myExecutionsAsTrainee()->findOrFail($id);
+            $execution = $user->myExecutionsAsTrainee()->whereNull('finished')
+                ->findOrFail($id);
+        }
+
+        if ($execution === $id) {
+            $execution = Execution::query()->findOrFail($id);
         }
 
         if ($user->tokenCan('see_program_content_details')) {
