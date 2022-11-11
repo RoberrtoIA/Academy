@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Assignment extends Model
 {
@@ -22,6 +22,16 @@ class Assignment extends Model
 
     public function gradings() {
         return $this->hasMany(Grading::class);
+    }
+
+    public function homeworkGradings() {
+        return $this->hasMany(Grading::class)
+            ->where('gradable_type', EvaluationCriteria::class);
+    }
+
+    public function interviewGradings() {
+        return $this->hasMany(Grading::class)
+            ->where('gradable_type', Question::class);
     }
 
     public function module() {
