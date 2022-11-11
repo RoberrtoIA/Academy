@@ -17,6 +17,7 @@ class AssignmentResource extends JsonResource
         return collect(parent::toArray($request))->merge([
             'user' => new UserResource($this->whenLoaded('user')),
             'module' => new ModuleResource($this->whenLoaded('module')),
+            'gradings' => GradingResource::collection($this->whenLoaded('gradings')),
         ])->all();
     }
 }
