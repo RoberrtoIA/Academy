@@ -2,9 +2,7 @@
 
 namespace Tests\Feature\V1;
 
-use App\Models\Module;
 use App\Models\Program;
-use App\Models\Tag;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 

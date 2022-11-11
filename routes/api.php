@@ -54,74 +54,74 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
             ->only(['index', 'show'])
             ->middleware([
                 'ability:manage_programs'
+                    . ',add_program_content'
                     . ',see_program_content_details'
                     . ',see_program_content'
             ]);
 
         Route::resource('modules', ModuleController::class)
             ->only(['store', 'update', 'destroy'])
-            ->middleware(['ability:manage_modules']);
+            ->middleware(['ability:add_program_content']);
 
         Route::resource('modules', ModuleController::class)
             ->only(['index', 'show'])
             ->middleware([
-                'ability:manage_modules'
-                    . ',see_module_content_details'
-                    . ',see_module_content'
+                'ability:add_program_content'
+                    . ',see_program_content_details'
+                    . ',see_program_content'
             ]);
 
         Route::resource('topics', TopicController::class)
-            ->except(['index', 'show'])
-            ->middleware(['ability:manage_topics']);
+            ->only(['store', 'update', 'destroy'])
+            ->middleware(['ability:add_program_content']);
 
         Route::resource('topics', TopicController::class)
             ->only(['index', 'show'])
             ->middleware([
-                'ability:manage_topics'
-                    . ',see_topic_content_details'
-                    . ',see_topic_content'
+                'ability:add_program_content'
+                . ',see_program_content_details'
+                . ',see_program_content'
             ]);
 
         Route::resource('questions', QuestionController::class)
-            ->except(['index', 'show'])
-            ->middleware(['ability:manage_questions']);
+            ->only(['store', 'update', 'destroy'])
+            ->middleware(['ability:add_program_content']);
 
         Route::resource('questions', QuestionController::class)
             ->only(['index', 'show'])
             ->middleware([
-                'ability:manage_questions'
-                    . ',see_question_content_details'
-                    . ',see_question_content'
+                'ability:add_program_content'
+                    . ',see_program_content_details'
             ]);
 
         Route::resource('evaluations', EvaluationCriteriaController::class)
-            ->except(['index', 'show'])
-            ->middleware(['ability:manage_evaluation_criterias']);
+            ->only(['store', 'update', 'destroy'])
+            ->middleware(['ability:add_program_content']);
 
         Route::resource('evaluations', EvaluationCriteriaController::class)
             ->only(['index', 'show'])
             ->middleware([
-                'ability:manage_evaluation_criterias'
-                    . ',see_evaluation_criteria_content_details'
-                    . ',see_evaluation_criteria_content'
+                'ability:add_program_content'
+                    . ',see_program_content_details'
             ]);
 
         Route::put('assignments/save-evaluation-criteria', SaveEvaluationCriteriaController::class)
-            ->middleware(['ability:take_homework'])->name('assignments.save-evaluation-criteria');
+            ->name('assignments.save-evaluation-criteria')
+            ->middleware(['ability:take_homework']);
 
         Route::put('assignments/save-question', SaveQuestionController::class)
-            ->middleware(['ability:take_quiz'])->name('assignments.save-question');
+            ->name('assignments.save-question')
+            ->middleware(['ability:take_quiz']);
 
         Route::resource('gradings', GradingController::class)
             ->only(['destroy'])
-            ->middleware(['ability:manage_gradings']);
+            ->middleware(['ability:manage_executions']);
 
         Route::resource('gradings', GradingController::class)
             ->only(['index', 'show'])
             ->middleware([
-                'ability:manage_gradings'
-                    . ',see_grading_content_details'
-                    . ',see_grading_content'
+                'ability:,see_program_content_details'
+                    . ',see_program_content'
             ]);
 
         Route::post('users/create-trainee-account', CreateTraineeAccountController::class)
