@@ -26,7 +26,7 @@ class ModuleController extends Controller
 
     public function show(Module $module)
     {
-        return new ModuleResource($module->load(['topics', 'program']));
+        return new ModuleResource($module->load(['topics.questions.grades', 'evaluation_criteria.grades', 'program', 'assignments']));
     }
 
     public function update(Module $module, UpdateModuleRequest $request)

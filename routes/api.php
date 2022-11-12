@@ -68,7 +68,7 @@ Route::name('api.v1.')->prefix('v1')->group(function () {
 
         Route::resource('modules', ModuleController::class)
             ->only(['index', 'show'])
-            ->middleware(['ability:add_program_content']);
+            ->middleware(['ability:add_program_content,see_program_content_details']);
 
         Route::resource('topics', TopicController::class)
             ->only(['store', 'update', 'destroy'])

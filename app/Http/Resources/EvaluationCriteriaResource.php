@@ -19,6 +19,7 @@ class EvaluationCriteriaResource extends JsonResource
             'module_id' => $this->module_id,
             'objetive' => $this->objetive,
             'grade_definitions' => $this->grade_definitions,
+            'grades' => GradingResource::collection($this->whenLoaded('grades')),
             'created_at' => $this->whenNotNull($this->created_at ?? null),
             'updated_at' => $this->whenNotNull($this->updated_at ?? null),
             'deleted_at' => $this->whenNotNull($this->deleted_at ?? null),

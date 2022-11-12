@@ -6,6 +6,7 @@ use App\Models\Assignment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Event;
 
 class AssignmentTest extends TestCase
 {
@@ -16,6 +17,7 @@ class AssignmentTest extends TestCase
     {
         parent::setUp();
         $this->seed();
+        Event::fake();
     }
 
     /** @test */
