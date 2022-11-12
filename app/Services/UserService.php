@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\User;
+use App\Models\Assignment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -41,5 +42,25 @@ class UserService
         });
 
         return $user;
+    }
+
+    public function updateScore(Assignment $assignment)
+    {
+        $execution = $assignment->execution;
+        $assignments = $execution->assignments()->where('user_id', $assignment->user_id)->get();
+        $averange = 0;
+        $cont = 0;
+        foreach ($assignments as $item) {
+            $averange = $averange + $item->interview_grade;
+            $averange = $averange + $item->homework_grade;
+            $cont += 2;
+        }
+        $averange = $averange / $cont;
+
+        $execution->enrollments()->updateExistingPivot($assignment->user_id, [
+            'score' => $averange
+        ]);
+
+        return $execution;
     }
 }
