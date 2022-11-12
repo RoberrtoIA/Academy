@@ -62,8 +62,8 @@ class ExecutionController extends Controller
             $execution->load([
                 'trainers',
                 'enrollments',
-                'program.modules.evaluation_criteria',
-                'program.modules.topics.questions',
+                'program.modules.evaluation_criteria.grades',
+                'program.modules.topics',
                 'assignments.gradings'
             ]);
         }

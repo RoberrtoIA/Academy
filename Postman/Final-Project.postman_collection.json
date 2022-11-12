@@ -10,37 +10,16 @@
 			"name": "Manager",
 			"item": [
 				{
-					"name": "Create a new execution",
+					"name": "See all executions",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Accept",
 								"value": "application/json",
-								"type": "text",
-								"disabled": true
+								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "program_id",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "start_date",
-									"value": "2022-10-11",
-									"type": "text"
-								},
-								{
-									"key": "end_date",
-									"value": "2022-12-12",
-									"type": "text"
-								}
-							]
-						},
 						"url": {
 							"raw": "{{API_URL}}executions",
 							"host": [
@@ -51,14 +30,14 @@
 					"response": []
 				},
 				{
-					"name": "See all executions",
+					"name": "See all programs",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}executions",
+							"raw": "{{API_URL}}programs",
 							"host": [
-								"{{API_URL}}executions"
+								"{{API_URL}}programs"
 							]
 						}
 					},
@@ -110,20 +89,6 @@
 					"response": []
 				},
 				{
-					"name": "See all programs",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}programs",
-							"host": [
-								"{{API_URL}}programs"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Create Employees",
 					"request": {
 						"method": "POST",
@@ -144,7 +109,7 @@
 								},
 								{
 									"key": "email",
-									"value": "example44d@gmail.com",
+									"value": "developer2@gmail.com",
 									"type": "text"
 								},
 								{
@@ -154,7 +119,7 @@
 								},
 								{
 									"key": "roles[]",
-									"value": "traineex",
+									"value": "developer",
 									"type": "text"
 								},
 								{
@@ -193,12 +158,12 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Ejemplo",
+									"value": "Trainee4",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "example22@gmail.com",
+									"value": "trainee4@gmail.com",
 									"type": "text"
 								},
 								{
@@ -256,19 +221,23 @@
 					"request": {
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Juanjo",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": "{{API_URL}}users/5?name=Changed",
+							"raw": "{{API_URL}}users/9",
 							"host": [
 								"{{API_URL}}users"
 							],
 							"path": [
-								"5"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": "Changed"
-								}
+								"9"
 							]
 						}
 					},
@@ -280,12 +249,159 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}users/5",
+							"raw": "{{API_URL}}users/9",
 							"host": [
 								"{{API_URL}}users"
 							],
 							"path": [
-								"5"
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new execution",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "program_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "start_date",
+									"value": "2022-10-11",
+									"type": "text"
+								},
+								{
+									"key": "end_date",
+									"value": "2022-12-12",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}executions",
+							"host": [
+								"{{API_URL}}executions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign execution",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "execution_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "module_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "7",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}executions/assign-trainee-module",
+							"host": [
+								"{{API_URL}}executions"
+							],
+							"path": [
+								"assign-trainee-module"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enroll Trainee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}executions/1/enroll-trainee/4",
+							"host": [
+								"{{API_URL}}executions"
+							],
+							"path": [
+								"1",
+								"enroll-trainee",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Developer to Program",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}programs/1/assign-developer/10",
+							"host": [
+								"{{API_URL}}programs"
+							],
+							"path": [
+								"1",
+								"assign-developer",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Trainer to Execution",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}executions/1/assign-trainer/3",
+							"host": [
+								"{{API_URL}}executions"
+							],
+							"path": [
+								"1",
+								"assign-trainer",
+								"3"
 							]
 						}
 					},
@@ -300,7 +416,13 @@
 					"name": "See all own programs",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{API_URL}}programs",
 							"host": [
@@ -314,7 +436,13 @@
 					"name": "Modules Index",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{API_URL}}modules",
 							"host": [
@@ -328,14 +456,20 @@
 					"name": "Modules Show",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{API_URL}}modules/5",
+							"raw": "{{API_URL}}modules/1",
 							"host": [
 								"{{API_URL}}modules"
 							],
 							"path": [
-								"5"
+								"1"
 							]
 						}
 					},
@@ -357,7 +491,7 @@
 							"urlencoded": [
 								{
 									"key": "program_id",
-									"value": "100",
+									"value": "1",
 									"type": "text"
 								},
 								{
@@ -395,7 +529,13 @@
 					"name": "Modules Update",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
@@ -416,18 +556,18 @@
 								},
 								{
 									"key": "program_id",
-									"value": "4",
+									"value": "1",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{API_URL}}modules/6",
+							"raw": "{{API_URL}}modules/10",
 							"host": [
 								"{{API_URL}}modules"
 							],
 							"path": [
-								"6"
+								"10"
 							]
 						}
 					},
@@ -468,7 +608,13 @@
 					"name": "Topics Show",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{API_URL}}topics/4",
 							"host": [
@@ -621,12 +767,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}questions/10",
+							"raw": "{{API_URL}}questions/19",
 							"host": [
 								"{{API_URL}}questions"
 							],
 							"path": [
-								"10"
+								"19"
 							]
 						}
 					},
@@ -648,7 +794,7 @@
 							"urlencoded": [
 								{
 									"key": "topic_id",
-									"value": "29",
+									"value": "27",
 									"type": "text"
 								},
 								{
@@ -688,7 +834,7 @@
 							"urlencoded": [
 								{
 									"key": "topic_id",
-									"value": "28",
+									"value": "27",
 									"type": "text"
 								},
 								{
@@ -731,12 +877,12 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{API_URL}}questions/10",
+							"raw": "{{API_URL}}questions/20",
 							"host": [
 								"{{API_URL}}questions"
 							],
 							"path": [
-								"10"
+								"20"
 							]
 						}
 					},
@@ -835,23 +981,23 @@
 								{
 									"key": "objetive",
 									"value": "To reach the..",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								},
 								{
 									"key": "grade_definitions",
 									"value": "fdsfsdfsdf",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
 						"url": {
-							"raw": "{{API_URL}}evaluations/3",
+							"raw": "{{API_URL}}evaluations/92",
 							"host": [
 								"{{API_URL}}evaluations"
 							],
 							"path": [
-								"3"
+								"92"
 							]
 						}
 					},
@@ -890,17 +1036,22 @@
 							]
 						},
 						"url": {
-							"raw": "{{API_URL}}evaluations/3",
+							"raw": "{{API_URL}}evaluations/92",
 							"host": [
 								"{{API_URL}}evaluations"
 							],
 							"path": [
-								"3"
+								"92"
 							]
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Trainer",
+			"item": [
 				{
 					"name": "Save Evaluation Criteria",
 					"request": {
@@ -913,19 +1064,13 @@
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "assignment_id",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "gradables[programs[questions[comments]]]",
-									"value": "12",
-									"type": "text"
+							"mode": "raw",
+							"raw": "{\r\n    \"assignment_id\": 1,\r\n    \"gradables\": [\r\n        {\"gradable_id\" : 1, \"comments\" : \"Example 1\", \"grade\" : 9.5},\r\n        {\"gradable_id\" : 2, \"comments\" : \"Example 2\", \"grade\" : 8.5}\r\n    ] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
 							"raw": "{{API_URL}}assignments/save-evaluation-criteria",
@@ -940,7 +1085,7 @@
 					"response": []
 				},
 				{
-					"name": "Save Question",
+					"name": "Save Questions",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -951,19 +1096,13 @@
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "assignment_id",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "gradables[]",
-									"value": "2",
-									"type": "text"
+							"mode": "raw",
+							"raw": "{\r\n    \"assignment_id\": 1,\r\n    \"gradables\": [\r\n        {\"gradable_id\" : 3, \"comments\" : \"Example 1\", \"grade\" : 9.5},\r\n        {\"gradable_id\" : 4, \"comments\" : \"Example 2\", \"grade\" : 8.5}\r\n    ] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
 							"raw": "{{API_URL}}assignments/save-question",
@@ -976,12 +1115,7 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Trainer",
-			"item": [
+				},
 				{
 					"name": "Executions Index",
 					"protocolProfileBehavior": {
@@ -1062,6 +1196,29 @@
 					"response": []
 				},
 				{
+					"name": "Report Csv/{execution_id}",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}report/1",
+							"host": [
+								"{{API_URL}}report"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Modules Show",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -1108,6 +1265,23 @@
 			"name": "Trainee",
 			"item": [
 				{
+					"name": "Execution show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}executions/1",
+							"host": [
+								"{{API_URL}}executions"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Topics Show",
 					"request": {
 						"method": "GET",
@@ -1128,14 +1302,17 @@
 					"name": "Programs Show",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{API_URL}}programs/1",
+							"raw": "{{API_URL}}programs",
 							"host": [
 								"{{API_URL}}programs"
-							],
-							"path": [
-								"1"
 							]
 						}
 					},
@@ -1145,7 +1322,13 @@
 					"name": "Topics Show",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{API_URL}}topics/4",
 							"host": [
@@ -1269,23 +1452,6 @@
 		{
 			"name": "Others",
 			"item": [
-				{
-					"name": "Execution show",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}executions/4",
-							"host": [
-								"{{API_URL}}executions"
-							],
-							"path": [
-								"4"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "executions/1",
 					"request": {
