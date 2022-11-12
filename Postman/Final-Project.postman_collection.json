@@ -1,0 +1,1705 @@
+{
+	"info": {
+		"_postman_id": "55bf3bc3-dbbb-43ef-bc21-cdb0d5929c7b",
+		"name": "Final-Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20773572"
+	},
+	"item": [
+		{
+			"name": "Manager",
+			"item": [
+				{
+					"name": "Create a new execution",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "program_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "start_date",
+									"value": "2022-10-11",
+									"type": "text"
+								},
+								{
+									"key": "end_date",
+									"value": "2022-12-12",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}executions",
+							"host": [
+								"{{API_URL}}executions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "See all executions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}executions",
+							"host": [
+								"{{API_URL}}executions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new program",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Program1 Title",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Title Program 1",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "LaLiLuLeLo",
+									"type": "text"
+								},
+								{
+									"key": "tags",
+									"value": "ejemplo1gdfg,holsfds,gjdpfog",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}programs",
+							"host": [
+								"{{API_URL}}programs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "See all programs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}programs",
+							"host": [
+								"{{API_URL}}programs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Employees",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Ejemplo",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "example44d@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "roles[]",
+									"value": "traineex",
+									"type": "text"
+								},
+								{
+									"key": "roles[]",
+									"value": "trainer",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}users/create-employee-account",
+							"host": [
+								"{{API_URL}}users"
+							],
+							"path": [
+								"create-employee-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Trainees",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Ejemplo",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "example22@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}users/create-trainee-account",
+							"host": [
+								"{{API_URL}}users"
+							],
+							"path": [
+								"create-trainee-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}users",
+							"host": [
+								"{{API_URL}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}users/5",
+							"host": [
+								"{{API_URL}}users"
+							],
+							"path": [
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users Patch",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}users/5?name=Changed",
+							"host": [
+								"{{API_URL}}users"
+							],
+							"path": [
+								"5"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Changed"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users Destroy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}users/5",
+							"host": [
+								"{{API_URL}}users"
+							],
+							"path": [
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Developer",
+			"item": [
+				{
+					"name": "See all own programs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}programs",
+							"host": [
+								"{{API_URL}}programs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modules Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}modules",
+							"host": [
+								"{{API_URL}}modules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modules Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}modules/5",
+							"host": [
+								"{{API_URL}}modules"
+							],
+							"path": [
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modules Store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "program_id",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Module title",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Module description",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Module content",
+									"type": "text"
+								},
+								{
+									"key": "homework_content",
+									"value": "fsdfsdf",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}modules",
+							"host": [
+								"{{API_URL}}modules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modules Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Title edited",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Description edited",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Lorem edited",
+									"type": "text"
+								},
+								{
+									"key": "program_id",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}modules/6",
+							"host": [
+								"{{API_URL}}modules"
+							],
+							"path": [
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modules Destroy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}modules/10",
+							"host": [
+								"{{API_URL}}modules"
+							],
+							"path": [
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Topics Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}topics",
+							"host": [
+								"{{API_URL}}topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Topics Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}topics/4",
+							"host": [
+								"{{API_URL}}topics"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Topics Store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "module_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Lorem",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "fdsa",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "dfsaf",
+									"type": "text"
+								},
+								{
+									"key": "index",
+									"value": "1222",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}topics",
+							"host": [
+								"{{API_URL}}topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Topics Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Title edited",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "edite",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "content",
+									"type": "text"
+								},
+								{
+									"key": "module_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "index",
+									"value": "30000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}topics/28",
+							"host": [
+								"{{API_URL}}topics"
+							],
+							"path": [
+								"28"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Topics Destroy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}topics/28",
+							"host": [
+								"{{API_URL}}topics"
+							],
+							"path": [
+								"28"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Questions Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}questions",
+							"host": [
+								"{{API_URL}}questions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Questions Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}questions/10",
+							"host": [
+								"{{API_URL}}questions"
+							],
+							"path": [
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Questions Store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "topic_id",
+									"value": "29",
+									"type": "text"
+								},
+								{
+									"key": "question",
+									"value": "Is it?",
+									"type": "text"
+								},
+								{
+									"key": "grade_definitions",
+									"value": "10 points if It gets a good knowledge....",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}questions",
+							"host": [
+								"{{API_URL}}questions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Questions Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "topic_id",
+									"value": "28",
+									"type": "text"
+								},
+								{
+									"key": "question",
+									"value": "Is it?",
+									"type": "text"
+								},
+								{
+									"key": "grade_definitions",
+									"value": "10 points if It gets a good knowledge....",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}questions/20",
+							"host": [
+								"{{API_URL}}questions"
+							],
+							"path": [
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Questions Destroy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{API_URL}}questions/10",
+							"host": [
+								"{{API_URL}}questions"
+							],
+							"path": [
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Evaluation Criteria Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}evaluations",
+							"host": [
+								"{{API_URL}}evaluations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Evaluation Criteria Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}evaluations/14",
+							"host": [
+								"{{API_URL}}evaluations"
+							],
+							"path": [
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Evaluation Criteria Store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "module_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "objetive",
+									"value": "To reach the..",
+									"type": "text"
+								},
+								{
+									"key": "grade_definitions",
+									"value": "fdsfsdfsdf",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}evaluations",
+							"host": [
+								"{{API_URL}}evaluations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Evaluation Criteria Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "module_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "objetive",
+									"value": "To reach the..",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "grade_definitions",
+									"value": "fdsfsdfsdf",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}evaluations/3",
+							"host": [
+								"{{API_URL}}evaluations"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Evaluation Criteria Destroy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "module_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "objetive",
+									"value": "To reach the..",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "grade_definitions",
+									"value": "fdsfsdfsdf",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}evaluations/3",
+							"host": [
+								"{{API_URL}}evaluations"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Evaluation Criteria",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assignment_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "gradables[programs[questions[comments]]]",
+									"value": "12",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}assignments/save-evaluation-criteria",
+							"host": [
+								"{{API_URL}}assignments"
+							],
+							"path": [
+								"save-evaluation-criteria"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Question",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assignment_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "gradables[]",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}assignments/save-question",
+							"host": [
+								"{{API_URL}}assignments"
+							],
+							"path": [
+								"save-question"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trainer",
+			"item": [
+				{
+					"name": "Executions Index",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assignment_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "gradables[]",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}executions",
+							"host": [
+								"{{API_URL}}executions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Executions Show",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assignment_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "gradables[]",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}executions/1",
+							"host": [
+								"{{API_URL}}executions"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modules Show",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assignment_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "gradables[]",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}modules/1",
+							"host": [
+								"{{API_URL}}modules"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trainee",
+			"item": [
+				{
+					"name": "Topics Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}topics/4",
+							"host": [
+								"{{API_URL}}topics"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Programs Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}programs/1",
+							"host": [
+								"{{API_URL}}programs"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Topics Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}topics/4",
+							"host": [
+								"{{API_URL}}topics"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Questions Index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}questions",
+							"host": [
+								"{{API_URL}}questions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Questions Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}questions/1",
+							"host": [
+								"{{API_URL}}questions"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Evaluation Criteria Index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}evaluations",
+							"host": [
+								"{{API_URL}}evaluations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Evaluation Criteria Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}evaluations/1",
+							"host": [
+								"{{API_URL}}evaluations"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Evaluation Criteria Show Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}gradings",
+							"host": [
+								"{{API_URL}}gradings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Others",
+			"item": [
+				{
+					"name": "Execution show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}executions/4",
+							"host": [
+								"{{API_URL}}executions"
+							],
+							"path": [
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "executions/1",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "end_date",
+									"value": "2022-12-22",
+									"type": "text"
+								},
+								{
+									"key": "start_date",
+									"value": "2002-10-19",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}executions/14",
+							"host": [
+								"{{API_URL}}executions"
+							],
+							"path": [
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "executions/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}executions/10",
+							"host": [
+								"{{API_URL}}executions"
+							],
+							"path": [
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "trainee@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{API_URL}}login",
+					"host": [
+						"{{API_URL}}login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "programs/id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}programs/5",
+					"host": [
+						"{{API_URL}}programs"
+					],
+					"path": [
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "programs/id",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "Title edited 4",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Description edited 3",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Lorem editeddfsfsf",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "hola mundo,eje,fdsf",
+							"type": "text"
+						},
+						{
+							"key": "created_at",
+							"value": "fds",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{API_URL}}programs/3",
+					"host": [
+						"{{API_URL}}programs"
+					],
+					"path": [
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "homeworks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}homeworks",
+					"host": [
+						"{{API_URL}}homeworks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "homeworks",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "doc",
+							"value": "fdsfdsf",
+							"type": "text"
+						},
+						{
+							"key": "module_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{API_URL}}homeworks",
+					"host": [
+						"{{API_URL}}homeworks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "homeworks/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}homeworks/1",
+					"host": [
+						"{{API_URL}}homeworks"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{API_URL}}prueba",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}prueba",
+					"host": [
+						"{{API_URL}}prueba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gradings",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "comments",
+							"value": "Bfdsadfsdffsdffdsfdsad",
+							"type": "text"
+						},
+						{
+							"key": "grade",
+							"value": "Ejemplo editdfsfs",
+							"type": "text"
+						},
+						{
+							"key": "gradable_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "gradable_type",
+							"value": "App\\Models\\Question",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{API_URL}}gradings",
+					"host": [
+						"{{API_URL}}gradings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login with gmail",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "scope",
+							"value": "https://www.googleapis.com/auth/userinfo.email",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "{{GOOGLE_CLIENT_SECRET}}",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "{{GOOGLE_CLIENT_ID}}",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "https://accounts.google.com/o/oauth2/auth",
+							"type": "string"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "https://www.getpostman.com/oauth2/callback",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://accounts.google.com/o/oauth2/token",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "google token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}social/google/login",
+					"host": [
+						"{{API_URL}}social"
+					],
+					"path": [
+						"google",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AUTH_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL",
+			"value": "URL API V1",
+			"type": "string"
+		},
+		{
+			"key": "GOOGLE_CLIENT_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "GOOGLE_CLIENT_SECRET",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "AUTH_TOKEN",
+			"value": "MANAGER AUTH TOKEN",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "AUTH_TOKEN",
+			"value": "DEVELOPER AUTH TOKEN",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "AUTH_TOKEN",
+			"value": "TRAINER AUTH TOKEN",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "AUTH_TOKEN",
+			"value": "TRAINEE AUTH TOKEN",
+			"type": "string"
+		}
+	]
+}

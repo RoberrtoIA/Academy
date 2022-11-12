@@ -212,4 +212,11 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    /** Application default/initial manager account */
+    'admin_email' => env('ADMIN_EMAIL', 'admin@example.com'),
+    'admin_password' => env('ADMIN_PASSWORD', 'password'),
+
+    'login' =>  [
+        'drivers' => ['google'],
+    ],
 ];
